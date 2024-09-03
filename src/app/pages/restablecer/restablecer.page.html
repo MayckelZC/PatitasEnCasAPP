@@ -1,13 +1,49 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>restablecer</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Restablecer Contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">restablecer</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Restablece tu contraseña</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="restablecerForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+
+        <div *ngIf="restablecerForm.get('newPassword')?.invalid && (restablecerForm.get('newPassword')?.dirty || restablecerForm.get('newPassword')?.touched)" class="error-message">
+          <div *ngIf="restablecerForm.get('newPassword')?.errors?.['required']">La nueva contraseña es requerida.</div>
+          <div *ngIf="restablecerForm.get('newPassword')?.errors?.['minlength']">La nueva contraseña debe tener al menos 6 caracteres.</div>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating">Nueva Contraseña</ion-label>
+          <ion-input formControlName="newPassword" type="password"></ion-input>
+        </ion-item>
+
+        <div *ngIf="restablecerForm.get('confirmPassword')?.invalid && (restablecerForm.get('confirmPassword')?.dirty || restablecerForm.get('confirmPassword')?.touched)" class="error-message">
+          <div *ngIf="restablecerForm.get('confirmPassword')?.errors?.['required']">La confirmación de la contraseña es requerida.</div>
+          <div *ngIf="restablecerForm.errors?.['mismatch']">Las contraseñas no coinciden.</div>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
+          <ion-input formControlName="confirmPassword" type="password"></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" [disabled]="restablecerForm.invalid">
+          Enviar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

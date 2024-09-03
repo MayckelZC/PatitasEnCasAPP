@@ -1,6 +1,6 @@
+// src/app/pages/restablecer/restablecer-routing.module.ts
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { RestablecerPage } from './restablecer.page';
 
 const routes: Routes = [
@@ -12,6 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class RestablecerPageRoutingModule {}

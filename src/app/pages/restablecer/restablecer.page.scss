@@ -1,0 +1,81 @@
+/* Estilo del encabezado */
+ion-header {
+    --background: #4caf50; /* Verde oscuro */
+    color: white;
+}
+
+/* Estilo del toolbar dentro del encabezado */
+ion-toolbar {
+    --background: #4caf50; /* Verde oscuro */
+}
+
+/* Estilo del título en el encabezado */
+ion-title {
+    font-size: 1.5rem;
+    text-align: center; /* Centra el texto del título */
+}
+
+/* Estilo del botón de retroceso */
+ion-back-button {
+    color: white; /* Color del ícono de retroceso */
+}
+
+/* Estilo de la tarjeta */
+ion-card {
+    margin: 1rem;
+}
+
+/* Estilo del encabezado de la tarjeta */
+ion-card-header {
+    background: #4caf50; /* Verde más claro */
+    color: white;
+}
+
+/* Estilo del título de la tarjeta */
+ion-card-title {
+    font-size: 1.2rem;
+    text-align: center; /* Centra el texto del título de la tarjeta */
+}
+
+/* Estilo del área de contenido */
+ion-content {
+    --background: white; /* Fondo blanco */
+    padding: 0; /* Elimina el padding del contenido */
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Estilo de los elementos dentro de un item */
+ion-item {
+    --padding-start: 0;
+}
+
+/* Estilo de las etiquetas */
+ion-label {
+    font-size: 1rem;
+}
+
+/* Estilo de las entradas de texto */
+ion-input {
+    font-size: 1rem;
+}
+
+/* Estilo de los botones */
+ion-button {
+    margin-top: 1rem;
+    --background: #4caf50; /* Verde más claro */
+    --color: white;
+    border-radius: 4px; /* Agrega bordes redondeados al botón */
+}
+
+/* Estilo del botón de envío */
+ion-button[type="submit"] {
+    --background: #4caf50; /* Verde más claro */
+    --color: white;
+    font-weight: bold; /* Texto en negrita */
+}

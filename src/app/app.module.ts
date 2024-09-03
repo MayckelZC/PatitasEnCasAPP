@@ -14,7 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule // Agrega FormsModule aquí
+    FormsModule,
+    AppRoutingModule // Agrega FormsModule aquí
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
