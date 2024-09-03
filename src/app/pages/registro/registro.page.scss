@@ -1,0 +1,54 @@
+ion-header {
+    --background:  #4caf50;
+    /* Verde oscuro */
+    color: white;
+}
+
+ion-toolbar {
+    --background:  #4caf50;
+    /* Verde oscuro */
+}
+
+ion-title {
+    font-size: 1.5rem;
+}
+
+ion-card {
+    margin: 1rem;
+}
+
+ion-card-header {
+    background: #4caf50;
+    /* Verde más claro */
+    color: white;
+}
+
+ion-card-title {
+    font-size: 1.2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+ion-item {
+    --padding-start: 0;
+}
+
+ion-label {
+    font-size: 1rem;
+}
+
+ion-input {
+    font-size: 1rem;
+}
+
+ion-button {
+    margin-top: 1rem;
+    --background: #4caf50;
+    /* Verde más claro */
+    --color: white;
+}
+

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro en PatitasEnCasAPP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Crear Cuenta</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Nombre de usuario</ion-label>
+          <ion-input formControlName="username" type="text" (ionInput)="updateProgress()"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="registroForm.get('username')?.hasError('pattern') && registroForm.get('username')?.touched">
+          El nombre de usuario no debe contener números.
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Correo electrónico</ion-label>
+          <ion-input formControlName="email" type="email" (ionInput)="updateProgress()"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
+          El correo electrónico no es válido.
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password" (ionInput)="updateProgress()"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Confirmar contraseña</ion-label>
+          <ion-input formControlName="confirmPassword" type="password" (ionInput)="updateProgress()"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="passwordMismatch">
+          Las contraseñas no coinciden.
+        </ion-text>
+
+        <ion-button expand="full" type="submit" [disabled]="!registroForm.valid">Registrarse</ion-button>
+        
+        <!-- Barra de progreso -->
+        <div class="progress-container">
+          <ion-progress-bar [value]="progress"></ion-progress-bar>
+          <p class="progress-text">{{ (progress * 100).toFixed(0) }}%</p>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
