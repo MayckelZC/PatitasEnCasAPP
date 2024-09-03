@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'restablecer',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
