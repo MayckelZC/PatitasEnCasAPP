@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+    <div class="login-logo">
+      <img src="assets/imgs/paw.png" alt="App Logo" />
+    </div>
+    <h1>PatitasEnCasAPP</h1>
+    <ion-card class="login">
+      <ion-card-header>
+        <h1 class="titulo-login">Inicio de Sesion</h1>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="login.usuario"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Contraseña" labelPlacement="floating" type="password"
+            [(ngModel)]="login.password"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" (click)="ingresar()">Ingresar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+    <p class="signup-link">
+      ¿Nuevo aquí? <a href="#">Regístrate</a>
+    </p>
+  </div>
+</ion-content>

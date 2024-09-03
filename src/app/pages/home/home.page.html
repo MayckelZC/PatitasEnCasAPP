@@ -1,0 +1,66 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-title>PatitasEnCasAPP</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="paw"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Sección de filtros -->
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterPets()">
+      <ion-segment-button value="all">Todos</ion-segment-button>
+      <ion-segment-button value="dog">
+        <ion-icon name="paw" class="filter-icon"></ion-icon>
+        Perros
+      </ion-segment-button>
+      <ion-segment-button value="cat">
+        <ion-icon name="logo-octocat" class="filter-icon"></ion-icon>
+        Gatos
+      </ion-segment-button>
+      <ion-segment-button value="other">
+        <ion-icon name="leaf" class="filter-icon"></ion-icon>
+        Otros
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="dog-container">
+    <img class="animated-dog" src="" alt="Perro animado" />
+  </div>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of filteredPets">
+        <ion-card class="pet-card">
+          <ion-img [src]="pet.image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ pet.name }}</ion-card-title>
+            <ion-card-subtitle>{{ pet.type }}, {{ pet.age }} años</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{ pet.description }}
+          </ion-card-content>
+          <div class="button-container">
+            <ion-button expand="full" class="details-button" [routerLink]="['/detalle']">Detalles</ion-button>
+            <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<footer class="footer">
+  <!-- Botón de lectura de QR -->
+  <div class="footer-qr">
+    <ion-button expand="full" class="qr-button">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      Leer QR
+    </ion-button>
+  </div>
+</footer>

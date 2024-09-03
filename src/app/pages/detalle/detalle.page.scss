@@ -1,0 +1,190 @@
+/* Estilo para el fondo general */
+ion-content {
+    --background: #f0f4f8;
+    /* Color de fondo claro para el contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    /* Espaciado alrededor del contenido */
+}
+
+/* Contenedor general para el contenido */
+.content-container {
+    max-width: 600px;
+    /* Ancho máximo para el contenedor */
+    width: 100%;
+    /* Ancho completo dentro del contenedor */
+    margin: auto;
+    /* Centra el contenedor horizontalmente */
+}
+
+/* Estilo para la tarjeta de adopción de mascotas */
+.pet-adopt-card {
+    margin: 16px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Asegura que la tarjeta ocupe todo el espacio disponible */
+}
+
+/* Imagen de la mascota */
+.pet-image {
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Encabezado de la tarjeta */
+ion-card-header {
+    background-color: #4caf50;
+    /* Verde para el encabezado */
+    color: white;
+    /* Texto blanco en el encabezado */
+    padding: 12px;
+}
+
+/* Título de la tarjeta */
+ion-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Subtítulo de la tarjeta */
+ion-card-subtitle {
+    font-size: 18px;
+    color: #e0e0e0;
+    /* Texto gris claro para el subtítulo */
+}
+
+/* Contenido de la tarjeta */
+ion-card-content {
+    padding: 16px;
+    color: #424242;
+    /* Texto oscuro para mejor legibilidad */
+}
+
+/* Estilo de los párrafos dentro del contenido de la tarjeta */
+ion-card-content p {
+    margin: 8px 0;
+}
+
+/* Pie de página de la tarjeta */
+ion-footer {
+    background-color: transparent;
+    /* Fondo transparente para eliminar el marco verde */
+    padding: 0;
+    /* Elimina el padding para que el botón ocupe todo el espacio */
+}
+
+/* Botón de Adoptar */
+.adopt-button {
+    background-color: #4caf50;
+    /* Verde principal para el botón */
+    color: white;
+    font-weight: bold;
+    border-radius: 0;
+    /* Elimina el borde redondeado */
+    padding: 12px;
+    /* Espaciado interno del botón */
+    font-size: 16px;
+    /* Tamaño del texto en el botón */
+    transition: background-color 0.3s ease;
+    /* Transición suave para el hover */
+    width: 100%;
+    /* Hace que el botón ocupe todo el ancho del pie de la tarjeta */
+    box-shadow: none;
+    /* Elimina cualquier sombra del botón */
+}
+
+.adopt-button:hover {
+    background-color: #388e3c;
+    /* Verde más oscuro para el hover del botón */
+}
+
+/* Contenedor para el botón cuadrado de QR */
+.qr-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+/* Estilo del botón QR */
+.qr-button {
+    background-color: #4caf50;
+    /* Verde para el botón QR */
+    color: white;
+    border-radius: 0;
+    /* Hace que el botón sea cuadrado */
+    width: 100px;
+    /* Asegúrate de que el ancho y la altura sean iguales */
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    /* Ajusta el tamaño del icono */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra suave para el botón */
+    padding: 10px;
+}
+
+.qr-button ion-icon {
+    font-size: 24px;
+    /* Tamaño del icono */
+}
+
+/* Texto dentro del botón QR */
+.qr-button-text {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #4caf50;
+    /* Color del texto para que combine con el botón QR */
+    text-align: center;
+}
+
+/* Contenedor del código QR */
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Estilo para el encabezado */
+.header {
+    --background: #4caf50;
+    /* Verde para el fondo del encabezado */
+    color: white;
+    /* Color del texto en el encabezado */
+}
+
+/* Estilo del título en el encabezado */
+.header ion-title {
+    color: white;
+    /* Color del texto del título */
+}
+
+/* Estilo del toolbar del encabezado */
+.header ion-toolbar {
+    --background: #4caf50;
+    /* Fondo verde para el toolbar */
+    color: white;
+    /* Color del texto del toolbar */
+}
+
+.adopt-button{
+    background-color: white;
+}
+
+.qr-button{
+    background-color: white;
+}
+

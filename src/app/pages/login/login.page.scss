@@ -1,0 +1,104 @@
+/* Estilo general del contenedor */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    /* Fondo blanco */
+    padding: 20px;
+}
+
+/* Logo de la aplicación */
+.login-logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+/* Título de la pantalla */
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilo de los campos de entrada */
+ion-input {
+    --background: #4caf50;
+    /* Color de fondo para los campos de entrada */
+    --border-radius: 8px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --placeholder-color: #ccc;
+    margin-bottom: 15px;
+    border: 1px solid black;
+}
+
+/* Botón de Iniciar Sesión */
+ion-button {
+    --background: #4caf50;
+    --border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Enlace de Olvidar Contraseña */
+.forgot-password {
+    color: black;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+
+/* Enlace para Registrarse */
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+}
+
+.signup-link a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/**/
+.content-login {
+    background-color: white;
+}
+
+.header-login {
+    background-color: white;
+}
+
+.titulo-login {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+ion-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.login-container{
+    background-color: #4caf50;
+}
+
+.signup-link a {
+    color: white; /* Color del enlace */
+}
