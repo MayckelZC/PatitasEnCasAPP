@@ -127,12 +127,12 @@ ion-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px; /* Ajusta la altura según sea necesario */
+  height: 100px; /* Ajusta la altura para hacer la animación más pequeña */
 }
 
 /* Estilo para el perro animado */
 .animated-dog {
-  width: 100px;
+  width: 50px; /* Reduce el tamaño del perro animado */
   height: auto;
   animation: bounce 1.5s infinite; /* Aplica la animación de rebote */
 }
@@ -143,10 +143,10 @@ ion-content {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-30px);
+    transform: translateY(-15px); /* Rebote más pequeño */
   }
   60% {
-    transform: translateY(-15px);
+    transform: translateY(-7.5px); /* Rebote más pequeño */
   }
 }
 
@@ -216,6 +216,7 @@ ion-segment-button ion-label {
   font-size: 24px; /* Tamaño del ícono de logout */
 }
 
-.footer{
+/* Estilo del footer */
+.footer {
   background-color: #4caf50;
 }
