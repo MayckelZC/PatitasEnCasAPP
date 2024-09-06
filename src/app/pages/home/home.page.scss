@@ -10,8 +10,8 @@ ion-content {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   margin: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #ffffff; /* Color de fondo de la tarjeta */
-  position: relative; /* Permite posicionar los botones dentro de la tarjeta */
+  background-color: #ffffff;
+  position: relative;
 }
 
 .pet-card:hover {
@@ -25,7 +25,7 @@ ion-content {
 }
 
 .pet-card ion-card-header {
-  background: #4caf50; /* Verde más vibrante para el encabezado */
+  background: #4caf50;
   color: white;
   padding: 12px;
   text-align: center;
@@ -35,18 +35,18 @@ ion-content {
   font-size: 1.4em;
   font-weight: bold;
   margin: 0;
-  color: white; /* Color blanco para el título */
+  color: white;
 }
 
 .pet-card ion-card-subtitle {
   font-size: 1em;
   margin: 0;
   font-weight: 300;
-  color: white; /* Color blanco para el subtítulo */
+  color: white;
 }
 
 .pet-card ion-card-content {
-  background-color: #f9f9f9; /* Color de fondo del contenido de la tarjeta */
+  background-color: #f9f9f9;
   color: #333;
   padding: 16px;
   font-size: 0.9em;
@@ -56,70 +56,70 @@ ion-content {
 /* Estilo para el contenedor de los botones */
 .button-container {
   display: flex;
-  flex-direction: column; /* Coloca los botones en una columna */
-  align-items: center; /* Centra los botones horizontalmente */
-  gap: 10px; /* Espacio entre los botones */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   padding: 16px;
 }
 
 /* Estilo para el botón de detalles */
 .details-button {
-  background: #4caf50; /* Verde para el botón de detalles */
+  background: #4caf50;
   color: white;
   font-size: 1em;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 150px; /* Limita el ancho máximo del botón */
+  width: 100%;
+  max-width: 150px;
   transition: background-color 0.3s ease;
 }
 
 .details-button:hover {
-  background: #388e3c; /* Verde más oscuro para el hover del botón de detalles */
+  background: #388e3c;
 }
 
 /* Estilo para el botón de adoptar */
 .adopt-button {
-  background: #4caf50; /* Verde para el botón de adoptar */
+  background: #4caf50;
   color: white;
   font-size: 1em;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 150px; /* Limita el ancho máximo del botón */
+  width: 100%;
+  max-width: 150px;
   transition: background-color 0.3s ease;
 }
 
 .adopt-button:hover {
-  background: #388e3c; /* Verde más oscuro para el hover del botón de adoptar */
+  background: #388e3c;
 }
 
 /* Cambia el color de fondo del encabezado a verde */
 .header {
-  --background: #4caf50; /* Verde más vibrante para el fondo del encabezado */
-  color: white; /* Color del texto en el encabezado */
+  --background: #4caf50;
+  color: white;
 }
 
-/* Asegúrate de que el texto en el encabezado es legible */
+/* Asegura que el texto en el encabezado es legible */
 .header ion-title {
-  color: white; /* Color del texto del título */
+  color: white;
 }
 
 .header ion-toolbar {
   display: flex;
-  justify-content: center; /* Centra horizontalmente el contenido */
-  align-items: center; /* Centra verticalmente el contenido */
-  --background: #4caf50; /* Fondo verde para el toolbar */
+  justify-content: center;
+  align-items: center;
+  --background: #4caf50;
 }
 
 /* Ajusta el estilo del título para centrarlo */
 .header ion-title {
   text-align: center;
-  margin: 0; /* Asegura que no haya margen alrededor del título */
-  color: white; /* Color del texto del título */
-  flex: 1; /* Hace que el título ocupe el espacio disponible */
+  margin: 0;
+  color: white;
+  flex: 1;
 }
 
 /* Opcional: Alinea los botones al final del toolbar */
 .header ion-buttons {
   position: absolute;
-  right: 0; /* Coloca los botones en el extremo derecho del toolbar */
+  right: 0;
 }
 
 /* Estilo para el contenedor del perro animado */
@@ -127,14 +127,14 @@ ion-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px; /* Ajusta la altura para hacer la animación más pequeña */
+  height: 100px;
 }
 
 /* Estilo para el perro animado */
 .animated-dog {
-  width: 50px; /* Reduce el tamaño del perro animado */
+  width: 50px;
   height: auto;
-  animation: bounce 1.5s infinite; /* Aplica la animación de rebote */
+  animation: bounce 1.5s infinite;
 }
 
 /* Animación de rebote para el perro */
@@ -143,27 +143,27 @@ ion-content {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-15px); /* Rebote más pequeño */
+    transform: translateY(-15px);
   }
   60% {
-    transform: translateY(-7.5px); /* Rebote más pequeño */
+    transform: translateY(-7.5px);
   }
 }
 
 /* Estilo para la barra de filtros */
 ion-toolbar ion-segment {
-  --background: #4caf50; /* Fondo verde suave para la barra de filtros */
-  --indicator-color: #ffffff; /* Color del indicador del segmento */
-  --color-checked: #ffffff; /* Color del texto cuando está seleccionado */
-  --color: #ffffff; /* Color del texto cuando no está seleccionado */
+  --background: #4caf50;
+  --indicator-color: #ffffff;
+  --color-checked: #ffffff;
+  --color: #ffffff;
 }
 
 /* Estilo para los botones de filtro */
 ion-segment-button {
-  --background: #4caf50; /* Fondo verde para los botones de filtro */
-  border-radius: 50%; /* Botones redondeados */
-  margin: 0 5px; /* Espaciado entre los botones */
-  padding: 10px; /* Espaciado interno para que los íconos se vean centrados */
+  --background: #4caf50;
+  border-radius: 50%;
+  margin: 0 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,9 +171,9 @@ ion-segment-button {
 
 /* Estilo para los íconos de filtro */
 .filter-icon {
-  font-size: 1.5em; /* Tamaño del ícono */
-  color: white; /* Color blanco para los íconos */
-  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 1.5em;
+  color: white;
+  margin-right: 8px;
 }
 
 /* Asegura que el texto esté centrado verticalmente junto al ícono */
@@ -186,37 +186,50 @@ ion-segment-button ion-label {
 
 /* Estilos para el footer y el botón QR */
 .footer-qr {
-  --background: transparent; /* El fondo del footer debe ser transparente para que el botón sea visible */
+  --background: transparent;
 }
 
 .qr-button {
-  --border-radius: 50%; /* Hace que el botón sea redondo */
-  --padding-start: 0px; /* Ajusta el padding para un botón redondo */
-  --padding-end: 0px; 
-  --padding-top: 10px; /* Ajusta el padding para que el botón sea de tamaño adecuado */
+  --border-radius: 50%;
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --padding-top: 10px;
   --padding-bottom: 10px;
-  --width: 60px; /* Ajusta el ancho del botón */
-  --height: 60px; /* Ajusta la altura del botón */
-  --background: #4caf50; /* Color de fondo verde para el botón */
-  --color: #fff; /* Color del texto del botón */
-  --box-shadow: none; /* Elimina cualquier sombra del botón */
+  --width: 60px;
+  --height: 60px;
+  --background: #4caf50;
+  --color: #fff;
+  --box-shadow: none;
 }
 
 .qr-button ion-icon {
-  font-size: 24px; /* Ajusta el tamaño del icono */
+  font-size: 24px;
 }
 
 /* Estilo del botón de logout */
 .header ion-buttons ion-button {
-  --color: red; /* Color del ícono de logout */
+  --color: red;
 }
 
 /* Estilo del ícono de logout */
 .header ion-buttons ion-button ion-icon[name="paw"] {
-  font-size: 24px; /* Tamaño del ícono de logout */
+  font-size: 24px;
 }
 
 /* Estilo del footer */
 .footer {
   background-color: #4caf50;
+}
+
+/* Estilo para el mensaje de bienvenida */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0; /* Espacio superior e inferior */
+}
+
+.welcome-message {
+  font-size: 18px; /* Tamaño de fuente ajustado */
+  font-weight: bold;
+  color: #4caf50; /* Color del texto en verde */
 }

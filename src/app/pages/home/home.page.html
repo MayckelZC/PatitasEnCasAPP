@@ -8,7 +8,6 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <!-- Sección de filtros -->
   <ion-toolbar>
     <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterPets()">
       <ion-segment-button value="all">Todos</ion-segment-button>
@@ -29,10 +28,14 @@
 </ion-header>
 
 <ion-content>
+  <div class="welcome-container">
+    <p class="welcome-message">Bienvenido, {{ username }}!</p>
+  </div>
+
   <div class="dog-container">
     <img class="animated-dog" src="" alt="Perro animado" />
   </div>
-  
+
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of filteredPets">
@@ -56,7 +59,6 @@
 </ion-content>
 
 <footer class="footer">
-  <!-- Botón de lectura de QR -->
   <div class="footer-qr">
     <ion-button expand="full" class="qr-button">
       <ion-icon name="qr-code-outline"></ion-icon>

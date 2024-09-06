@@ -21,13 +21,17 @@ export class RegistroPage implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     }, {
-      validator: this.passwordMatchValidator
+      validator: this.passwordMatchValidator.bind(this) // Asegúrate de vincular el contexto
     });
 
     // Cargar datos desde el almacenamiento local si existen
     this.loadFromLocalStorage();
+
+    // Escuchar cambios en los campos del formulario para actualizar el progreso
+    this.registroForm.valueChanges.subscribe(() => this.updateProgress());
   }
 
+  // Validador para comprobar si las contraseñas coinciden
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
@@ -36,15 +40,18 @@ export class RegistroPage implements OnInit {
       return null;
     }
     
+    // Actualizar el estado de passwordMismatch
+    this.passwordMismatch = password.value !== confirmPassword.value;
+    
     return password.value === confirmPassword.value ? null : { mismatch: true };
   }
 
   async onSubmit() {
     if (this.registroForm.valid) {
-      if (this.registroForm.hasError('mismatch')) {
-        this.passwordMismatch = true;
+      if (this.passwordMismatch) {
+        // No hacer nada adicional ya que passwordMismatch se maneja en la plantilla
+        return;
       } else {
-        this.passwordMismatch = false;
         const alert = await this.alertController.create({
           header: '¡Registro Exitoso!',
           message: 'Bienvenido a PatitasEnCasAPP',
@@ -65,6 +72,7 @@ export class RegistroPage implements OnInit {
     }
   }
 
+  // Actualiza el progreso del formulario
   updateProgress() {
     const totalFields = 4; // Número total de campos (username, email, password, confirmPassword)
     let filledFields = 0;
@@ -79,11 +87,13 @@ export class RegistroPage implements OnInit {
     this.progress = filledFields / totalFields;
   }
 
+  // Guarda los datos del formulario en el almacenamiento local
   saveToLocalStorage() {
     const formData = this.registroForm.value;
     localStorage.setItem('registroFormData', JSON.stringify(formData));
   }
 
+  // Carga los datos del formulario desde el almacenamiento local
   loadFromLocalStorage() {
     const storedData = localStorage.getItem('registroFormData');
     if (storedData) {

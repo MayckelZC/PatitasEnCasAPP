@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Importar desde @angular/router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +21,13 @@ export class HomePage implements AfterViewInit {
     { name: 'Polly', type: 'other', age: 1, description: 'Polly es una cotorra juguetona y habladora. ¡Haz que su alegría sea parte de tu hogar!', image: 'https://th.bing.com/th/id/OIP.blLe3ZV9JfNWshN5ikwsbQHaEK?rs=1&pid=ImgDetMain' }
   ];
   filteredPets = [...this.allPets];
+  username: string = '';
 
   constructor(private animationCtrl: AnimationController, private router: Router) {}
 
   ngAfterViewInit() {
     this.createDogAnimation();
+    this.username = localStorage.getItem('username') || 'Invitado'; // Recupera el nombre de usuario
   }
 
   createDogAnimation() {
@@ -61,7 +63,7 @@ export class HomePage implements AfterViewInit {
   }
 
   logout() {
-    // Lógica para cerrar sesión
+    localStorage.removeItem('username'); // Elimina el nombre de usuario del almacenamiento local
     this.router.navigate(['/login']);
   }
 }

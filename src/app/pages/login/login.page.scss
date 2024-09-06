@@ -1,104 +1,133 @@
 /* Estilo general del contenedor */
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: white;
-    /* Fondo blanco */
-    padding: 20px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #4CAF50; /* Color de fondo verde */
+  padding: 20px;
 }
 
-/* Logo de la aplicación */
-.login-logo img {
-    width: 100px;
-    margin-bottom: 20px;
+/* Logo e imagen de la aplicación */
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-/* Título de la pantalla */
-h1 {
-    color: white;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+.logo ion-img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.app-title {
+  font-size: 28px;
+  color: white; /* Título en blanco para mayor contraste */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Card del formulario */
+ion-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: white; /* Fondo blanco para contraste con el verde */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px;
+  text-align: center;
+}
+
+ion-title {
+  font-size: 22px;
+  color: #4CAF50; /* Color verde del título */
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 /* Estilo de los campos de entrada */
+ion-item {
+  --background: #f7f7f7; /* Fondo gris claro para los campos */
+  --border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+
+ion-label {
+  color: #4CAF50 !important; /* Color verde para las etiquetas de Usuario y Contraseña */
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
 ion-input {
-    --background: #4caf50;
-    /* Color de fondo para los campos de entrada */
-    --border-radius: 8px;
-    --padding-start: 15px;
-    --padding-end: 15px;
-    --placeholder-color: #ccc;
-    margin-bottom: 15px;
-    border: 1px solid black;
+  --placeholder-color: #999;
+  color: #333; /* Color del texto */
 }
 
-/* Botón de Iniciar Sesión */
+ion-input[type="password"] {
+  letter-spacing: 0.1em; /* Espaciado de las letras en la contraseña */
+}
+
+/* Botón de inicio de sesión */
 ion-button {
-    --background: #4caf50;
-    --border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
+  --background: #4CAF50; /* Fondo verde */
+  color: white; /* Texto en blanco */
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
 }
 
-/* Enlace de Olvidar Contraseña */
-.forgot-password {
-    color: black;
-    margin-top: 10px;
-    text-align: center;
-    font-size: 15px;
-    text-decoration: none;
+ion-button:hover {
+  background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+  color: white; /* Mantener el texto en blanco */
 }
 
-
-/* Enlace para Registrarse */
-.signup-link {
-    margin-top: 20px;
-    text-align: center;
-    color: black;
-    font-size: 20px;
+/* Texto adicional debajo del formulario */
+.extra-options {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333; /* Color del texto para mayor contraste */
+  background-color: #f7f7f7; /* Fondo gris claro para el texto */
+  padding: 10px; /* Relleno para separar el texto del borde */
+  border-radius: 8px; /* Bordes redondeados */
 }
 
-.signup-link a {
-    color: #4caf50;
-    text-decoration: none;
-    font-weight: bold;
+.extra-options p {
+  margin: 10px 0; /* Margen para separar el texto */
 }
 
-/**/
-.content-login {
-    background-color: white;
+.extra-options a {
+  color: #4CAF50; /* Color verde para los enlaces */
+  text-decoration: underline;
+  font-weight: bold;
 }
 
-.header-login {
-    background-color: white;
+.extra-options a:hover {
+  text-decoration: none;
 }
 
-.titulo-login {
-    color: white;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+/* Responsividad */
+@media (max-width: 600px) {
+  ion-card {
+    padding: 15px;
+    width: 90%;
+  }
 }
 
-
-ion-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* Estilos personalizados para las alertas */
+.custom-alert {
+  --background: #4CAF50; /* Fondo verde para la alerta */
+  --color: white; /* Texto blanco */
 }
 
-
-.login-container{
-    background-color: #4caf50;
-}
-
-.signup-link a {
-    color: white; /* Color del enlace */
+.custom-alert-button {
+  --background: #45a049; /* Fondo verde más oscuro para los botones */
+  --color: white; /* Texto en blanco para los botones */
+  --border-radius: 8px; /* Bordes redondeados para los botones */
 }

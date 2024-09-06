@@ -1,31 +1,28 @@
-<ion-content [fullscreen]="true">
-  <div class="login-container">
-    <div class="login-logo">
-      <img src="assets/imgs/paw.png" alt="App Logo" />
+<ion-content>
+  <div class="container">
+    <div class="logo">
+      <ion-img src="assets/imgs/paw.png"></ion-img> <!-- Imagen de la huella -->
+      <h2 class="app-title">PatitasEnCasAPP</h2>
     </div>
-    <h1>PatitasEnCasAPP</h1>
-    <ion-card class="login">
-      <ion-card-header>
-        <h1 class="titulo-login">Inicio de Sesion</h1>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="login.usuario"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input label="Contraseña" labelPlacement="floating" type="password"
-            [(ngModel)]="login.password"></ion-input>
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" (click)="ingresar()">Ingresar</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
+    <ion-card>
+      <ion-title>Inicio de Sesión</ion-title>
+
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input [(ngModel)]="username" type="text" placeholder="Ingresa tu usuario"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="login()">Ingresar</ion-button>
+
+      <div class="extra-options">
+        <p>¿Olvidaste tu contraseña?</p>
+        <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
+      </div>
     </ion-card>
-    <a href="#" class="forgot-password" [routerLink]="['/restablecer']">¿Olvidaste tu contraseña?</a>
-    <p class="signup-link">
-      ¿Nuevo aquí? <a href="#"[routerLink]="['/registro']">Regístrate</a>
-    </p>
   </div>
 </ion-content>
