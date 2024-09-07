@@ -1,46 +1,28 @@
-/* Estilo del encabezado */
-ion-header {
+/* Estilo del encabezado y toolbar */
+ion-header,
+ion-toolbar {
     --background: #4CAF50;
     color: white;
 }
 
-/* Estilo del toolbar dentro del encabezado */
-ion-toolbar {
-    --background: #4CAF50;
-}
-
-/* Estilo del título en el encabezado */
 ion-title {
     font-size: 1.5rem;
     text-align: center;
 }
 
-/* Estilo del botón de retroceso */
-ion-back-button {
-    color: white;
-}
-
 /* Estilo de la tarjeta */
 ion-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px; /* Ajusta el ancho máximo según tus necesidades */
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 1rem;
+    margin: 1rem auto;
 }
 
-/* Estilo del encabezado de la tarjeta */
-ion-card-header {
-    background: white;
-    border-bottom: 2px solid #4CAF50;
-    text-align: center;
-    padding: 10px;
-}
-
-/* Estilo del título principal */
-.main-title {
+/* Estilo del título del formulario */
+.form-title {
     font-size: 24px;
     color: #4CAF50;
     margin: 0;
@@ -77,7 +59,9 @@ ion-label {
 }
 
 /* Estilo de las entradas de texto */
-ion-input, ion-textarea {
+ion-input,
+ion-select,
+ion-textarea {
     --placeholder-color: #999;
     color: #333;
 }
@@ -94,45 +78,50 @@ ion-button {
 
 ion-button:hover {
     background-color: #45a049;
-    color: white;
 }
 
-/* Barra de progreso */
-.progress-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-ion-progress-bar {
-    --background: #f0f0f0;
-    --progress-background: #4CAF50;
-    transition: width 0.3s ease-in-out;
-}
-
-.progress-text {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #333;
-}
-
-/* Estilo del área de vista previa de imagen */
+/* Estilo de la vista previa de la imagen */
 .image-preview {
-    margin-top: 10px;
     text-align: center;
+    margin-top: 10px;
 }
 
 .image-preview img {
     max-width: 100%;
-    height: auto;
+    max-height: 200px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo de los toggles */
-.toggle-item {
-    --background: #f7f7f7;
-    --border-radius: 8px;
-    margin-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
+/* Estilo del grupo de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Mensaje de error obligatorio */
+.error-message {
+    color: #a94442; /* Rojo oscuro para los errores */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Mensaje de éxito */
+.success-message {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Toast de éxito */
+.toast-center {
+    --toast-background: #dff0d8; /* Fondo del toast */
+    --toast-color: #3c763d; /* Color del texto */
+    --toast-padding: 16px;
+    --toast-border-radius: 8px;
+    --toast-text-align: center; /* Centra el texto */
 }

@@ -3,7 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
-    <ion-title>Restablecer Contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,11 +16,11 @@
       <ion-card-content>
         <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
           <ion-item>
-            <ion-label position="floating">Nombre de usuario</ion-label>
-            <ion-input formControlName="username" type="text"></ion-input>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
           </ion-item>
-          <ion-text color="danger" *ngIf="resetPasswordForm.get('username')?.invalid && resetPasswordForm.get('username')?.touched">
-            El nombre de usuario es obligatorio.
+          <ion-text color="danger" *ngIf="resetPasswordForm.get('email')?.invalid && resetPasswordForm.get('email')?.touched">
+            El correo electrónico es obligatorio y debe ser válido.
           </ion-text>
 
           <ion-button expand="full" type="submit" [disabled]="!resetPasswordForm.valid">Enviar</ion-button>

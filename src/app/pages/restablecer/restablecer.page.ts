@@ -19,19 +19,19 @@ export class RestablecerPage implements OnInit {
 
   ngOnInit() {
     this.resetPasswordForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
   async onSubmit() {
     if (this.resetPasswordForm.valid) {
       // Lógica para enviar el formulario y restablecer la contraseña
-      const username = this.resetPasswordForm.get('username')?.value;
+      const email = this.resetPasswordForm.get('email')?.value;
 
       // Mostrar alerta de éxito
       const alert = await this.alertController.create({
         header: 'Éxito',
-        message: `Se ha enviado un enlace de restablecimiento de contraseña al usuario: ${username}.`,
+        message: `Se ha enviado un enlace de restablecimiento de contraseña al correo electrónico: ${email}.`,
         buttons: ['OK'],
       });
 

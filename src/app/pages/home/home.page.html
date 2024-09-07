@@ -62,11 +62,13 @@
 </ion-content>
 
 <footer class="footer">
-  <!-- Botón de lectura de QR -->
-  <div class="footer-qr">
-    <ion-button expand="full" class="qr-button">
-      <ion-icon name="qr-code-outline"></ion-icon>
-      Leer QR
-    </ion-button>
-  </div>
+  <ion-button [routerLink]="['/crearadopcion']">
+    <ion-icon name="add-circle-outline"></ion-icon>
+    Crear Adopción
+  </ion-button>
+  <ion-button (click)="readQR()">
+    <ion-icon name="qr-code-outline"></ion-icon>
+    Leer QR
+  </ion-button>
 </footer>
+

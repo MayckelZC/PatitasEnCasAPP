@@ -24,9 +24,6 @@ export class RegistroPage implements OnInit {
       validator: this.passwordMatchValidator.bind(this) // Asegúrate de vincular el contexto
     });
 
-    // Cargar datos desde el almacenamiento local si existen
-    this.loadFromLocalStorage();
-
     // Escuchar cambios en los campos del formulario para actualizar el progreso
     this.registroForm.valueChanges.subscribe(() => this.updateProgress());
   }
@@ -47,26 +44,18 @@ export class RegistroPage implements OnInit {
   }
 
   async onSubmit() {
-    if (this.registroForm.valid) {
-      if (this.passwordMismatch) {
-        // No hacer nada adicional ya que passwordMismatch se maneja en la plantilla
-        return;
-      } else {
-        const alert = await this.alertController.create({
-          header: '¡Registro Exitoso!',
-          message: 'Bienvenido a PatitasEnCasAPP',
-          buttons: ['OK']
-        });
-        await alert.present();
-        
-        // Guardar datos en el almacenamiento local
-        this.saveToLocalStorage();
+    if (this.registroForm.valid && !this.passwordMismatch) {
+      const alert = await this.alertController.create({
+        header: '¡Registro Exitoso!',
+        message: 'Bienvenido a PatitasEnCasAPP',
+        buttons: ['OK']
+      });
+      await alert.present();
+      
+      // Establecer el progreso al 100%
+      this.progress = 1;
 
-        // Establecer el progreso al 100%
-        this.progress = 1;
-
-        console.log('Formulario enviado', this.registroForm.value);
-      }
+      console.log('Formulario enviado', this.registroForm.value);
     } else {
       console.log('Formulario inválido');
     }
@@ -77,27 +66,16 @@ export class RegistroPage implements OnInit {
     const totalFields = 4; // Número total de campos (username, email, password, confirmPassword)
     let filledFields = 0;
     
-    Object.keys(this.registroForm.controls).forEach(key => {
+    // Campos obligatorios y válidos
+    const requiredFields = ['username', 'email', 'password', 'confirmPassword'];
+    
+    requiredFields.forEach(key => {
       const control = this.registroForm.get(key);
       if (control?.valid && control?.touched) {
         filledFields++;
       }
     });
-    
+
     this.progress = filledFields / totalFields;
-  }
-
-  // Guarda los datos del formulario en el almacenamiento local
-  saveToLocalStorage() {
-    const formData = this.registroForm.value;
-    localStorage.setItem('registroFormData', JSON.stringify(formData));
-  }
-
-  // Carga los datos del formulario desde el almacenamiento local
-  loadFromLocalStorage() {
-    const storedData = localStorage.getItem('registroFormData');
-    if (storedData) {
-      this.registroForm.setValue(JSON.parse(storedData));
-    }
   }
 }

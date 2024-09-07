@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Adopción</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-title class="form-title">Crear Adopción</ion-title>
+    <form [formGroup]="adopcionForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <ion-item>
+        <ion-label position="floating">Tipo de Mascota</ion-label>
+        <ion-select formControlName="tipoMascota">
+          <ion-select-option value="perro">Perro</ion-select-option>
+          <ion-select-option value="gato">Gato</ion-select-option>
+          <ion-select-option value="otro">Otro</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('tipoMascota')?.errors?.['required']" class="error-message">
+        El tipo de mascota es obligatorio.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Tamaño</ion-label>
+        <ion-select formControlName="tamano">
+          <ion-select-option value="pequeño">Pequeño</ion-select-option>
+          <ion-select-option value="mediano">Mediano</ion-select-option>
+          <ion-select-option value="grande">Grande</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('tamano')?.errors?.['required']" class="error-message">
+        El tamaño es obligatorio.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('nombre')?.errors?.['pattern']" class="error-message">
+        El nombre debe contener solo letras, sin espacios ni números.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Edad</ion-label>
+        <ion-input formControlName="edad" type="number"></ion-input>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('edad')?.errors?.['required']" class="error-message">
+        La edad es obligatoria.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Sexo</ion-label>
+        <ion-select formControlName="sexo">
+          <ion-select-option value="macho">Macho</ion-select-option>
+          <ion-select-option value="hembra">Hembra</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('sexo')?.errors?.['required']" class="error-message">
+        El sexo es obligatorio.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Raza</ion-label>
+        <ion-input formControlName="raza"></ion-input>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('raza')?.errors?.['required']" class="error-message">
+        La raza es obligatoria.
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Color</ion-label>
+        <ion-input formControlName="color"></ion-input>
+      </ion-item>
+      <div *ngIf="adopcionForm.get('color')?.errors?.['required']" class="error-message">
+        El color es obligatorio.
+      </div>
+
+      <ion-item class="toggle-item">
+        <ion-label>Esterilizado</ion-label>
+        <ion-toggle formControlName="esterilizado"></ion-toggle>
+      </ion-item>
+
+      <ion-item class="toggle-item">
+        <ion-label>Vacuna</ion-label>
+        <ion-toggle formControlName="vacuna"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-textarea formControlName="descripcion"></ion-textarea>
+      </ion-item>
+
+      <!-- Sección para subir imagen -->
+      <ion-item>
+        <ion-label position="floating"></ion-label>
+        <input type="file" (change)="onFileChange($event)" />
+      </ion-item>
+      <div *ngIf="imageUrl" class="image-preview">
+        <img [src]="imageUrl" alt="Vista previa de la imagen" />
+      </div>
+
+      <div class="button-group">
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid">Guardar</ion-button>
+        <ion-button expand="full" color="medium" (click)="onClear()">Limpiar</ion-button>
+      </div>
+    </form>
+  </ion-card>
+</ion-content>

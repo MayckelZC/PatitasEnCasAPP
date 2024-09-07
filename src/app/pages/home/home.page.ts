@@ -41,6 +41,11 @@ export class HomePage implements AfterViewInit {
       const randomImage = this.dogImages[Math.floor(Math.random() * this.dogImages.length)];
       dogElement.src = randomImage;
 
+      dogElement.onerror = () => {
+        console.error('No se pudo cargar la imagen:', randomImage);
+        dogElement.src = 'assets/imgs/default-dog.png'; // Imagen por defecto en caso de error
+      };
+
       const dogAnimation = this.animationCtrl.create()
         .addElement(dogElement)
         .duration(1500)
@@ -84,5 +89,17 @@ export class HomePage implements AfterViewInit {
     });
 
     await alert.present();
+  }
+
+  createAdoption() {
+    // Lógica para crear una adopción
+    console.log('Crear adopción');
+    this.router.navigate(['/create-adoption']); // Cambia la ruta según corresponda
+  }
+
+  readQR() {
+    // Lógica para leer un código QR
+    console.log('Leer QR');
+    this.router.navigate(['/read-qr']); // Cambia la ruta según corresponda
   }
 }
