@@ -16,9 +16,45 @@ export class HomePage implements AfterViewInit {
 
   selectedFilter: string = 'all';
   readonly allPets = [
-    { name: 'Rex', type: 'dog', age: 3, description: 'Rex es un perro amigable y enérgico que busca un hogar amoroso. ¡Adóptalo y dale una segunda oportunidad!', image: 'https://th.bing.com/th/id/R.6b2026c15d2cc7b6c6453118b8758eb8?rik=p5hZWemaKDXfVg&riu=http%3a%2f%2fwww.razasdeperros.com%2fwp-content%2fuploads%2f2013%2f10%2fDepositphotos_8405161_m.jpg&ehk=076xT4EInAZGdk61vPke7foOGNpYlmbQT2JXi%2fSiMIw%3d&risl=&pid=ImgRaw&r=0' },
-    { name: 'Misty', type: 'cat', age: 2, description: 'Misty es una gata tranquila y cariñosa que adora las siestas al sol. ¡Dale la oportunidad de ser parte de tu familia!', image: 'https://th.bing.com/th/id/OIP.B-GtznvQ82H9zcQO7FQs2QHaE8?rs=1&pid=ImgDetMain' },
-    { name: 'Polly', type: 'other', age: 1, description: 'Polly es una cotorra juguetona y habladora. ¡Haz que su alegría sea parte de tu hogar!', image: 'https://th.bing.com/th/id/OIP.blLe3ZV9JfNWshN5ikwsbQHaEK?rs=1&pid=ImgDetMain' }
+    {
+      nombre: 'Rex',
+      tipoMascota: 'perro',
+      edad: 3,
+      sexo: 'Macho',
+      raza: 'Labrador',
+      color: 'Marrón',
+      esterilizado: true,
+      vacuna: true,
+      tamano: 'Grande',
+      descripcion: 'Rex es un perro amigable y enérgico que busca un hogar amoroso. ¡Adóptalo y dale una segunda oportunidad!',
+      image: 'https://th.bing.com/th/id/R.6b2026c15d2cc7b6c6453118b8758eb8?rik=p5hZWemaKDXfVg&riu=http%3a%2f%2fwww.razasdeperros.com%2fwp-content%2fuploads%2f2013%2f10%2fDepositphotos_8405161_m.jpg&ehk=076xT4EInAZGdk61vPke7foOGNpYlmbQT2JXi%2fSiMIw%3d&risl=&pid=ImgRaw&r=0'
+    },
+    {
+      nombre: 'Misty',
+      tipoMascota: 'gato',
+      edad: 2,
+      sexo: 'Hembra',
+      raza: 'Siamesa',
+      color: 'Gris',
+      esterilizado: true,
+      vacuna: true,
+      tamano: 'Pequeña',
+      descripcion: 'Misty es una gata tranquila y cariñosa que adora las siestas al sol. ¡Dale la oportunidad de ser parte de tu familia!',
+      image: 'https://th.bing.com/th/id/OIP.B-GtznvQ82H9zcQO7FQs2QHaE8?rs=1&pid=ImgDetMain'
+    },
+    {
+      nombre: 'Polly',
+      tipoMascota: 'otro',
+      edad: 1,
+      sexo: 'Desconocido',
+      raza: 'Cotorra',
+      color: 'Verde',
+      esterilizado: false,
+      vacuna: false,
+      tamano: 'Pequeña',
+      descripcion: 'Polly es una cotorra juguetona y habladora. ¡Haz que su alegría sea parte de tu hogar!',
+      image: 'https://th.bing.com/th/id/OIP.blLe3ZV9JfNWshN5ikwsbQHaEK?rs=1&pid=ImgDetMain'
+    }
   ];
   filteredPets = [...this.allPets];
   username: string = '';
@@ -65,7 +101,7 @@ export class HomePage implements AfterViewInit {
   filterPets() {
     this.filteredPets = this.selectedFilter === 'all' 
       ? [...this.allPets] 
-      : this.allPets.filter(pet => pet.type === this.selectedFilter);
+      : this.allPets.filter(pet => pet.tipoMascota === this.selectedFilter);
   }
 
   async logout() {
@@ -92,14 +128,12 @@ export class HomePage implements AfterViewInit {
   }
 
   createAdoption() {
-    // Lógica para crear una adopción
     console.log('Crear adopción');
-    this.router.navigate(['/create-adoption']); // Cambia la ruta según corresponda
+    this.router.navigate(['/crearadopcion']);
   }
 
   readQR() {
-    // Lógica para leer un código QR
     console.log('Leer QR');
-    this.router.navigate(['/read-qr']); // Cambia la ruta según corresponda
+    this.router.navigate(['/read-qr']);
   }
 }
