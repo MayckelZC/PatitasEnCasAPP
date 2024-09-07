@@ -1,32 +1,34 @@
-<ion-header class="header">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar style="--background: #28a745;"> <!-- Verde -->
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>PatitasEnCasAPP</ion-title>
+    <ion-title>Detalles de {{ pet.nombre }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="content-container" >
-    <ion-card class="pet-adopt-card">
-      <ion-img src="https://th.bing.com/th/id/OIP.ayAmwV0sx7bGRTEYuHWOuAHaE8?rs=1&pid=ImgDetMain" class="pet-image"></ion-img>
+  <div class="content-container">
+    <ion-card class="pet-detail-card">
+      <ion-img [src]="pet.image" class="pet-image"></ion-img>
       <ion-card-header>
-        <ion-card-title>Rex</ion-card-title>
-        <ion-card-subtitle>Perro</ion-card-subtitle>
+        <ion-card-title>{{ pet.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ pet.tipoMascota }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p><strong>Edad:</strong> 3 años</p>
-        <p><strong>Raza:</strong> Labrador</p>
-        <p><strong>Color:</strong> Marrón</p>
-        <p><strong>Vacunas:</strong> Vacunas al día, incluyendo rabia, parvovirus y moquillo</p>
-        <p>Rex es un perro amigable y enérgico que busca un hogar amoroso. ¡Adóptalo y dale una segunda oportunidad!</p>
+        <p><strong>Edad:</strong> {{ pet.edad }} años</p>
+        <p><strong>Raza:</strong> {{ pet.raza }}</p>
+        <p><strong>Color:</strong> {{ pet.color }}</p>
+        <p><strong>Vacunas:</strong> {{ pet.vacuna ? 'Al día' : 'Pendientes' }}</p>
+        <p><strong>Esterilizado:</strong> {{ pet.esterilizado ? 'Sí' : 'No' }}</p>
+        <p><strong>Tamaño:</strong> {{ pet.tamano }}</p>
+        <p>{{ pet.descripcion }}</p>
       </ion-card-content>
       <ion-footer>
         <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
       </ion-footer>
     </ion-card>
-
+    
     <!-- Contenedor para el botón cuadrado de QR -->
     <div class="qr-button-container">
       <ion-button class="qr-button">
@@ -34,7 +36,7 @@
       </ion-button>
       <p class="qr-button-text">Crear QR</p>
     </div>
-
+  
     <!-- Aquí se mostrará el QR generado -->
     <div class="qr-code-container">
       <!-- Coloca aquí el código QR generado -->

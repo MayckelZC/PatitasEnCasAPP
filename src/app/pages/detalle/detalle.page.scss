@@ -1,17 +1,17 @@
 /* Estilo general del encabezado */
 .header {
-    --background: #388E3C; /* Verde oscuro */
+    --background: #4caf50; /* Verde consistente */
     text-align: center; /* Centra el texto del encabezado */
 }
 
-ion-title {
-    color: black;
-    font-weight: bold;
+.header ion-title {
+    color: white; /* Color del texto del título en blanco */
+    font-weight: bold; /* Negrita */
 }
 
 /* Estilo para el área de contenido con scroll */
 ion-content {
-    --background: white; /* Fondo blanco para el área de contenido con scroll */
+    --background: #f0f4f8; /* Color de fondo general similar al anterior */
 }
 
 /* Contenedor del contenido */
@@ -20,7 +20,7 @@ ion-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white; /* Fondo blanco */
+    background-color: #ffffff; /* Fondo blanco */
 }
 
 /* Estilo de la tarjeta de adopción */
@@ -28,55 +28,63 @@ ion-content {
     width: 100%;
     max-width: 400px;
     margin-bottom: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid #A5D6A7; /* Verde claro */
-    background-color: white; /* Fondo blanco para la tarjeta */
+    border-radius: 16px; /* Bordes más redondeados para consistencia */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra similar al anterior */
+    border: 1px solid #4caf50; /* Verde consistente */
+    background-color: #ffffff; /* Fondo blanco para la tarjeta */
 }
 
 /* Imagen de la mascota */
 .pet-image {
-    border-radius: 8px 8px 0 0;
+    border-radius: 16px 16px 0 0; /* Bordes redondeados consistentes */
     height: 200px;
     object-fit: cover;
 }
 
 /* Estilo del encabezado de la tarjeta */
 ion-card-header {
-    padding: 16px;
+    background: #4caf50; /* Verde consistente */
+    color: white; /* Texto blanco para el encabezado */
+    padding: 12px; /* Espaciado consistente */
 }
 
 /* Estilo del título de la tarjeta */
 ion-card-title {
-    color: black; /* Nombre del perro en negro */
-    font-size: 24px; /* Tamaño de fuente para el título */
+    color: white; /* Color del texto del título */
+    font-size: 1.4em; /* Tamaño de fuente consistente */
     font-weight: bold; /* Negrita */
 }
 
 /* Estilo del subtítulo de la tarjeta */
 ion-card-subtitle {
-    color: black; /* Categoría en negro */
-    font-size: 18px; /* Tamaño de fuente para el subtítulo */
+    color: white; /* Color del subtítulo */
+    font-size: 1em; /* Tamaño de fuente consistente */
 }
 
 /* Estilo del contenido de la tarjeta */
 ion-card-content {
+    background-color: #f9f9f9; /* Fondo similar al anterior */
+    color: #333; /* Color del texto */
     padding: 16px;
-    color: black; /* Texto en negro */
 }
 
 /* Estilo del pie de la tarjeta */
 ion-footer {
-    background-color: white; /* Fondo blanco para el pie de la tarjeta */
+    background-color: #ffffff; /* Fondo blanco para el pie */
     padding: 8px;
 }
 
 /* Estilo del botón de adoptar */
 .adopt-button {
-    background: white; /* Fondo blanco para el botón */
+    background: #4caf50; /* Verde consistente */
     color: white; /* Texto blanco para el botón */
     font-weight: bold;
-    border: 1px solid #66BB6A; /* Borde verde suave */
+    border: 1px solid #4caf50; /* Borde verde consistente */
+    transition: background-color 0.3s ease; /* Transición consistente */
+}
+
+.adopt-button:hover {
+    background: #388e3c; /* Verde oscuro en hover */
 }
 
 /* Estilo del contenedor del botón QR */
@@ -84,14 +92,15 @@ ion-footer {
     display: flex;
     align-items: center;
     margin-top: 16px;
-    background-color: white; /* Fondo blanco para el contenedor del botón QR */
+    background-color: #ffffff; /* Fondo blanco para el contenedor del botón QR */
     padding: 8px; /* Espaciado alrededor del botón QR */
-    border-radius: 8px; /* Bordes redondeados para el contenedor */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para el contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
+/* Estilo del botón QR */
 .qr-button {
-    background: #4CAF50; /* Verde medio */
+    background: #4caf50; /* Verde consistente */
     color: white;
     border-radius: 50%;
     width: 48px;
@@ -101,14 +110,16 @@ ion-footer {
     justify-content: center;
 }
 
+/* Estilo del ícono en el botón QR */
 .qr-button ion-icon {
-    color: white; /* Color del ícono en blanco */
+    color: white; /* Color del ícono blanco */
     font-size: 24px; /* Tamaño del ícono */
 }
 
+/* Estilo del texto del botón QR */
 .qr-button-text {
     margin-left: 8px;
-    color: black; /* Texto negro para el texto "Crear QR" */
+    color: #333; /* Color del texto negro para el texto "Crear QR" */
 }
 
 /* Estilo del contenedor del código QR */
@@ -118,27 +129,7 @@ ion-footer {
     justify-content: center;
     align-items: center;
 }
-
-/* Estilo para el encabezado */
-.header {
-    --background: #4caf50;
-    /* Verde para el fondo del encabezado */
-    color: white;
-    /* Color del texto en el encabezado */
-    text-align: center; /* Centra el texto del encabezado */
-}
-
-/* Estilo del título en el encabezado */
-.header ion-title {
-    color: white;
-    /* Color del texto del título */
-}
-
-/* Estilo del toolbar del encabezado */
-.header ion-toolbar {
-    --background: #4caf50;
-    /* Fondo verde para el toolbar */
-    color: white;
-    /* Color del texto del toolbar */
-    text-align: center; /* Centra el texto del toolbar */
-}
+ion-header {
+    --background: green;
+  }
+  

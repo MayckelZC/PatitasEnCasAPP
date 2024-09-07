@@ -2,6 +2,21 @@ import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+// Define la interfaz Pet aquí
+interface Pet {
+  nombre: string;
+  tipoMascota: string;
+  edad: number;
+  sexo: string;
+  raza: string;
+  color: string;
+  esterilizado: boolean;
+  vacuna: boolean;
+  tamano: string;
+  descripcion: string;
+  image: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -15,7 +30,7 @@ export class HomePage implements AfterViewInit {
   ];
 
   selectedFilter: string = 'all';
-  readonly allPets = [
+  readonly allPets: Pet[] = [
     {
       nombre: 'Rex',
       tipoMascota: 'perro',
@@ -56,7 +71,7 @@ export class HomePage implements AfterViewInit {
       image: 'https://th.bing.com/th/id/OIP.blLe3ZV9JfNWshN5ikwsbQHaEK?rs=1&pid=ImgDetMain'
     }
   ];
-  filteredPets = [...this.allPets];
+  filteredPets: Pet[] = [...this.allPets];
   username: string = '';
 
   constructor(
@@ -125,6 +140,24 @@ export class HomePage implements AfterViewInit {
     });
 
     await alert.present();
+  }
+
+  viewDetails(pet: Pet) {
+    this.router.navigate(['/detalle'], {
+      queryParams: { 
+        nombre: pet.nombre,
+        tipoMascota: pet.tipoMascota,
+        edad: pet.edad,
+        sexo: pet.sexo,
+        raza: pet.raza,
+        color: pet.color,
+        esterilizado: pet.esterilizado,
+        vacuna: pet.vacuna,
+        tamano: pet.tamano,
+        descripcion: pet.descripcion,
+        image: pet.image
+      }
+    });
   }
 
   createAdoption() {
