@@ -1,46 +1,60 @@
-/* Estilo del encabezado */
-ion-header {
-    --background: #4caf50; /* Verde oscuro */
-    color: white;
+/* Estilo general del ion-content */
+ion-content {
+    --background: #4CAF50;
+    /* Fondo verde claro para el contenido */
+    padding: 0 20px;
+    /* Relleno horizontal */
 }
 
-/* Estilo del toolbar dentro del encabezado */
-ion-toolbar {
-    --background: #4caf50; /* Verde oscuro */
+/* Estilo del encabezado */
+ion-header {
+    --background: #4CAF50;
+    /* Fondo verde para el encabezado */
+    color: white;
 }
 
 /* Estilo del título en el encabezado */
 ion-title {
     font-size: 1.5rem;
-    text-align: center; /* Centra el texto del título */
+    text-align: center;
 }
 
-/* Estilo del botón de retroceso */
-ion-back-button {
-    color: white; /* Color del ícono de retroceso */
+/* Contenedor para el card */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Alinea el card al principio del contenedor */
+    align-items: center;
+    /* Centra horizontalmente */
+    height: 100vh;
+    /* Ocupa toda la altura de la pantalla */
+    padding: 20px;
+    /* Agrega relleno alrededor del contenido */
 }
 
-/* Estilo de la tarjeta */
+/* Estilo del card */
 ion-card {
-    margin: 1rem;
+    width: 100%;
+    max-width: 400px;
+    /* Ancho máximo del card */
+    background-color: white;
+    /* Fondo blanco para contraste con el verde */
+    border-radius: 12px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+    padding: 20px;
+    text-align: center;
 }
 
-/* Estilo del encabezado de la tarjeta */
-ion-card-header {
-    background: #4caf50; /* Verde más claro */
-    color: white;
-}
-
-/* Estilo del título de la tarjeta */
-ion-card-title {
-    font-size: 1.2rem;
-    text-align: center; /* Centra el texto del título de la tarjeta */
-}
-
-/* Estilo del área de contenido */
-ion-content {
-    --background: white; /* Fondo blanco */
-    padding: 0; /* Elimina el padding del contenido */
+/* Estilo del título del card */
+.main-title {
+    font-size: 22px;
+    color: #4CAF50;
+    /* Color verde del título */
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* Estilo del formulario */
@@ -50,32 +64,70 @@ form {
     gap: 1rem;
 }
 
-/* Estilo de los elementos dentro de un item */
-ion-item {
-    --padding-start: 0;
-}
-
 /* Estilo de las etiquetas */
 ion-label {
-    font-size: 1rem;
+    color: #4CAF50 !important;
+    /* Color verde para las etiquetas */
 }
 
-/* Estilo de las entradas de texto */
+/* Estilo de los campos de entrada */
+ion-item {
+    --background: #f7f7f7;
+    /* Fondo gris claro para los campos */
+    --border-radius: 8px;
+    /* Bordes redondeados */
+    margin-bottom: 15px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+}
+
 ion-input {
-    font-size: 1rem;
+    --placeholder-color: #999;
+    color: #333;
+    /* Color del texto */
 }
 
 /* Estilo de los botones */
 ion-button {
-    margin-top: 1rem;
-    --background: #4caf50; /* Verde más claro */
-    --color: white;
-    border-radius: 4px; /* Agrega bordes redondeados al botón */
+    --background: #4CAF50;
+    /* Fondo verde */
+    color: white;
+    /* Texto en blanco */
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-/* Estilo del botón de envío */
-ion-button[type="submit"] {
-    --background: #4caf50; /* Verde más claro */
-    --color: white;
-    font-weight: bold; /* Texto en negrita */
+ion-button:hover {
+    background-color: #45a049;
+    /* Verde más oscuro al pasar el ratón */
+    color: white;
+    /* Mantener el texto en blanco */
 }
+
+/* Estilo del texto de error */
+ion-text {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    ion-card {
+        padding: 15px;
+        width: 90%;
+    }
+}
+
+/* Estilo del encabezado */
+ion-header {
+    --background: #4CAF50; /* Color de fondo verde */
+    --color: white; /* Color del texto en blanco */
+}
+
+/* Estilo del encabezado */
+ion-header {
+    --background: #4CAF50; /* Color de fondo verde */
+    --color: white; /* Color del texto en blanco */
+}
+

@@ -90,7 +90,7 @@ ion-content {
   background: #388e3c;
 }
 
-/* Cambia el color de fondo del encabezado a verde */
+/* Estilo para el encabezado */
 .header {
   --background: #4caf50;
   color: white;
@@ -116,10 +116,22 @@ ion-content {
   flex: 1;
 }
 
-/* Opcional: Alinea los botones al final del toolbar */
+/* Alinea los botones al final del toolbar */
 .header ion-buttons {
   position: absolute;
   right: 0;
+}
+
+/* Estilo para el botón de logout */
+.header ion-buttons ion-button {
+  --color: red;
+  --background: transparent; /* Asegura que el fondo del botón sea transparente para mostrar el color del texto */
+}
+
+/* Estilo del ícono de logout */
+.header ion-buttons ion-button ion-icon[name="paw"] {
+  font-size: 24px;
+  color: red; /* Color del ícono */
 }
 
 /* Estilo para el contenedor del perro animado */
@@ -185,6 +197,14 @@ ion-segment-button ion-label {
 }
 
 /* Estilos para el footer y el botón QR */
+.footer {
+  background-color: #4caf50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
 .footer-qr {
   --background: transparent;
 }
@@ -206,19 +226,22 @@ ion-segment-button ion-label {
   font-size: 24px;
 }
 
-/* Estilo del botón de logout */
-.header ion-buttons ion-button {
-  --color: red;
+/* Estilo para el mensaje de bienvenida */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0; /* Espacio superior e inferior */
 }
 
-/* Estilo del ícono de logout */
-.header ion-buttons ion-button ion-icon[name="paw"] {
-  font-size: 24px;
+.welcome-message {
+  font-size: 18px; /* Tamaño de fuente ajustado */
+  font-weight: bold;
+  color: #4caf50; /* Color del texto en verde */
 }
 
-/* Estilo del footer */
-.footer {
-  background-color: #4caf50;
+/* Estilo para el fondo de la página */
+ion-content {
+  --background: #f0f4f8; /* Color de fondo general de la página */
 }
 
 /* Estilo para el mensaje de bienvenida */
@@ -233,3 +256,5 @@ ion-segment-button ion-label {
   font-weight: bold;
   color: #4caf50; /* Color del texto en verde */
 }
+
+/* Resto de estilos... */

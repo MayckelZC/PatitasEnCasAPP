@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content padding>
   <div class="container">
     <div class="logo">
       <ion-img src="assets/imgs/paw.png"></ion-img> <!-- Imagen de la huella -->
@@ -7,22 +7,24 @@
     <ion-card>
       <ion-title>Inicio de Sesión</ion-title>
 
-      <ion-item>
-        <ion-label position="stacked">Usuario</ion-label>
-        <ion-input [(ngModel)]="username" type="text" placeholder="Ingresa tu usuario"></ion-input>
-      </ion-item>
+      <form (ngSubmit)="login()">
+        <ion-item>
+          <ion-label position="stacked">Usuario</ion-label>
+          <ion-input [(ngModel)]="username" name="username" type="text" placeholder="Ingresa tu usuario"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Contraseña</ion-label>
-        <ion-input [(ngModel)]="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
+        </ion-item>
 
-      <ion-button expand="block" (click)="login()">Ingresar</ion-button>
+        <ion-button expand="block" type="submit">Ingresar</ion-button>
 
-      <div class="extra-options">
-        <p>¿Olvidaste tu contraseña?</p>
-        <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
-      </div>
+        <div class="extra-options">
+          <p><a (click)="navigateToResetPassword()">Restablecer Contraseña</a></p>
+          <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
+        </div>
+      </form>
     </ion-card>
   </div>
 </ion-content>

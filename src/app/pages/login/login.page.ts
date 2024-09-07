@@ -8,11 +8,13 @@ import { Router } from '@angular/router'; // Importar desde @angular/router
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
   username: string = '';
   password: string = '';
 
-  constructor(private alertController: AlertController, private router: Router) { }
+  constructor(
+    private alertController: AlertController,
+    private router: Router
+  ) {}
 
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
@@ -20,7 +22,6 @@ export class LoginPage {
       message: message,
       buttons: ['OK'],
     });
-
     await alert.present();
   }
 
@@ -41,14 +42,11 @@ export class LoginPage {
     this.router.navigate(['/home']);
   }
 
-  forgotPassword() {
-    // Navegar a la página de "Olvidar Contraseña"
-    console.log('Navegar a la página de Olvidar Contraseña');
-    // Ejemplo: this.navController.navigateForward('/forgot-password');
+  navigateToResetPassword() {
+    this.router.navigate(['/restablecer']); // Cambia la ruta según la configuración de tus rutas
   }
 
   register() {
-    // Navegar a la página de "Registrarse"
     this.router.navigate(['/registro']); // Cambia el nombre de la ruta según corresponda
   }
 }
