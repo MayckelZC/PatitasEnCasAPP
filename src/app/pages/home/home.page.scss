@@ -96,9 +96,11 @@ ion-content {
   color: white;
 }
 
-/* Asegura que el texto en el encabezado es legible */
 .header ion-title {
   color: white;
+  text-align: center;
+  margin: 0;
+  flex: 1;
 }
 
 .header ion-toolbar {
@@ -108,30 +110,19 @@ ion-content {
   --background: #4caf50;
 }
 
-/* Ajusta el estilo del título para centrarlo */
-.header ion-title {
-  text-align: center;
-  margin: 0;
-  color: white;
-  flex: 1;
-}
-
-/* Alinea los botones al final del toolbar */
 .header ion-buttons {
   position: absolute;
   right: 0;
 }
 
-/* Estilo para el botón de logout */
 .header ion-buttons ion-button {
   --color: red;
-  --background: transparent; /* Asegura que el fondo del botón sea transparente para mostrar el color del texto */
+  --background: transparent;
 }
 
-/* Estilo del ícono de logout */
 .header ion-buttons ion-button ion-icon[name="paw"] {
   font-size: 24px;
-  color: red; /* Color del ícono */
+  color: red;
 }
 
 /* Estilo para el contenedor del perro animado */
@@ -142,14 +133,12 @@ ion-content {
   height: 100px;
 }
 
-/* Estilo para el perro animado */
 .animated-dog {
   width: 50px;
   height: auto;
   animation: bounce 1.5s infinite;
 }
 
-/* Animación de rebote para el perro */
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -188,7 +177,6 @@ ion-segment-button {
   margin-right: 8px;
 }
 
-/* Asegura que el texto esté centrado verticalmente junto al ícono */
 ion-segment-button ion-label {
   margin: 0;
   padding: 0;
@@ -230,31 +218,11 @@ ion-segment-button ion-label {
 .welcome-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0; /* Espacio superior e inferior */
+  margin: 20px 0;
 }
 
 .welcome-message {
-  font-size: 18px; /* Tamaño de fuente ajustado */
+  font-size: 18px;
   font-weight: bold;
-  color: #4caf50; /* Color del texto en verde */
+  color: #4caf50;
 }
-
-/* Estilo para el fondo de la página */
-ion-content {
-  --background: #f0f4f8; /* Color de fondo general de la página */
-}
-
-/* Estilo para el mensaje de bienvenida */
-.welcome-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0; /* Espacio superior e inferior */
-}
-
-.welcome-message {
-  font-size: 18px; /* Tamaño de fuente ajustado */
-  font-weight: bold;
-  color: #4caf50; /* Color del texto en verde */
-}
-
-/* Resto de estilos... */
