@@ -15,24 +15,25 @@ export class CrearadopcionPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private alertController: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.adopcionForm = this.formBuilder.group({
       tipoMascota: ['', Validators.required],
       tamano: ['', Validators.required],
-      nombre: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]], // Permite letras mayúsculas y minúsculas
-      edad: ['', [Validators.required, Validators.min(0)]], // Asegura que la edad sea un número positivo
+      nombre: ['', [Validators.pattern('^[A-Za-z]+$')]], // Solo letras, opcional
+      edad: ['', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]], // Solo números
       sexo: ['', Validators.required],
-      raza: ['', Validators.required],
-      color: ['', Validators.required],
+      raza: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]], // Solo letras y espacios
+      color: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]], // Solo letras y espacios
       esterilizado: [false],
       vacuna: [false],
-      descripcion: ['']
+      descripcion: ['', [Validators.pattern('^[A-Za-z0-9 ]*$')]], // Acepta letras, números y espacios
     });
   }
 
   async onSubmit() {
+    console.log('onSubmit called'); // Verifica si el método se está llamando
     if (this.adopcionForm.valid) {
       const alert = await this.alertController.create({
         header: 'Confirmación',
@@ -43,7 +44,7 @@ export class CrearadopcionPage implements OnInit {
             role: 'cancel',
             handler: () => {
               console.log('Creación de adopción cancelada');
-            }
+            },
           },
           {
             text: 'Confirmar',
@@ -52,14 +53,14 @@ export class CrearadopcionPage implements OnInit {
               const toast = await this.toastController.create({
                 message: 'Adopción creada con éxito.',
                 duration: 3000,
-                position: 'middle',
-                cssClass: 'toast-center'
+                position: 'top',
+                cssClass: 'toast-center',
               });
               toast.present();
-              // Aquí puedes añadir lógica para enviar el formulario
-            }
-          }
-        ]
+              // Aquí puedes añadir lógica para enviar el formulario al servidor
+            },
+          },
+        ],
       });
 
       await alert.present();
@@ -77,7 +78,7 @@ export class CrearadopcionPage implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      if (file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) { // Validar tipo de archivo y tamaño
+      if (file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) {
         const reader = new FileReader();
         reader.onload = () => {
           this.imageUrl = reader.result as string;

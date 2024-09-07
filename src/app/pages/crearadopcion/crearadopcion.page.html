@@ -11,6 +11,7 @@
   <ion-card>
     <ion-title class="form-title">Crear Adopción</ion-title>
     <form [formGroup]="adopcionForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
       <ion-item>
         <ion-label position="floating">Tipo de Mascota</ion-label>
         <ion-select formControlName="tipoMascota">
@@ -36,7 +37,7 @@
       </div>
 
       <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
+        <ion-label position="floating">Nombre (Opcional)</ion-label>
         <ion-input formControlName="nombre"></ion-input>
       </ion-item>
       <div *ngIf="adopcionForm.get('nombre')?.errors?.['pattern']" class="error-message">
@@ -69,6 +70,9 @@
       <div *ngIf="adopcionForm.get('raza')?.errors?.['required']" class="error-message">
         La raza es obligatoria.
       </div>
+      <div *ngIf="adopcionForm.get('raza')?.errors?.['pattern']" class="error-message">
+        La raza debe contener solo letras y espacios.
+      </div>
 
       <ion-item>
         <ion-label position="floating">Color</ion-label>
@@ -77,23 +81,19 @@
       <div *ngIf="adopcionForm.get('color')?.errors?.['required']" class="error-message">
         El color es obligatorio.
       </div>
-
-      <ion-item class="toggle-item">
-        <ion-label>Esterilizado</ion-label>
-        <ion-toggle formControlName="esterilizado"></ion-toggle>
-      </ion-item>
-
-      <ion-item class="toggle-item">
-        <ion-label>Vacuna</ion-label>
-        <ion-toggle formControlName="vacuna"></ion-toggle>
-      </ion-item>
+      <div *ngIf="adopcionForm.get('color')?.errors?.['pattern']" class="error-message">
+        El color debe contener solo letras y espacios.
+      </div>
 
       <ion-item>
         <ion-label position="floating">Descripción</ion-label>
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
+      <div *ngIf="adopcionForm.get('descripcion')?.errors?.['pattern']" class="error-message">
+        La descripción debe contener solo letras y espacios.
+      </div>
 
-      <!-- Sección para subir imagen -->
+      <!-- Sección para subir imagen (opcional) -->
       <ion-item>
         <ion-label position="floating"></ion-label>
         <input type="file" (change)="onFileChange($event)" />
@@ -104,7 +104,7 @@
 
       <div class="button-group">
         <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid">Guardar</ion-button>
-        <ion-button expand="full" color="medium" (click)="onClear()">Limpiar</ion-button>
+        <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>
   </ion-card>

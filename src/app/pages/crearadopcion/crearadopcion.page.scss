@@ -13,7 +13,8 @@ ion-title {
 /* Estilo de la tarjeta */
 ion-card {
     width: 100%;
-    max-width: 500px; /* Ajusta el ancho máximo según tus necesidades */
+    max-width: 500px;
+    /* Ajusta el ancho máximo según tus necesidades */
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -102,7 +103,8 @@ ion-button:hover {
 
 /* Mensaje de error obligatorio */
 .error-message {
-    color: #a94442; /* Rojo oscuro para los errores */
+    color: #a94442;
+    /* Rojo oscuro para los errores */
     font-size: 14px;
     margin-top: 5px;
 }
@@ -119,9 +121,20 @@ ion-button:hover {
 
 /* Toast de éxito */
 .toast-center {
-    --toast-background: #dff0d8; /* Fondo del toast */
-    --toast-color: #3c763d; /* Color del texto */
+    --toast-background: #dff0d8;
+    /* Fondo del toast */
+    --toast-color: #3c763d;
+    /* Color del texto */
     --toast-padding: 16px;
     --toast-border-radius: 8px;
-    --toast-text-align: center; /* Centra el texto */
+    --toast-text-align: center;
+    /* Centra el texto */
+}
+
+.btn-clear {
+    --background: #007bff; // Color de fondo azul
+    --color: #fff; // Color del texto blanco
+    --border-radius: 4px; // Bordes redondeados (opcional)
+    --padding-start: 16px; // Espaciado interno a la izquierda
+    --padding-end: 16px; // Espaciado interno a la derecha
 }

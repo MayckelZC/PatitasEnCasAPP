@@ -20,7 +20,7 @@
             <ion-input formControlName="email" type="email"></ion-input>
           </ion-item>
           <ion-text color="danger" *ngIf="resetPasswordForm.get('email')?.invalid && resetPasswordForm.get('email')?.touched">
-            El correo electrónico es obligatorio y debe ser válido.
+            Debe ingresar un correo electrónico.
           </ion-text>
 
           <ion-button expand="full" type="submit" [disabled]="!resetPasswordForm.valid">Enviar</ion-button>
