@@ -7,12 +7,14 @@ ion-header {
 /* Estilo del toolbar dentro del encabezado */
 ion-toolbar {
     --background: #4CAF50;
+    padding: 0 16px; /* Agrega espaciado en el toolbar */
 }
 
 /* Estilo del título en el encabezado */
 ion-title {
     font-size: 1.5rem;
     text-align: center;
+    margin: 0;
 }
 
 /* Estilo del botón de retroceso */
@@ -28,7 +30,7 @@ ion-card {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 1rem;
+    margin: 1rem auto; /* Centra la tarjeta horizontalmente */
 }
 
 /* Estilo del encabezado de la tarjeta */
@@ -80,6 +82,7 @@ ion-label {
 ion-input, ion-textarea {
     --placeholder-color: #999;
     color: #333;
+    padding: 12px; /* Agrega espaciado interno */
 }
 
 /* Estilo de los botones */
@@ -90,11 +93,16 @@ ion-button {
     border-radius: 8px;
     margin-top: 10px;
     font-size: 16px;
+    padding: 10px; /* Agrega espaciado interno */
 }
 
 ion-button:hover {
-    background-color: #45a049;
+    --background: #45a049;
     color: white;
+}
+
+ion-button:active {
+    --background: #388e3c;
 }
 
 /* Barra de progreso */
