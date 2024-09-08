@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar style="--background: #28a745;"> <!-- Verde -->
+  <ion-toolbar style="--background: #28a745;">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <div class="content-container">
-    <ion-card class="pet-detail-card">
+    <ion-card class="pet-adopt-card">
       <ion-img [src]="pet.image" class="pet-image"></ion-img>
       <ion-card-header>
         <ion-card-title>{{ pet.nombre }}</ion-card-title>
@@ -28,18 +28,19 @@
         <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
       </ion-footer>
     </ion-card>
-    
-    <!-- Contenedor para el botón cuadrado de QR -->
+
+    <!-- Botón para crear el QR -->
     <div class="qr-button-container">
-      <ion-button class="qr-button">
+      <ion-button class="qr-button" (click)="generateQRCode()">
         <ion-icon name="qr-code-outline"></ion-icon>
       </ion-button>
       <p class="qr-button-text">Crear QR</p>
     </div>
-  
-    <!-- Aquí se mostrará el QR generado -->
-    <div class="qr-code-container">
-      <!-- Coloca aquí el código QR generado -->
+
+    <!-- Contenedor para el QR generado -->
+    <div class="qr-code-container" *ngIf="qrData">
+      <qrcode [qrdata]="qrData" class="qr-code"></qrcode> <!-- Usa esto si estás usando angularx-qrcode -->
+      <!-- <ngx-qrcode [qrc-value]="qrData" [qrc-size]="128"></ngx-qrcode> --> <!-- Usa esto si estás usando ngx-qrcode2 -->
     </div>
   </div>
 </ion-content>

@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetallePage implements OnInit {
   pet: any = {}; // Puedes usar una interfaz si prefieres definirla
+  qrData: string = ''; // Datos del QR
 
   constructor(private route: ActivatedRoute) {}
 
@@ -16,7 +17,7 @@ export class DetallePage implements OnInit {
       this.pet = {
         nombre: params['nombre'],
         tipoMascota: params['tipoMascota'],
-        edad: params['edad'],
+        edad: Number(params['edad']),
         sexo: params['sexo'],
         raza: params['raza'],
         color: params['color'],
@@ -26,6 +27,12 @@ export class DetallePage implements OnInit {
         descripcion: params['descripcion'],
         image: params['image']
       };
+      // Inicialmente no se generará el QR
     });
+  }
+
+  generateQRCode() {
+    // Asigna los datos del QR a la variable qrData
+    this.qrData = JSON.stringify(this.pet);
   }
 }

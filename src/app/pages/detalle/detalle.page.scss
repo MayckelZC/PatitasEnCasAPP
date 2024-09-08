@@ -126,10 +126,13 @@ ion-footer {
 .qr-code-container {
     margin-top: 16px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    width: 100%; /* Ajusta el ancho del contenedor para ocupar el espacio disponible */
+    height: auto; /* Ajusta la altura automáticamente para contener el QR */
 }
-ion-header {
-    --background: green;
-  }
-  
+
+qrcode, ngx-qrcode {
+    max-width: 100%; /* Asegura que el QR no sea más ancho que el contenedor */
+    max-height: 100%; /* Asegura que el QR no sea más alto que el contenedor */
+}

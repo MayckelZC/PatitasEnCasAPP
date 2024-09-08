@@ -18,10 +18,10 @@ export class RegistroPage implements OnInit {
     this.registroForm = this.fb.group({
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, {
-      validator: this.passwordMatchValidator.bind(this) // Asegúrate de vincular el contexto
+      validators: this.passwordMatchValidator
     });
 
     // Escuchar cambios en los campos del formulario para actualizar el progreso
@@ -32,14 +32,11 @@ export class RegistroPage implements OnInit {
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-    
+
     if (!password || !confirmPassword) {
       return null;
     }
-    
-    // Actualizar el estado de passwordMismatch
-    this.passwordMismatch = password.value !== confirmPassword.value;
-    
+
     return password.value === confirmPassword.value ? null : { mismatch: true };
   }
 
@@ -51,7 +48,7 @@ export class RegistroPage implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
-      
+
       // Establecer el progreso al 100%
       this.progress = 1;
 
@@ -65,13 +62,11 @@ export class RegistroPage implements OnInit {
   updateProgress() {
     const totalFields = 4; // Número total de campos (username, email, password, confirmPassword)
     let filledFields = 0;
-    
-    // Campos obligatorios y válidos
-    const requiredFields = ['username', 'email', 'password', 'confirmPassword'];
-    
-    requiredFields.forEach(key => {
-      const control = this.registroForm.get(key);
-      if (control?.valid && control?.touched) {
+
+    const controls = this.registroForm.controls;
+    Object.keys(controls).forEach(key => {
+      const control = controls[key];
+      if (control.valid && (control.touched || control.dirty)) {
         filledFields++;
       }
     });
