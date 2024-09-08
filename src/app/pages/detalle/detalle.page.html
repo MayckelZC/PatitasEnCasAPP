@@ -39,8 +39,7 @@
 
     <!-- Contenedor para el QR generado -->
     <div class="qr-code-container" *ngIf="qrData">
-      <qrcode [qrdata]="qrData" class="qr-code"></qrcode> <!-- Usa esto si estás usando angularx-qrcode -->
-      <!-- <ngx-qrcode [qrc-value]="qrData" [qrc-size]="128"></ngx-qrcode> --> <!-- Usa esto si estás usando ngx-qrcode2 -->
+      <qrcode [qrdata]="qrData" class="qr-code"></qrcode>
     </div>
   </div>
 </ion-content>
