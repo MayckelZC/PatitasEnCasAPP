@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['detalle.page.scss'],
 })
 export class DetallePage implements OnInit {
-  pet: any = {}; // Puedes usar una interfaz si prefieres definirla
+  pet: any = {}; 
   qrData: string = ''; // Datos del QR
 
   constructor(private route: ActivatedRoute) {}
@@ -27,7 +27,6 @@ export class DetallePage implements OnInit {
         descripcion: params['descripcion'],
         image: params['image']
       };
-      // Inicialmente no se generará el QR
     });
   }
 

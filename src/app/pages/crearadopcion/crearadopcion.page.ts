@@ -57,7 +57,7 @@ export class CrearadopcionPage implements OnInit {
                 cssClass: 'toast-center',
               });
               toast.present();
-              // Aquí puedes añadir lógica para enviar el formulario al servidor
+        
             },
           },
         ],

@@ -36,8 +36,6 @@ export class LoginPage {
       return;
     }
 
-    // Aquí puedes agregar la lógica de autenticación real.
-    // Si la autenticación es exitosa:
     localStorage.setItem('username', this.username); // Guarda el nombre de usuario en el almacenamiento local
     this.router.navigate(['/home']);
   }

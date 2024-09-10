@@ -2,7 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-// Define la interfaz Pet aquí
+// interfaz Mascota
 interface Pet {
   nombre: string;
   tipoMascota: string;
