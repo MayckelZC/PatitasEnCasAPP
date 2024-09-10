@@ -1,48 +1,28 @@
-/* Estilo del encabezado */
-ion-header {
+/* Estilo del encabezado y toolbar */
+ion-header,
+ion-toolbar {
     --background: #4CAF50;
     color: white;
 }
 
-/* Estilo del toolbar dentro del encabezado */
-ion-toolbar {
-    --background: #4CAF50;
-    padding: 0 16px; /* Agrega espaciado en el toolbar */
-}
-
-/* Estilo del título en el encabezado */
 ion-title {
     font-size: 1.5rem;
     text-align: center;
-    margin: 0;
-}
-
-/* Estilo del botón de retroceso */
-ion-back-button {
-    color: white;
 }
 
 /* Estilo de la tarjeta */
 ion-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 1rem auto; /* Centra la tarjeta horizontalmente */
+    margin: 1rem auto;
 }
 
-/* Estilo del encabezado de la tarjeta */
-ion-card-header {
-    background: white;
-    border-bottom: 2px solid #4CAF50;
-    text-align: center;
-    padding: 10px;
-}
-
-/* Estilo del título principal */
-.main-title {
+/* Estilo del título del formulario */
+.form-title {
     font-size: 24px;
     color: #4CAF50;
     margin: 0;
@@ -79,10 +59,9 @@ ion-label {
 }
 
 /* Estilo de las entradas de texto */
-ion-input, ion-textarea {
+ion-input {
     --placeholder-color: #999;
     color: #333;
-    padding: 12px; /* Agrega espaciado interno */
 }
 
 /* Estilo de los botones */
@@ -93,54 +72,53 @@ ion-button {
     border-radius: 8px;
     margin-top: 10px;
     font-size: 16px;
-    padding: 10px; /* Agrega espaciado interno */
+    transition: background-color 0.3s ease;
 }
 
 ion-button:hover {
-    --background: #45a049;
-    color: white;
+    background-color: #45a049;
 }
 
-ion-button:active {
-    --background: #388e3c;
+/* Estilo del grupo de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Barra de progreso */
+/* Mensaje de error */
+.error-message {
+    color: #a94442;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Estilo del botón de limpiar */
+.btn-clear {
+    --background: #007bff; /* Color de fondo azul */
+    --color: #fff; /* Color del texto blanco */
+    --border-radius: 8px; /* Bordes redondeados */
+    --padding-start: 16px; /* Espaciado interno a la izquierda */
+    --padding-end: 16px; /* Espaciado interno a la derecha */
+}
+
+/* Estilo de la barra de progreso y el texto */
 .progress-container {
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 ion-progress-bar {
-    --background: #f0f0f0;
-    --progress-background: #4CAF50;
-    transition: width 0.3s ease-in-out;
+    flex: 1;
+    --background: #e0e0e0; /* Fondo de la barra */
+    --bar-background: #4CAF50; /* Color de la barra */
+    height: 10px; /* Altura de la barra */
+    margin-top: 10px; /* Espacio superior */
 }
 
 .progress-text {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #333;
-}
-
-/* Estilo del área de vista previa de imagen */
-.image-preview {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.image-preview img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo de los toggles */
-.toggle-item {
-    --background: #f7f7f7;
-    --border-radius: 8px;
-    margin-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
+    font-size: 16px;
+    color: #4CAF50;
+    margin-left: 10px;
 }

@@ -1,56 +1,67 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/login"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
+    <ion-title>Crear Cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>
-      <h2 class="main-title">Crea tu Cuenta</h2>
-    </ion-card-header>
+    <ion-title class="form-title">Crear Cuenta</ion-title>
+    <form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Nombre de Usuario</ion-label>
+        <ion-input formControlName="nombreUsuario"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('nombreUsuario')?.errors?.['required']" class="error-message">
+        El nombre de usuario es obligatorio.
+      </div>
 
-    <ion-card-content>
-      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-        <ion-item>
-          <ion-label position="floating">Nombre de usuario</ion-label>
-          <ion-input formControlName="username" type="text"></ion-input>
-        </ion-item>
-        <ion-text color="danger" *ngIf="registroForm.get('username')?.hasError('pattern') && registroForm.get('username')?.touched">
-          El nombre de usuario no debe contener números.
-        </ion-text>
+      <ion-item>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input formControlName="correo" type="email"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('correo')?.errors?.['required']" class="error-message">
+        El correo electrónico es obligatorio.
+      </div>
+      <div *ngIf="cuentaForm.get('correo')?.errors?.['email']" class="error-message">
+        El correo electrónico no es válido.
+      </div>
 
-        <ion-item>
-          <ion-label position="floating">Correo electrónico</ion-label>
-          <ion-input formControlName="email" type="email"></ion-input>
-        </ion-item>
-        <ion-text color="danger" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
-          El correo electrónico no es válido.
-        </ion-text>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input formControlName="contraseña" type="password"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['required']" class="error-message">
+        La contraseña es obligatoria.
+      </div>
+      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['minlength']" class="error-message">
+        La contraseña debe tener al menos 6 caracteres.
+      </div>
+      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['noLetter']" class="error-message">
+        La contraseña debe contener al menos una letra.
+      </div>
 
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirmar Contraseña</ion-label>
+        <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.errors?.['passwordMismatch']" class="error-message">
+        Las contraseñas no coinciden.
+      </div>
 
-        <ion-item>
-          <ion-label position="floating">Confirmar contraseña</ion-label>
-          <ion-input formControlName="confirmPassword" type="password"></ion-input>
-        </ion-item>
-        <ion-text color="danger" *ngIf="passwordMismatch">
-          Las contraseñas no coinciden.
-        </ion-text>
+      <div class="button-group">
+        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid">Crear Cuenta</ion-button>
+        <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
+      </div>
 
-        <ion-button expand="full" type="submit" [disabled]="!registroForm.valid || passwordMismatch">Registrarse</ion-button>
-        
-        <!-- Barra de progreso -->
-        <div class="progress-container">
-          <ion-progress-bar [value]="progress"></ion-progress-bar>
-          <p class="progress-text">{{ (progress * 100).toFixed(0) }}%</p>
-        </div>
-      </form>
-    </ion-card-content>
+      <!-- Barra de Progreso -->
+      <ion-item class="progress-container">
+        <ion-progress-bar [value]="validationProgress"></ion-progress-bar>
+        <div class="progress-text">{{ (validationProgress * 100) | number:'1.0-0' }}%</div>
+      </ion-item>
+    </form>
   </ion-card>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -8,66 +8,88 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  registroForm!: FormGroup;
-  passwordMismatch: boolean = false;
-  progress: number = 0;
+  cuentaForm!: FormGroup;
+  validationProgress = 0;
 
-  constructor(private fb: FormBuilder, private alertController: AlertController) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastController: ToastController,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
-    this.registroForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validators: this.passwordMatchValidator
+    this.cuentaForm = this.formBuilder.group({
+      nombreUsuario: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contraseña: ['', [Validators.required, Validators.minLength(6), this.passwordValidator]],
+      confirmarContraseña: ['', Validators.required],
+    }, { validator: this.passwordMatchValidator });
+
+    this.cuentaForm.valueChanges.subscribe(() => {
+      this.updateValidationProgress();
     });
-    this.registroForm.valueChanges.subscribe(() => this.updateProgress());
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-
-    if (!password || !confirmPassword) {
-      return null;
+  passwordValidator(control: AbstractControl) {
+    const value = control.value;
+    if (value && !/[a-zA-Z]/.test(value)) {
+      return { noLetter: true };
     }
+    return null;
+  }
 
-    return password.value === confirmPassword.value ? null : { mismatch: true };
+  passwordMatchValidator(formGroup: FormGroup) {
+    const contraseña = formGroup.get('contraseña')?.value;
+    const confirmarContraseña = formGroup.get('confirmarContraseña')?.value;
+    return contraseña === confirmarContraseña ? null : { passwordMismatch: true };
   }
 
   async onSubmit() {
-    if (this.registroForm.valid && !this.passwordMismatch) {
+    if (this.cuentaForm.valid) {
       const alert = await this.alertController.create({
-        header: '¡Registro Exitoso!',
-        message: 'Bienvenido a PatitasEnCasAPP',
-        buttons: ['OK']
+        header: 'Confirmación',
+        message: '¿Deseas crear tu cuenta?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+          {
+            text: 'Confirmar',
+            handler: async () => {
+              console.log('Formulario enviado', this.cuentaForm.value);
+              const toast = await this.toastController.create({
+                message: 'Cuenta creada con éxito.',
+                duration: 3000,
+                position: 'bottom',
+                cssClass: 'toast-center',
+              });
+              toast.present();
+            },
+          },
+        ],
       });
+
       await alert.present();
-
-      // Establecer el progreso al 100%
-      this.progress = 1;
-
-      console.log('Formulario enviado', this.registroForm.value);
     } else {
       console.log('Formulario inválido');
     }
   }
 
-  // Actualiza el progreso del formulario
-  updateProgress() {
-    const totalFields = 4; // Número total de campos (username, email, password, confirmPassword)
-    let filledFields = 0;
+  onClear() {
+    this.cuentaForm.reset();
+    this.validationProgress = 0; // Reset progress when clearing the form
+  }
 
-    const controls = this.registroForm.controls;
-    Object.keys(controls).forEach(key => {
-      const control = controls[key];
-      if (control.valid && (control.touched || control.dirty)) {
-        filledFields++;
-      }
-    });
+  updateValidationProgress() {
+    const totalFields = 4; // Número total de campos
+    let validFields = 0;
 
-    this.progress = filledFields / totalFields;
+    if (this.cuentaForm.get('nombreUsuario')?.valid) validFields++;
+    if (this.cuentaForm.get('correo')?.valid) validFields++;
+    if (this.cuentaForm.get('contraseña')?.valid) validFields++;
+    if (this.cuentaForm.get('confirmarContraseña')?.valid) validFields++;
+
+    this.validationProgress = validFields / totalFields;
   }
 }
