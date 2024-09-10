@@ -10,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 export class RegistroPage implements OnInit {
   registroForm!: FormGroup;
   passwordMismatch: boolean = false;
-  progress: number = 0; // Valor del progreso (0 a 1)
+  progress: number = 0;
 
   constructor(private fb: FormBuilder, private alertController: AlertController) { }
 
@@ -23,12 +23,9 @@ export class RegistroPage implements OnInit {
     }, {
       validators: this.passwordMatchValidator
     });
-
-    // Escuchar cambios en los campos del formulario para actualizar el progreso
     this.registroForm.valueChanges.subscribe(() => this.updateProgress());
   }
 
-  // Validador para comprobar si las contraseñas coinciden
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
