@@ -78,7 +78,7 @@ export class RegistroPage implements OnInit {
 
   onClear() {
     this.cuentaForm.reset();
-    this.validationProgress = 0; // Reset progress when clearing the form
+    this.validationProgress = 0; 
   }
 
   updateValidationProgress() {
