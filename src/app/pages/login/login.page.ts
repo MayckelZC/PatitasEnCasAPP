@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Importar desde @angular/router
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router'; // Importar Router para navegación
 
 @Component({
   selector: 'app-login',
@@ -8,43 +8,31 @@ import { Router } from '@angular/router'; // Importar desde @angular/router
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  username: string = '';
-  password: string = '';
+  email: string; // Cambié de username a email para que sea más claro
+  password: string;
 
-  constructor(
-    private alertController: AlertController,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
-
+  // Método para manejar el inicio de sesión
   login() {
-    if (this.username.trim() === '') {
-      this.presentAlert('Error', 'El campo de usuario es obligatorio.');
-      return;
-    }
-
-    if (this.password.trim() === '') {
-      this.presentAlert('Error', 'El campo de contraseña es obligatorio.');
-      return;
-    }
-
-    localStorage.setItem('username', this.username); // Guarda el nombre de usuario en el almacenamiento local
-    this.router.navigate(['/home']);
+    this.authService.login(this.email, this.password)
+      .then(() => {
+        // Redirigir al usuario a la página de inicio después de iniciar sesión
+        this.router.navigate(['/home']);
+      })
+      .catch(error => {
+        // Manejar errores, puedes mostrar un mensaje de alerta
+        console.error('Error de inicio de sesión:', error);
+      });
   }
 
+  // Método para navegar a la página de restablecimiento de contraseña
   navigateToResetPassword() {
-    this.router.navigate(['/restablecer']); // Cambia la ruta según la configuración de tus rutas
+    this.router.navigate(['/restablecer']);
   }
 
+  // Método para navegar a la página de registro
   register() {
-    this.router.navigate(['/registro']); // Cambia el nombre de la ruta según corresponda
+    this.router.navigate(['/registro']);
   }
 }
