@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { ToastController, AlertController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'; // Asegúrate de importar AbstractControl
+import { AuthService } from '../../services/auth.service'; // Asegúrate de que el servicio de autenticación esté importado
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -8,12 +10,13 @@ import { ToastController, AlertController } from '@ionic/angular';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  cuentaForm!: FormGroup;
-  validationProgress = 0;
+  cuentaForm: FormGroup; // Usamos FormGroup para el formulario
+  validationProgress: number = 0; // Para la barra de progreso
 
   constructor(
     private formBuilder: FormBuilder,
-    private toastController: ToastController,
+    private authService: AuthService,
+    private router: Router,
     private alertController: AlertController
   ) {}
 
@@ -46,39 +49,41 @@ export class RegistroPage implements OnInit {
 
   async onSubmit() {
     if (this.cuentaForm.valid) {
-      const alert = await this.alertController.create({
-        header: 'Confirmación',
-        message: '¿Deseas crear tu cuenta?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
-          {
-            text: 'Confirmar',
-            handler: async () => {
-              console.log('Formulario enviado', this.cuentaForm.value);
-              const toast = await this.toastController.create({
-                message: 'Cuenta creada con éxito.',
-                duration: 3000,
-                position: 'bottom',
-                cssClass: 'toast-center',
-              });
-              toast.present();
-            },
-          },
-        ],
-      });
+      const { correo, contraseña } = this.cuentaForm.value;
 
-      await alert.present();
+      // Comprobar si el correo ya está registrado
+      const existingUser = await this.authService.getUserByEmail(correo);
+      if (existingUser) {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'El correo electrónico ya está registrado.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return;
+      }
+
+      try {
+        // Intentar registrar el nuevo usuario
+        await this.authService.register(correo, contraseña);
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Cuenta creada con éxito.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
+      } catch (error) {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: error.message,
+          buttons: ['OK'],
+        });
+        await alert.present();
+      }
     } else {
       console.log('Formulario inválido');
     }
-  }
-
-  onClear() {
-    this.cuentaForm.reset();
-    this.validationProgress = 0; 
   }
 
   updateValidationProgress() {
@@ -91,5 +96,10 @@ export class RegistroPage implements OnInit {
     if (this.cuentaForm.get('confirmarContraseña')?.valid) validFields++;
 
     this.validationProgress = validFields / totalFields;
+  }
+
+  onClear() {
+    this.cuentaForm.reset();
+    this.validationProgress = 0; // Resetear el progreso al limpiar
   }
 }

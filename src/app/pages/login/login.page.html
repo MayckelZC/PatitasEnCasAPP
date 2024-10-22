@@ -10,12 +10,24 @@
       <form (ngSubmit)="login()">
         <ion-item>
           <ion-label position="stacked">Usuario</ion-label>
-          <ion-input [(ngModel)]="username" name="username" type="text" placeholder="Ingresa tu usuario"></ion-input>
+          <ion-input 
+            [(ngModel)]="email" 
+            name="email" 
+            type="email" 
+            placeholder="Ingresa tu email" 
+            required>
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-input 
+            [(ngModel)]="password" 
+            name="password" 
+            type="password" 
+            placeholder="Ingresa tu contraseña" 
+            required>
+          </ion-input>
         </ion-item>
 
         <ion-button expand="block" type="submit">Ingresar</ion-button>
