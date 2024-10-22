@@ -59,12 +59,16 @@ export class AuthService {
   // Método para cerrar sesión
   async logout(): Promise<void> {
     await this.afAuth.signOut();
-    localStorage.removeItem('username'); // Limpia el nombre de usuario al cerrar sesión
   }
 
   // Método para obtener los datos del usuario actual
   async getUserData(uid: string): Promise<User | null> {
     const userDoc = await this.firestore.collection('users').doc(uid).get().toPromise();
     return userDoc.exists ? (userDoc.data() as User) : null; // Retorna null si el documento no existe
+  }
+
+  // Método para obtener el usuario actual
+  getCurrentUser() {
+    return this.afAuth.currentUser; // Retorna el usuario actual
   }
 }

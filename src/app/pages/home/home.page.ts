@@ -1,9 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // Asegúrate de importar AuthService
+import { AuthService } from '../../services/auth.service';
 
-// interfaz Mascota
+// Interfaz Mascota
 interface Pet {
   nombre: string;
   tipoMascota: string;
@@ -73,7 +73,7 @@ export class HomePage implements AfterViewInit {
     }
   ];
   filteredPets: Pet[] = [...this.allPets];
-  username: string = ''; // Inicializa el nombre de usuario
+  nombreUsuario: string = ''; // Cambié username a nombreUsuario
 
   constructor(
     private animationCtrl: AnimationController,
@@ -84,8 +84,14 @@ export class HomePage implements AfterViewInit {
 
   async ngAfterViewInit() {
     this.createDogAnimation();
-    const user = await this.authService.getUserData(localStorage.getItem('uid') || ''); // Obtén el UID desde localStorage
-    this.username = user ? user.nombreUsuario : 'Invitado'; // Cambia "Invitado" por el nombre de usuario
+    const currentUser = await this.authService.getCurrentUser(); // Obtiene el usuario actual
+
+    if (currentUser) {
+      const user = await this.authService.getUserData(currentUser.uid); // Obtener datos del usuario
+      this.nombreUsuario = user ? user.nombreUsuario : 'Invitado'; // Usa nombreUsuario
+    } else {
+      this.nombreUsuario = 'Invitado'; // Si no hay usuario, usa 'Invitado'
+    }
   }
 
   createDogAnimation() {
@@ -135,8 +141,8 @@ export class HomePage implements AfterViewInit {
         {
           text: 'Aceptar',
           handler: () => {
-            localStorage.removeItem('uid'); // Asegúrate de eliminar el uid
-            localStorage.removeItem('username'); // Elimina el nombre de usuario también
+            this.authService.logout(); // Llama al método de cierre de sesión del AuthService
+            localStorage.removeItem('userId'); // Elimina el ID del usuario de localStorage
             this.router.navigate(['/login']);
           }
         }
@@ -165,12 +171,10 @@ export class HomePage implements AfterViewInit {
   }
 
   createAdoption() {
-    console.log('Crear adopción');
     this.router.navigate(['/crearadopcion']);
   }
 
   readQR() {
-    console.log('Leer QR');
     this.router.navigate(['/read-qr']);
   }
 }
