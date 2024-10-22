@@ -23,10 +23,12 @@ const routes: Routes = [
   {
     path: 'crearadopcion',
     loadChildren: () => import('./pages/crearadopcion/crearadopcion.module').then(m => m.CrearadopcionPageModule),
+    canActivate: [AuthGuard], // Proteger ruta
   },
   {
     path: 'detalle',
     loadChildren: () => import('./pages/detalle/detalle.module').then(m => m.DetallePageModule),
+    canActivate: [AuthGuard], // Proteger ruta
   },
   {
     path: '',

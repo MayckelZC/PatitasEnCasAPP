@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; // Asegúrate de importar AuthService
 
 // interfaz Mascota
 interface Pet {
@@ -72,17 +73,19 @@ export class HomePage implements AfterViewInit {
     }
   ];
   filteredPets: Pet[] = [...this.allPets];
-  username: string = '';
+  username: string = ''; // Inicializa el nombre de usuario
 
   constructor(
     private animationCtrl: AnimationController,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private authService: AuthService // Inyecta AuthService
   ) {}
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.createDogAnimation();
-    this.username = localStorage.getItem('username') || 'Invitado';
+    const user = await this.authService.getUserData(localStorage.getItem('uid') || ''); // Obtén el UID desde localStorage
+    this.username = user ? user.nombreUsuario : 'Invitado'; // Cambia "Invitado" por el nombre de usuario
   }
 
   createDogAnimation() {
@@ -132,7 +135,8 @@ export class HomePage implements AfterViewInit {
         {
           text: 'Aceptar',
           handler: () => {
-            localStorage.removeItem('username');
+            localStorage.removeItem('uid'); // Asegúrate de eliminar el uid
+            localStorage.removeItem('username'); // Elimina el nombre de usuario también
             this.router.navigate(['/login']);
           }
         }
