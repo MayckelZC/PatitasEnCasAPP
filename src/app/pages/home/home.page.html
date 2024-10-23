@@ -34,7 +34,7 @@
 <ion-content>
   <div class="welcome-container">
     <div class="welcome-message">
-      ¡Bienvenido, {{ nombreUsuario }}! <!-- Cambié username a nombreUsuario -->
+      ¡Bienvenido, {{ nombreUsuario }}!
     </div>
   </div>
 
@@ -44,18 +44,18 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of filteredPets">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adopcion of filteredAdopciones">
         <ion-card class="pet-card">
-          <ion-img [src]="pet.image"></ion-img>
+          <ion-img [src]="adopcion.url" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
           <ion-card-header>
-            <ion-card-title>{{ pet.nombre }}</ion-card-title>
-            <ion-card-subtitle>{{ pet.tipoMascota }}, {{ pet.edad }} años</ion-card-subtitle>
+            <ion-card-title>{{ adopcion.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ adopcion.tipoMascota }}, {{ adopcion.edad }} años</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            {{ pet.descripcion }}
+            {{ adopcion.descripcion }}
           </ion-card-content>
           <div class="button-container">
-            <ion-button expand="full" class="details-button" color="green" (click)="viewDetails(pet)">Detalles</ion-button>
+            <ion-button expand="full" class="details-button" color="green" (click)="viewDetails(adopcion)">Detalles</ion-button>
             <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
           </div>
         </ion-card>
