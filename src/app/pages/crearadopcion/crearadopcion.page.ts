@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-crearadopcion',
@@ -9,12 +10,12 @@ import { ToastController, AlertController } from '@ionic/angular';
 })
 export class CrearadopcionPage implements OnInit {
   adopcionForm!: FormGroup;
-  imageUrl?: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastController: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private firestore: AngularFirestore // Inyecta el servicio de Firestore
   ) {}
 
   ngOnInit() {
@@ -29,11 +30,11 @@ export class CrearadopcionPage implements OnInit {
       esterilizado: [false],
       vacuna: [false],
       descripcion: ['', [Validators.pattern('^[A-Za-z0-9 ]*$')]], // Acepta letras, números y espacios
+      url: ['', [Validators.required, Validators.pattern('https?://.+')]], // URL de la imagen
     });
   }
 
   async onSubmit() {
-    console.log('onSubmit called'); // Verifica si el método se está llamando
     if (this.adopcionForm.valid) {
       const alert = await this.alertController.create({
         header: 'Confirmación',
@@ -49,15 +50,28 @@ export class CrearadopcionPage implements OnInit {
           {
             text: 'Confirmar',
             handler: async () => {
-              console.log('Formulario enviado', this.adopcionForm.value);
-              const toast = await this.toastController.create({
-                message: 'Adopción creada con éxito.',
-                duration: 3000,
-                position: 'top',
-                cssClass: 'toast-center',
-              });
-              toast.present();
-        
+              const formData = this.adopcionForm.value;
+
+              // Guarda los datos en Firestore
+              try {
+                await this.firestore.collection('mascotas').add(formData);
+                const toast = await this.toastController.create({
+                  message: 'Adopción creada con éxito.',
+                  duration: 3000,
+                  position: 'top',
+                  cssClass: 'toast-center',
+                });
+                toast.present();
+                this.adopcionForm.reset(); // Limpia el formulario
+              } catch (error) {
+                console.error('Error guardando adopción:', error);
+                const toast = await this.toastController.create({
+                  message: 'Error al guardar la adopción.',
+                  duration: 2000,
+                  position: 'top',
+                });
+                toast.present();
+              }
             },
           },
         ],
@@ -65,28 +79,17 @@ export class CrearadopcionPage implements OnInit {
 
       await alert.present();
     } else {
+      const toast = await this.toastController.create({
+        message: 'Por favor, completa todos los campos correctamente.',
+        duration: 2000,
+        position: 'top',
+      });
+      toast.present();
       console.log('Formulario inválido');
     }
   }
 
   onClear() {
-    this.adopcionForm.reset();
-    this.imageUrl = undefined;
-  }
-
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      if (file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.imageUrl = reader.result as string;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        console.error('Tipo de archivo no válido o archivo demasiado grande');
-      }
-    }
+    this.adopcionForm.reset(); // Limpia el formulario
   }
 }

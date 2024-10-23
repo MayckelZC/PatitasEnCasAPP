@@ -7,9 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat'; // Usa compat para mayor facilidad
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // Importa autenticación
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore'; // Importa Firestore
 import { environment } from '../environments/environment'; // Archivo de configuración del entorno
-
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,9 +19,9 @@ import { environment } from '../environments/environment'; // Archivo de configu
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase
     AngularFireAuthModule, // Proporciona el módulo de autenticación
+    AngularFirestoreModule, // Proporciona el módulo de Firestore
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

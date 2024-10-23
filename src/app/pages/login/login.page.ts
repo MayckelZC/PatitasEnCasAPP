@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router'; // Importar Router para navegación
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +9,64 @@ import { Router } from '@angular/router'; // Importar Router para navegación
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  email: string; // Cambié de username a email para que sea más claro
-  password: string;
+  identifier: string = ''; // Cambia 'email' a 'identifier'
+  password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private toastController: ToastController,
+    private router: Router
+  ) {}
 
-  // Método para manejar el inicio de sesión
-  login() {
-    this.authService.login(this.email, this.password)
-      .then(() => {
-        // Redirigir al usuario a la página de inicio después de iniciar sesión
-        this.router.navigate(['/home']);
-      })
-      .catch(error => {
-        // Manejar errores, puedes mostrar un mensaje de alerta
-        console.error('Error de inicio de sesión:', error);
+  async login() {
+    // Verificar si el identificador y la contraseña están ingresados
+    if (!this.identifier) {
+      const toast = await this.toastController.create({
+        message: 'Debes introducir un correo electrónico o un nombre de usuario.',
+        duration: 2000,
+        position: 'top'
       });
+      toast.present();
+      return; // Salir si el identificador no está ingresado
+    }
+
+    if (!this.password) {
+      const toast = await this.toastController.create({
+        message: 'Debes introducir una contraseña.',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+      return; // Salir si la contraseña no está ingresada
+    }
+
+    try {
+      await this.authService.login(this.identifier, this.password);
+      const toast = await this.toastController.create({
+        message: `Bienvenido, ${this.identifier}!`, // Mensaje de bienvenida
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+      this.router.navigate(['/home']); // Redirige al usuario a la página de inicio
+    } catch (error) {
+      const errorMessage = error.code === 'auth/wrong-password' ? 
+        'Contraseña incorrecta. Por favor, intenta de nuevo.' : 
+        'Error al iniciar sesión. Verifica tus credenciales.';
+        
+      const toast = await this.toastController.create({
+        message: errorMessage,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+    }
   }
 
-  // Método para navegar a la página de restablecimiento de contraseña
   navigateToResetPassword() {
     this.router.navigate(['/restablecer']);
   }
 
-  // Método para navegar a la página de registro
   register() {
     this.router.navigate(['/registro']);
   }

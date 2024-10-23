@@ -1,21 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-// interfaz Mascota
-interface Pet {
-  nombre: string;
-  tipoMascota: string;
-  edad: number;
-  sexo: string;
-  raza: string;
-  color: string;
-  esterilizado: boolean;
-  vacuna: boolean;
-  tamano: string;
-  descripcion: string;
-  image: string;
-}
+import { AuthService } from '../../services/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Adopcion } from 'src/app/models/adopcion';
 
 @Component({
   selector: 'app-home',
@@ -30,59 +18,38 @@ export class HomePage implements AfterViewInit {
   ];
 
   selectedFilter: string = 'all';
-  readonly allPets: Pet[] = [
-    {
-      nombre: 'Rex',
-      tipoMascota: 'perro',
-      edad: 3,
-      sexo: 'Macho',
-      raza: 'Labrador',
-      color: 'Marrón',
-      esterilizado: true,
-      vacuna: true,
-      tamano: 'Grande',
-      descripcion: 'Rex es un perro amigable y enérgico que busca un hogar amoroso. ¡Adóptalo y dale una segunda oportunidad!',
-      image: 'https://th.bing.com/th/id/R.6b2026c15d2cc7b6c6453118b8758eb8?rik=p5hZWemaKDXfVg&riu=http%3a%2f%2fwww.razasdeperros.com%2fwp-content%2fuploads%2f2013%2f10%2fDepositphotos_8405161_m.jpg&ehk=076xT4EInAZGdk61vPke7foOGNpYlmbQT2JXi%2fSiMIw%3d&risl=&pid=ImgRaw&r=0'
-    },
-    {
-      nombre: 'Misty',
-      tipoMascota: 'gato',
-      edad: 2,
-      sexo: 'Hembra',
-      raza: 'Siamesa',
-      color: 'Gris',
-      esterilizado: true,
-      vacuna: true,
-      tamano: 'Pequeña',
-      descripcion: 'Misty es una gata tranquila y cariñosa que adora las siestas al sol. ¡Dale la oportunidad de ser parte de tu familia!',
-      image: 'https://th.bing.com/th/id/OIP.B-GtznvQ82H9zcQO7FQs2QHaE8?rs=1&pid=ImgDetMain'
-    },
-    {
-      nombre: 'Polly',
-      tipoMascota: 'otro',
-      edad: 1,
-      sexo: 'Desconocido',
-      raza: 'Cotorra',
-      color: 'Verde',
-      esterilizado: false,
-      vacuna: false,
-      tamano: 'Pequeña',
-      descripcion: 'Polly es una cotorra juguetona y habladora. ¡Haz que su alegría sea parte de tu hogar!',
-      image: 'https://th.bing.com/th/id/OIP.blLe3ZV9JfNWshN5ikwsbQHaEK?rs=1&pid=ImgDetMain'
-    }
-  ];
-  filteredPets: Pet[] = [...this.allPets];
-  username: string = '';
+  allAdopciones: Adopcion[] = [];
+  filteredAdopciones: Adopcion[] = [];
+  nombreUsuario: string = '';
 
   constructor(
     private animationCtrl: AnimationController,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private authService: AuthService,
+    private firestore: AngularFirestore
   ) {}
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.createDogAnimation();
-    this.username = localStorage.getItem('username') || 'Invitado';
+
+    // Obtener el usuario actual
+    const currentUser = await this.authService.getCurrentUser();
+
+    if (currentUser) {
+      this.nombreUsuario = currentUser.nombreUsuario; // Usa nombreUsuario directamente
+    } else {
+      this.nombreUsuario = 'Invitado'; // Si no hay usuario, usa 'Invitado'
+    }
+
+    // Cargar adopciones desde Firestore
+    await this.loadAdopciones();
+  }
+
+  async loadAdopciones() {
+    const snapshot = await this.firestore.collection<Adopcion>('mascotas').get().toPromise();
+    this.allAdopciones = snapshot.docs.map(doc => doc.data() as Adopcion);
+    this.filteredAdopciones = [...this.allAdopciones]; // Inicializa la lista filtrada
   }
 
   createDogAnimation() {
@@ -114,9 +81,9 @@ export class HomePage implements AfterViewInit {
   }
 
   filterPets() {
-    this.filteredPets = this.selectedFilter === 'all' 
-      ? [...this.allPets] 
-      : this.allPets.filter(pet => pet.tipoMascota === this.selectedFilter);
+    this.filteredAdopciones = this.selectedFilter === 'all' 
+      ? [...this.allAdopciones] 
+      : this.allAdopciones.filter(adopcion => adopcion.tipoMascota === this.selectedFilter);
   }
 
   async logout() {
@@ -132,7 +99,8 @@ export class HomePage implements AfterViewInit {
         {
           text: 'Aceptar',
           handler: () => {
-            localStorage.removeItem('username');
+            this.authService.logout(); // Llama al método de cierre de sesión del AuthService
+            localStorage.removeItem('userId'); // Elimina el ID del usuario de localStorage
             this.router.navigate(['/login']);
           }
         }
@@ -142,31 +110,29 @@ export class HomePage implements AfterViewInit {
     await alert.present();
   }
 
-  viewDetails(pet: Pet) {
+  viewDetails(adopcion: Adopcion) {
     this.router.navigate(['/detalle'], {
       queryParams: { 
-        nombre: pet.nombre,
-        tipoMascota: pet.tipoMascota,
-        edad: pet.edad,
-        sexo: pet.sexo,
-        raza: pet.raza,
-        color: pet.color,
-        esterilizado: pet.esterilizado,
-        vacuna: pet.vacuna,
-        tamano: pet.tamano,
-        descripcion: pet.descripcion,
-        image: pet.image
+        tipoMascota: adopcion.tipoMascota,
+        tamano: adopcion.tamano,
+        nombre: adopcion.nombre,
+        edad: adopcion.edad,
+        sexo: adopcion.sexo,
+        raza: adopcion.raza,
+        color: adopcion.color,
+        descripcion: adopcion.descripcion,
+        esterilizado: adopcion.esterilizado,
+        vacuna: adopcion.vacuna,
+        url: adopcion.url // Agregamos la URL de la imagen
       }
     });
   }
 
   createAdoption() {
-    console.log('Crear adopción');
     this.router.navigate(['/crearadopcion']);
   }
 
   readQR() {
-    console.log('Leer QR');
     this.router.navigate(['/read-qr']);
   }
 }

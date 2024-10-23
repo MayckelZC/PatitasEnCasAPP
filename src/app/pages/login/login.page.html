@@ -1,37 +1,20 @@
+
 <ion-content padding>
   <div class="container">
-    <div class="logo">
-      <ion-img src="assets/imgs/paw.png"></ion-img> 
-      <h2 class="app-title">PatitasEnCasAPP</h2>
-    </div>
     <ion-card>
-      <ion-title>Inicio de Sesión</ion-title>
-
+      <ion-title class="form-title">Iniciar Sesión</ion-title>
       <form (ngSubmit)="login()">
         <ion-item>
-          <ion-label position="stacked">Usuario</ion-label>
-          <ion-input 
-            [(ngModel)]="email" 
-            name="email" 
-            type="email" 
-            placeholder="Ingresa tu email" 
-            required>
-          </ion-input>
+          <ion-label position="floating">Correo Electrónico o Nombre de Usuario</ion-label>
+          <ion-input [(ngModel)]="identifier" name="identifier" placeholder=""></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input 
-            [(ngModel)]="password" 
-            name="password" 
-            type="password" 
-            placeholder="Ingresa tu contraseña" 
-            required>
-          </ion-input>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" name="password" type="password" placeholder=""></ion-input>
         </ion-item>
 
         <ion-button expand="block" type="submit">Ingresar</ion-button>
-
         <div class="extra-options">
           <p><a (click)="navigateToResetPassword()">Restablecer Contraseña</a></p>
           <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
