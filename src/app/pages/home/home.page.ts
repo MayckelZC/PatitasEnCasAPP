@@ -21,6 +21,7 @@ export class HomePage implements AfterViewInit {
   allAdopciones: Adopcion[] = [];
   filteredAdopciones: Adopcion[] = [];
   nombreUsuario: string = '';
+  searchTerm: string = ''; // Agrega esta línea para la búsqueda
 
   constructor(
     private animationCtrl: AnimationController,
@@ -35,12 +36,7 @@ export class HomePage implements AfterViewInit {
 
     // Obtener el usuario actual
     const currentUser = await this.authService.getCurrentUser();
-
-    if (currentUser) {
-      this.nombreUsuario = currentUser.nombreUsuario; // Usa nombreUsuario directamente
-    } else {
-      this.nombreUsuario = 'Invitado'; // Si no hay usuario, usa 'Invitado'
-    }
+    this.nombreUsuario = currentUser ? currentUser.nombreUsuario : 'Invitado'; // Usa nombreUsuario directamente
 
     // Cargar adopciones desde Firestore
     await this.loadAdopciones();
@@ -84,9 +80,17 @@ export class HomePage implements AfterViewInit {
   }
 
   filterPets() {
-    this.filteredAdopciones = this.selectedFilter === 'all' 
-      ? [...this.allAdopciones] 
-      : this.allAdopciones.filter(adopcion => adopcion.tipoMascota === this.selectedFilter);
+    const term = this.searchTerm.toLowerCase();
+    this.filteredAdopciones = this.allAdopciones.filter(adopcion => 
+      adopcion.nombre.toLowerCase().includes(term)
+    );
+
+    // Filtrado por tipo de mascota
+    if (this.selectedFilter !== 'all') {
+      this.filteredAdopciones = this.filteredAdopciones.filter(adopcion => 
+        adopcion.tipoMascota === this.selectedFilter
+      );
+    }
   }
 
   async logout() {

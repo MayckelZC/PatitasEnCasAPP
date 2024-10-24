@@ -11,6 +11,11 @@
     </ion-buttons>
   </ion-toolbar>
 
+  <!-- Sección de búsqueda -->
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPets()" placeholder="Buscar por nombre" style="background-color: white; color: green;"></ion-searchbar>
+  </ion-toolbar>
+
   <!-- Sección de filtros -->
   <ion-toolbar>
     <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterPets()">

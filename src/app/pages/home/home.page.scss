@@ -196,6 +196,7 @@ ion-segment-button ion-label {
 }
 
 /* Estilos para el footer y los botones en el footer */
+/* Estilo para el footer */
 .footer {
   background-color: #4caf50;
   display: flex;
@@ -205,7 +206,9 @@ ion-segment-button ion-label {
   bottom: 0;
   width: 100%;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 20px; /* Espacio entre el contenido y el footer */
 }
+
 
 .footer ion-button {
   --border-radius: 50%;
@@ -251,4 +254,21 @@ ion-segment-button ion-label {
   font-size: 1.5em; /* Tamaño del texto */
   font-weight: bold; /* Negrita */
   text-align: center; /* Alineación del texto al centro */
+}
+
+/* Estilo para el ion-searchbar */
+ion-searchbar {
+  --background: white; /* Fondo blanco */
+  --color: #4caf50; /* Color de texto verde */
+  --placeholder-color: #4caf50; /* Color del texto del placeholder en verde */
+}
+
+/* Estilo para el input dentro del ion-searchbar */
+ion-searchbar .searchbar-input {
+  color: #4caf50; /* Color de texto verde */
+}
+
+/* Estilo para el icono de búsqueda */
+ion-searchbar .searchbar-icon {
+  color: #4caf50; /* Color del icono en verde */
 }
