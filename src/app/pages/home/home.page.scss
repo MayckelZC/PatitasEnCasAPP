@@ -1,6 +1,7 @@
 /* Estilo para el fondo de la página */
 ion-content {
   --background: #f0f4f8; /* Color de fondo general de la página */
+  padding-bottom: 80px; /* Espacio para evitar que el contenido se esconda detrás del footer */
 }
 
 /* Estilo para la tarjeta de adopción de mascotas */
@@ -58,8 +59,8 @@ ion-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 16px;
+  gap: 10px; /* Espacio entre los botones */
+  padding: 16px; /* Espacio alrededor */
 }
 
 /* Estilo para el botón de detalles */
@@ -67,7 +68,7 @@ ion-content {
   background: #4caf50;
   color: white;
   font-size: 1em;
-  width: 100%;
+  width: 100%; /* Asegura que el botón ocupe el ancho completo */
   max-width: 150px;
   transition: background-color 0.3s ease;
 }
@@ -78,12 +79,10 @@ ion-content {
 
 /* Estilo para el botón de adoptar */
 .adopt-button {
-  background: #4caf50;
-  color: white;
-  font-size: 1em;
-  width: 100%;
-  max-width: 150px;
-  transition: background-color 0.3s ease;
+  background: #4caf50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  font-size: 1em; /* Tamaño de la fuente */
+  width: 100%; /* Asegura que el botón ocupe el ancho completo */
 }
 
 .adopt-button:hover {
@@ -253,4 +252,3 @@ ion-segment-button ion-label {
   font-weight: bold; /* Negrita */
   text-align: center; /* Alineación del texto al centro */
 }
-
