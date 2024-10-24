@@ -13,7 +13,7 @@
 
   <!-- Sección de búsqueda -->
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPets()" placeholder="Buscar por nombre" style="background-color: white; color: green;"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterPets()" placeholder="Buscar por nombre"></ion-searchbar>
   </ion-toolbar>
 
   <!-- Sección de filtros -->
@@ -36,7 +36,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="content-container">
   <div class="welcome-container">
     <div class="welcome-message">
       ¡Bienvenido, {{ nombreUsuario }}!
@@ -78,7 +78,7 @@
     <ion-icon name="qr-code-outline"></ion-icon>
     Leer QR
   </ion-button>
-  <ion-button [routerLink]="['/misadopciones']"> <!-- Nuevo botón para Mis Adopciones -->
+  <ion-button [routerLink]="['/misadopciones']">
     <ion-icon name="people-outline"></ion-icon>
     Mis Adopciones
   </ion-button>
