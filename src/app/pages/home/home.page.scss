@@ -315,3 +315,22 @@ ion-segment-button ion-label {
   text-align: center;
   /* Alineación del texto al centro */
 }
+
+/* Añade esto a tu archivo SCSS */
+ion-toolbar {
+  --background: #4caf50; /* Color de fondo del toolbar */
+}
+
+ion-segment {
+  width: 100%; /* Asegura que el segmento ocupe el 100% del ancho */
+    display: flex;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+  }
+  
+
+
+ion-segment-button {
+  flex: 1; /* Asegura que cada botón ocupe el mismo espacio */
+}
+
+

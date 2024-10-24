@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Adopcion } from 'src/app/models/Adopcion';
+import { HuachitosService } from '../../services/huachitos.service'; // Importa el servicio Huachitos
 
 @Component({
   selector: 'app-home',
@@ -22,13 +23,15 @@ export class HomePage implements AfterViewInit {
   filteredAdopciones: Adopcion[] = [];
   nombreUsuario: string = '';
   searchTerm: string = ''; // Agrega esta línea para la búsqueda
+  animals: any[] = []; // Array para almacenar los datos de los animales de la API
 
   constructor(
     private animationCtrl: AnimationController,
     private router: Router,
     private alertCtrl: AlertController,
     private authService: AuthService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private huachitosService: HuachitosService // Inyecta el servicio Huachitos
   ) {}
 
   async ngAfterViewInit() {
@@ -40,6 +43,9 @@ export class HomePage implements AfterViewInit {
 
     // Cargar adopciones desde Firestore
     await this.loadAdopciones();
+
+    // Cargar animales desde la API Huachitos
+    await this.loadAnimals();
   }
 
   async loadAdopciones() {
@@ -49,6 +55,15 @@ export class HomePage implements AfterViewInit {
       return { id: doc.id, ...data }; // Asegúrate de agregar el ID aquí
     });
     this.filteredAdopciones = [...this.allAdopciones]; // Inicializa la lista filtrada
+  }
+
+  async loadAnimals() {
+    try {
+      this.animals = await this.huachitosService.getAnimals(); // Llama al servicio para obtener los animales
+      console.log('Animales cargados:', this.animals); // Muestra los animales en la consola
+    } catch (error) {
+      console.error('Error loading animals:', error);
+    }
   }
 
   createDogAnimation() {
@@ -141,6 +156,9 @@ export class HomePage implements AfterViewInit {
   }
 
   readQR() {
-    this.router.navigate(['/read-qr']);
+    this.router.navigate(['/readqr']);
   }
+
+
+
 }

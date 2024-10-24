@@ -45,6 +45,12 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+  {
+    path: 'readqr',
+    loadChildren: () => import('./pages/readqr/readqr.module').then(m => m.ReadQrModule)
+
+
+  },
 ];
 
 @NgModule({

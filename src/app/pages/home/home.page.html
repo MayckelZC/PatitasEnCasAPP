@@ -19,7 +19,6 @@
   <!-- Sección de filtros -->
   <ion-toolbar>
     <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterPets()">
-      <ion-segment-button value="all">Todos</ion-segment-button>
       <ion-segment-button value="perro">
         <ion-icon name="paw" class="filter-icon"></ion-icon>
         Perros
@@ -32,9 +31,14 @@
         <ion-icon name="leaf" class="filter-icon"></ion-icon>
         Otros
       </ion-segment-button>
+      <ion-segment-button value="huachitos">
+        <ion-icon name="paw" class="filter-icon"></ion-icon>
+        Huachitos
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="content-container">
   <div class="welcome-container">
@@ -46,9 +50,10 @@
   <div class="dog-container">
     <img class="animated-dog" src="" alt="Perro animado" />
   </div>
-  
+
   <ion-grid>
     <ion-row>
+      <!-- Mostrar las adopciones filtradas -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adopcion of filteredAdopciones">
         <ion-card class="pet-card">
           <ion-img [src]="adopcion.url" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
@@ -67,6 +72,35 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <!-- Sección Huachitos -->
+  <ion-card *ngIf="selectedFilter === 'huachitos'">
+    <ion-card-header>
+      <ion-card-title>Huachitos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <!-- Mostrar los animales de la API Huachitos -->
+          <ion-col size="12" size-md="6" size-lg="4" *ngFor="let animal of animals">
+            <ion-card class="pet-card">
+              <ion-img [src]="animal.imagen" alt="Imagen de {{ animal.nombre }}"></ion-img>
+              <ion-card-header>
+                <ion-card-title>{{ animal.nombre }}</ion-card-title>
+                <ion-card-subtitle>{{ animal.tipo }}, {{ animal.edad }}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{ animal.desc_personalidad }}
+              </ion-card-content>
+              <div class="button-container">
+                <ion-button expand="full" class="details-button" color="green" [routerLink]="['/detalle', animal.id]">Detalles</ion-button>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <footer class="footer">
@@ -74,12 +108,15 @@
     <ion-icon name="add-circle-outline"></ion-icon>
     Crear Adopción
   </ion-button>
+
   <ion-button (click)="readQR()">
     <ion-icon name="qr-code-outline"></ion-icon>
     Leer QR
   </ion-button>
+
   <ion-button [routerLink]="['/misadopciones']">
     <ion-icon name="people-outline"></ion-icon>
     Mis Adopciones
   </ion-button>
 </footer>
+
