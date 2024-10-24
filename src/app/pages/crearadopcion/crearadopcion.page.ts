@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from '../../services/auth.service'; // Importa el servicio de autenticación
 
 @Component({
   selector: 'app-crearadopcion',
@@ -15,7 +16,8 @@ export class CrearadopcionPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private alertController: AlertController,
-    private firestore: AngularFirestore // Inyecta el servicio de Firestore
+    private firestore: AngularFirestore, // Inyecta el servicio de Firestore
+    private authService: AuthService // Inyecta el servicio de autenticación
   ) {}
 
   ngOnInit() {
@@ -52,21 +54,34 @@ export class CrearadopcionPage implements OnInit {
             handler: async () => {
               const formData = this.adopcionForm.value;
 
-              // Guarda los datos en Firestore
-              try {
-                await this.firestore.collection('mascotas').add(formData);
+              // Obtener el usuario actual
+              const currentUser = await this.authService.getCurrentUser();
+              if (currentUser) {
+                formData.userId = currentUser.uid; // Agregar userId
+
+                // Guarda los datos en Firestore
+                try {
+                  await this.firestore.collection('mascotas').add(formData);
+                  const toast = await this.toastController.create({
+                    message: 'Adopción creada con éxito.',
+                    duration: 3000,
+                    position: 'top',
+                    cssClass: 'toast-center',
+                  });
+                  toast.present();
+                  this.adopcionForm.reset(); // Limpia el formulario
+                } catch (error) {
+                  console.error('Error guardando adopción:', error);
+                  const toast = await this.toastController.create({
+                    message: 'Error al guardar la adopción.',
+                    duration: 2000,
+                    position: 'top',
+                  });
+                  toast.present();
+                }
+              } else {
                 const toast = await this.toastController.create({
-                  message: 'Adopción creada con éxito.',
-                  duration: 3000,
-                  position: 'top',
-                  cssClass: 'toast-center',
-                });
-                toast.present();
-                this.adopcionForm.reset(); // Limpia el formulario
-              } catch (error) {
-                console.error('Error guardando adopción:', error);
-                const toast = await this.toastController.create({
-                  message: 'Error al guardar la adopción.',
+                  message: 'No se pudo obtener el usuario actual.',
                   duration: 2000,
                   position: 'top',
                 });

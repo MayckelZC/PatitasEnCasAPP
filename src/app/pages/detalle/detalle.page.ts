@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Adopcion } from 'src/app/models/Adopcion'; // Asegúrate de que la ruta sea correcta
 
 @Component({
   selector: 'app-detalle',
@@ -7,26 +9,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['detalle.page.scss'],
 })
 export class DetallePage implements OnInit {
-  pet: any = {}; 
+  pet: Adopcion | null = null; // Cambiado a tipo Adopcion
   qrData: string = ''; // Datos del QR
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.pet = {
-        nombre: params['nombre'],
-        tipoMascota: params['tipoMascota'],
-        edad: Number(params['edad']),
-        sexo: params['sexo'],
-        raza: params['raza'],
-        color: params['color'],
-        esterilizado: params['esterilizado'] === 'true',
-        vacuna: params['vacuna'] === 'true',
-        tamano: params['tamano'],
-        descripcion: params['descripcion'],
-        image: params['image']
-      };
+    this.route.queryParams.subscribe(async params => {
+      // Obtén el ID de la adopción desde los parámetros
+      const id = params['id']; // Asegúrate de que el ID se pase en los parámetros de consulta
+
+      // Cargar los datos de Firestore
+      if (id) {
+        const petDoc = await this.firestore.collection<Adopcion>('mascotas').doc(id).get().toPromise();
+        if (petDoc.exists) {
+          this.pet = petDoc.data() as Adopcion; // Carga los datos en la propiedad pet
+        }
+      }
     });
   }
 

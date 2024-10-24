@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="header-title">Mis Adopciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content">
+  <div class="container">
+    <ion-list>
+      <ion-item *ngFor="let adopcion of misAdopciones" class="adopcion-item">
+        <ion-label>
+          <h2>{{ adopcion.nombre }}</h2>
+          <p>Tipo: {{ adopcion.tipoMascota }}</p>
+          <p>Edad: {{ adopcion.edad }} años</p>
+          <p>Descripción: {{ adopcion.descripcion }}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="editAdopcion(adopcion)" color="primary">Modificar</ion-button>
+          <ion-button color="danger" (click)="deleteAdopcion(adopcion.id)">Eliminar</ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -31,10 +31,17 @@ const routes: Routes = [
     canActivate: [AuthGuard], // Proteger ruta
   },
   {
+    path: 'misadopciones',
+    loadChildren: () => import('./pages/misadopciones/misadopciones.module').then(m => m.MisAdopcionesPageModule),
+    canActivate: [AuthGuard], // Proteger ruta si es necesario
+  },
+  
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+
 ];
 
 @NgModule({

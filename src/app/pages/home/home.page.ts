@@ -3,7 +3,7 @@ import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Adopcion } from 'src/app/models/adopcion';
+import { Adopcion } from 'src/app/models/Adopcion';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +48,10 @@ export class HomePage implements AfterViewInit {
 
   async loadAdopciones() {
     const snapshot = await this.firestore.collection<Adopcion>('mascotas').get().toPromise();
-    this.allAdopciones = snapshot.docs.map(doc => doc.data() as Adopcion);
+    this.allAdopciones = snapshot.docs.map(doc => {
+      const data = doc.data() as Adopcion;
+      return { id: doc.id, ...data }; // Asegúrate de agregar el ID aquí
+    });
     this.filteredAdopciones = [...this.allAdopciones]; // Inicializa la lista filtrada
   }
 
@@ -113,6 +116,7 @@ export class HomePage implements AfterViewInit {
   viewDetails(adopcion: Adopcion) {
     this.router.navigate(['/detalle'], {
       queryParams: { 
+        id: adopcion.id, // Ahora pasamos el ID
         tipoMascota: adopcion.tipoMascota,
         tamano: adopcion.tamano,
         nombre: adopcion.nombre,

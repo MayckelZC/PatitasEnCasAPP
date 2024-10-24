@@ -1,5 +1,6 @@
 // models/adopcion.ts
 export interface Adopcion {
+    id: string;
     tipoMascota: string;   // Tipo de mascota: perro, gato, u otro
     tamano: string;        // Tamaño de la mascota: pequeño, mediano, grande
     nombre?: string;       // Nombre de la mascota (opcional)

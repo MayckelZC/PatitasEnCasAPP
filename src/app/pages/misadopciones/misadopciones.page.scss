@@ -1,0 +1,12 @@
+ion-header {
+    background-color: #388e3c; // Fondo verde para el encabezado
+}
+
+.header-title {
+    color: white; // Color blanco para el texto del título
+}
+
+ion-toolbar {
+    --background: #388e3c; // Usar variable de CSS para el fondo
+    color: white; // Color del texto del toolbar
+}
