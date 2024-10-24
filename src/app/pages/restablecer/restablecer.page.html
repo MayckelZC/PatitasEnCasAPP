@@ -1,31 +1,24 @@
 <ion-header>
-  <ion-toolbar style="--background: #28a745;"> 
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
+    <ion-title>Restablecer Contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="container">
-    <ion-card class="card-green">
-      <ion-card-header>
-        <h2 class="main-title">Restablecer Contraseña</h2>
-      </ion-card-header>
-
-      <ion-card-content>
-        <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
-          <ion-item>
-            <ion-label position="floating">Correo electrónico</ion-label>
-            <ion-input formControlName="email" type="email"></ion-input>
-          </ion-item>
-          <ion-text color="danger" *ngIf="resetPasswordForm.get('email')?.invalid && resetPasswordForm.get('email')?.touched">
-            Debe ingresar un correo electrónico.
-          </ion-text>
-
-          <ion-button expand="full" type="submit" [disabled]="!resetPasswordForm.valid">Enviar</ion-button>
-        </form>
-      </ion-card-content>
-    </ion-card>
-  </div>
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+        <ion-button expand="full" type="submit">Enviar Correo de Restablecimiento</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

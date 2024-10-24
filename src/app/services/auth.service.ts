@@ -85,4 +85,17 @@ export class AuthService {
       });
     });
   }
+  
+  async resetPassword(email: string): Promise<void> {
+    try {
+      await this.afAuth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.error('Error al enviar el correo de restablecimiento:', error);
+      throw error; // Lanza el error para manejarlo en el componente
+    }
+  }
+  
+
+
+
 }

@@ -35,17 +35,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/misadopciones/misadopciones.module').then(m => m.MisAdopcionesPageModule),
     canActivate: [AuthGuard], // Proteger ruta si es necesario
   },
-
+  {
+    path: 'modificar',
+    loadChildren: () => import('./pages/modificar/modificar.module').then(m => m.ModificarPageModule),
+    canActivate: [AuthGuard], // Proteger ruta
+  },
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
-  {
-    path: 'modificar',
-    loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule)
-  },
-
 ];
 
 @NgModule({

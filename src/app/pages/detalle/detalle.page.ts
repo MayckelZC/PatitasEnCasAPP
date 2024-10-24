@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Adopcion } from 'src/app/models/Adopcion'; // Asegúrate de que la ruta sea correcta
+import { Share } from '@capacitor/share'; // Importa el plugin de Share
 
 @Component({
   selector: 'app-detalle',
@@ -33,4 +34,38 @@ export class DetallePage implements OnInit {
     // Asigna los datos del QR a la variable qrData
     this.qrData = JSON.stringify(this.pet);
   }
+
+  async shareAdopcion() {
+    if (this.pet) {
+      const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
+      const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
+  
+      // Enlace al detalle de la mascota
+      const detailLink = `https://tusitio.com/detalle?id=${this.pet.id}`; // Cambia 'tusitio.com' por tu dominio real.
+  
+      const shareContent = `
+        Detalles de la Mascota en Adopción:
+        Tipo de Mascota: ${this.pet.tipoMascota}
+        Edad: ${this.pet.edad}
+        Raza: ${this.pet.raza}
+        Color: ${this.pet.color}
+        Vacunas: ${vacunasText}
+        Esterilizado: ${esterilizadoText}
+        Tamaño: ${this.pet.tamano}
+        Descripción: ${this.pet.descripcion}
+        Para más detalles, visita: ${detailLink}
+        Imagen: ${this.pet.url}
+      `.trim();
+  
+      await Share.share({
+        title: 'Detalles de la Mascota en Adopción',
+        text: shareContent,
+        url: this.pet.url, // Asegúrate de que esta URL es válida
+        dialogTitle: 'Compartir Detalles',
+      });
+    } else {
+      console.error('No se pudo compartir, los detalles de la mascota no están disponibles.');
+    }
+  }
+  
 }

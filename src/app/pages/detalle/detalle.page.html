@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalles de {{ pet?.nombre }}</ion-title>
+    <ion-title style="color: white;">Detalles de {{ pet?.nombre }}</ion-title> <!-- Cambia el color del título a blanco -->
   </ion-toolbar>
 </ion-header>
 
@@ -22,10 +22,13 @@
         <p><strong>Vacunas:</strong> {{ pet?.vacuna ? 'Al día' : 'Pendientes' }}</p>
         <p><strong>Esterilizado:</strong> {{ pet?.esterilizado ? 'Sí' : 'No' }}</p>
         <p><strong>Tamaño:</strong> {{ pet?.tamano }}</p>
-        <p><strong>Descripcion: </strong>{{ pet?.descripcion }}</p> <!-- Asegúrate de que esta línea esté presente -->
+        <p><strong>Descripción: </strong>{{ pet?.descripcion }}</p> <!-- Asegúrate de que esta línea esté presente -->
       </ion-card-content>
       <ion-footer>
         <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
+        <ion-button expand="full" class="share-button" (click)="shareAdopcion()">
+          <ion-icon name="share-social-outline"></ion-icon> Compartir Detalles
+        </ion-button>
       </ion-footer>
     </ion-card>
 
