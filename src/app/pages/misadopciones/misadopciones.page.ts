@@ -16,8 +16,8 @@ export class MisAdopcionesPage implements OnInit {
   constructor(
     private firestore: AngularFirestore, 
     private authService: AuthService,
-    private router: Router, // Agrega Router para navegación
-    private alertController: AlertController // Agrega AlertController para confirmación
+    private router: Router,
+    private alertController: AlertController
   ) {}
 
   async ngOnInit() {
@@ -45,7 +45,7 @@ export class MisAdopcionesPage implements OnInit {
           handler: () => {
             this.firestore.collection('mascotas').doc(id).delete().then(() => {
               console.log('Adopción eliminada con éxito');
-              this.misAdopciones = this.misAdopciones.filter(adopcion => adopcion.id !== id); // Actualiza la lista local
+              this.misAdopciones = this.misAdopciones.filter(adopcion => adopcion.id !== id);
             }).catch(error => {
               console.error('Error al eliminar la adopción:', error);
             });
@@ -58,6 +58,7 @@ export class MisAdopcionesPage implements OnInit {
   }
 
   editAdopcion(adopcion: Adopcion) {
-    this.router.navigate(['/crearadopcion'], { queryParams: { id: adopcion.id } }); // Navega a la página de crear adopción con el ID
+    this.router.navigate(['/modificar'], { queryParams: { id: adopcion.id } }); // Cambia a la página de modificar con el ID
   }
+  
 }
