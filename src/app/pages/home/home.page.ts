@@ -32,7 +32,7 @@ export class HomePage implements AfterViewInit {
     private authService: AuthService,
     private firestore: AngularFirestore,
     private huachitosService: HuachitosService // Inyecta el servicio Huachitos
-  ) { }
+  ) {}
 
   async ngAfterViewInit() {
     this.createDogAnimation();
@@ -158,7 +158,4 @@ export class HomePage implements AfterViewInit {
   readQR() {
     this.router.navigate(['/readqr']);
   }
-
-
-
 }
