@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Adopcion } from 'src/app/models/Adopcion';
-import { Share } from '@capacitor/share';
+import { Adopcion } from 'src/app/models/Adopcion'; // Asegúrate de que la ruta sea correcta
+import { Share } from '@capacitor/share'; 
 
 @Component({
   selector: 'app-detalle',
@@ -10,8 +10,8 @@ import { Share } from '@capacitor/share';
   styleUrls: ['detalle.page.scss'],
 })
 export class DetallePage implements OnInit {
-  pet: Adopcion | null = null;
-  qrData: string = '';
+  pet: Adopcion | null = null; 
+  qrData: string = ''; 
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore) { }
 
@@ -39,7 +39,7 @@ export class DetallePage implements OnInit {
       const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
       const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
 
-      const detailLink = `https://tusitio.com/detalle?id=${this.pet.id}`; // Cambia 'tusitio.com' por tu dominio real.
+      const detailLink = `https://sitioenconstruccion.com/detalle?id=${this.pet.id}`; 
 
       const shareContent = `
         Detalles de la Mascota en Adopción:
@@ -58,7 +58,7 @@ export class DetallePage implements OnInit {
       await Share.share({
         title: 'Detalles de la Mascota en Adopción',
         text: shareContent,
-        url: this.pet.url, // Asegúrate de que esta URL es válida
+        url: this.pet.url, 
         dialogTitle: 'Compartir Detalles',
       });
     } else {

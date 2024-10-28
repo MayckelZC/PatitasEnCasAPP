@@ -49,12 +49,12 @@ const routes: Routes = [
     path: 'readqr',
     loadChildren: () => import('./pages/readqr/readqr.module').then(m => m.ReadQrModule)
 
-
   },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
