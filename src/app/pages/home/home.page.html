@@ -65,10 +65,11 @@
             {{ adopcion.descripcion }}
           </ion-card-content>
           <div class="button-container">
-            <ion-button expand="full" class="details-button" color="green" (click)="viewDetails(adopcion)">Detalles</ion-button>
+            <ion-button expand="full" class="details-button" color="green"
+              (click)="viewDetails(adopcion)">Detalles</ion-button>
             <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
           </div>
-        </ion-card>        
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -93,7 +94,8 @@
                 {{ animal.desc_personalidad }}
               </ion-card-content>
               <div class="button-container">
-                <ion-button expand="full" class="details-button" color="green" [routerLink]="['/detalle', animal.id]">Detalles</ion-button>
+                <ion-button expand="full" class="details-button" color="green"
+                  [routerLink]="['/detalle', animal.id]">Detalles</ion-button>
               </div>
             </ion-card>
           </ion-col>
@@ -119,4 +121,3 @@
     Mis Adopciones
   </ion-button>
 </footer>
-

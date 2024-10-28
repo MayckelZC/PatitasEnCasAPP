@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Adopcion } from 'src/app/models/Adopcion'; // Asegúrate de que la ruta sea correcta
-import { Share } from '@capacitor/share'; // Importa el plugin de Share
+import { Adopcion } from 'src/app/models/Adopcion';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-detalle',
@@ -10,15 +10,15 @@ import { Share } from '@capacitor/share'; // Importa el plugin de Share
   styleUrls: ['detalle.page.scss'],
 })
 export class DetallePage implements OnInit {
-  pet: Adopcion | null = null; // Cambiado a tipo Adopcion
-  qrData: string = ''; // Datos del QR
+  pet: Adopcion | null = null;
+  qrData: string = '';
 
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore) {}
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(async params => {
       // Obtén el ID de la adopción desde los parámetros
-      const id = params['id']; // Asegúrate de que el ID se pase en los parámetros de consulta
+      const id = params['id'];
 
       // Cargar los datos de Firestore
       if (id) {
@@ -31,7 +31,6 @@ export class DetallePage implements OnInit {
   }
 
   generateQRCode() {
-    // Asigna los datos del QR a la variable qrData
     this.qrData = JSON.stringify(this.pet);
   }
 
@@ -39,10 +38,9 @@ export class DetallePage implements OnInit {
     if (this.pet) {
       const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
       const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
-  
-      // Enlace al detalle de la mascota
+
       const detailLink = `https://tusitio.com/detalle?id=${this.pet.id}`; // Cambia 'tusitio.com' por tu dominio real.
-  
+
       const shareContent = `
         Detalles de la Mascota en Adopción:
         Tipo de Mascota: ${this.pet.tipoMascota}
@@ -56,7 +54,7 @@ export class DetallePage implements OnInit {
         Para más detalles, visita: ${detailLink}
         Imagen: ${this.pet.url}
       `.trim();
-  
+
       await Share.share({
         title: 'Detalles de la Mascota en Adopción',
         text: shareContent,
@@ -67,5 +65,5 @@ export class DetallePage implements OnInit {
       console.error('No se pudo compartir, los detalles de la mascota no están disponibles.');
     }
   }
-  
+
 }

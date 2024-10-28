@@ -18,7 +18,7 @@ export class CrearadopcionPage implements OnInit {
     private alertController: AlertController,
     private firestore: AngularFirestore, // Inyecta el servicio de Firestore
     private authService: AuthService // Inyecta el servicio de autenticación
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.adopcionForm = this.formBuilder.group({
@@ -105,8 +105,8 @@ export class CrearadopcionPage implements OnInit {
   }
 
   onClear() {
-    this.adopcionForm.reset(); 
+    this.adopcionForm.reset();
   }
 
-  
+
 }

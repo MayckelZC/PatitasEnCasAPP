@@ -318,19 +318,21 @@ ion-segment-button ion-label {
 
 /* Añade esto a tu archivo SCSS */
 ion-toolbar {
-  --background: #4caf50; /* Color de fondo del toolbar */
+  --background: #4caf50;
+  /* Color de fondo del toolbar */
 }
 
 ion-segment {
-  width: 100%; /* Asegura que el segmento ocupe el 100% del ancho */
-    display: flex;
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-  }
-  
-
-
-ion-segment-button {
-  flex: 1; /* Asegura que cada botón ocupe el mismo espacio */
+  width: 100%;
+  /* Asegura que el segmento ocupe el 100% del ancho */
+  display: flex;
+  overflow-x: auto;
+  /* Permite el desplazamiento horizontal */
 }
 
 
+
+ion-segment-button {
+  flex: 1;
+  /* Asegura que cada botón ocupe el mismo espacio */
+}
