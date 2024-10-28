@@ -5,8 +5,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #4CAF50;
-  /* Color de fondo verde */
+  background-color: #4CAF50; /* Color de fondo verde */
   padding: 20px;
 }
 
@@ -27,8 +26,7 @@
 
 .app-title {
   font-size: 28px;
-  color: white;
-  /* Título en blanco para mayor contraste */
+  color: white; /* Título en blanco para mayor contraste */
   font-weight: bold;
   text-align: center;
 }
@@ -37,58 +35,65 @@
 ion-card {
   width: 100%;
   max-width: 400px;
-  background-color: white;
-  /* Fondo blanco para contraste con el verde */
+  background-color: white; /* Fondo blanco para contraste con el verde */
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
   padding: 20px;
   text-align: center;
 }
 
 ion-title {
   font-size: 22px;
-  color: #4CAF50;
-  /* Color verde del título */
+  color: #4CAF50; /* Color verde del título */
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 /* Estilo de los campos de entrada */
 ion-item {
-  --background: #f7f7f7;
-  /* Fondo gris claro para los campos */
-  --border-radius: 8px;
-  /* Bordes redondeados */
+  --background: #f7f7f7; /* Fondo gris claro para los campos */
+  --border-radius: 8px; /* Bordes redondeados */
   margin-bottom: 15px;
   --padding-start: 15px;
   --padding-end: 15px;
 }
 
+/* Estilo del checkbox "Mantener sesión iniciada" */
+.checkbox-container {
+  display: flex;
+  align-items: center; /* Centra el contenido verticalmente */
+  margin-top: 10px; /* Espaciado superior para separación */
+}
+
+ion-checkbox {
+  --background: #ffffff; /* Color de fondo del checkbox */
+  --color-checked: #4CAF50; /* Color del checkbox cuando está seleccionado */
+  --color: #4CAF50; /* Color del checkbox no seleccionado */
+  --border-color: #4CAF50; /* Color del borde del checkbox */
+  margin-right: 10px; /* Espaciado a la derecha */
+}
+
+label {
+  color: #4CAF50; /* Color del texto del checkbox */
+  font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilo de las etiquetas y entradas */
 ion-label {
-  color: #4CAF50 !important;
-  /* Color verde para las etiquetas de Usuario y Contraseña */
+  color: #4CAF50 !important; /* Color verde para las etiquetas de Usuario y Contraseña */
   font-size: 16px;
   margin-bottom: 5px;
 }
 
 ion-input {
   --placeholder-color: #999;
-  color: #333;
-  /* Color del texto */
-}
-
-ion-input[type="password"] {
-  letter-spacing: 0.1em;
-  /* Espaciado de las letras en la contraseña */
+  color: #333; /* Color del texto */
 }
 
 /* Botón de inicio de sesión */
 ion-button {
-  --background: #4CAF50;
-  /* Fondo verde */
-  color: white;
-  /* Texto en blanco */
+  --background: #4CAF50; /* Fondo verde */
+  color: white; /* Texto en blanco */
   font-weight: bold;
   border-radius: 8px;
   margin-top: 10px;
@@ -96,34 +101,26 @@ ion-button {
 }
 
 ion-button:hover {
-  background-color: #45a049;
-  /* Verde más oscuro al pasar el ratón */
-  color: white;
-  /* Mantener el texto en blanco */
+  background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+  color: white; /* Mantener el texto en blanco */
 }
 
 /* Texto adicional debajo del formulario */
 .extra-options {
   margin-top: 20px;
   font-size: 14px;
-  color: #333;
-  /* Color del texto para mayor contraste */
-  background-color: #f7f7f7;
-  /* Fondo gris claro para el texto */
-  padding: 10px;
-  /* Relleno para separar el texto del borde */
-  border-radius: 8px;
-  /* Bordes redondeados */
+  color: #333; /* Color del texto para mayor contraste */
+  background-color: #f7f7f7; /* Fondo gris claro para el texto */
+  padding: 10px; /* Relleno para separar el texto del borde */
+  border-radius: 8px; /* Bordes redondeados */
 }
 
 .extra-options p {
-  margin: 10px 0;
-  /* Margen para separar el texto */
+  margin: 10px 0; /* Margen para separar el texto */
 }
 
 .extra-options a {
-  color: #4CAF50;
-  /* Color verde para los enlaces */
+  color: #4CAF50; /* Color verde para los enlaces */
   text-decoration: underline;
   font-weight: bold;
 }
@@ -142,17 +139,12 @@ ion-button:hover {
 
 /* Estilos personalizados para las alertas */
 .custom-alert {
-  --background: #4CAF50;
-  /* Fondo verde para la alerta */
-  --color: white;
-  /* Texto blanco */
+  --background: #4CAF50; /* Fondo verde para la alerta */
+  --color: white; /* Texto blanco */
 }
 
 .custom-alert-button {
-  --background: #45a049;
-  /* Fondo verde más oscuro para los botones */
-  --color: white;
-  /* Texto en blanco para los botones */
-  --border-radius: 8px;
-  /* Bordes redondeados para los botones */
+  --background: #45a049; /* Fondo verde más oscuro para los botones */
+  --color: white; /* Texto en blanco para los botones */
+  --border-radius: 8px; /* Bordes redondeados para los botones */
 }
