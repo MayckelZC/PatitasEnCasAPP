@@ -17,10 +17,11 @@ export class AuthService {
       // Crea un nuevo usuario con email y contraseña
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
       
-      // Guarda el nombre de usuario y el correo en Firestore
+      // Guarda el nombre de usuario, el correo y el uid en Firestore
       await this.firestore.collection('users').doc(userCredential.user?.uid).set({
         nombreUsuario,
-        email
+        email,
+        uid: userCredential.user?.uid // Guarda el uid
       });
     } catch (error) {
       console.error('Error en el registro:', error);
@@ -84,4 +85,17 @@ export class AuthService {
       });
     });
   }
+  
+  async resetPassword(email: string): Promise<void> {
+    try {
+      await this.afAuth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.error('Error al enviar el correo de restablecimiento:', error);
+      throw error; // Lanza el error para manejarlo en el componente
+    }
+  }
+  
+
+
+
 }

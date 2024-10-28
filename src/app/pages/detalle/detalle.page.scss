@@ -1,17 +1,22 @@
 /* Estilo general del encabezado */
 .header {
-    --background: #4caf50; /* Verde consistente */
-    text-align: center; /* Centra el texto del encabezado */
+    --background: #4caf50;
+    /* Verde consistente */
+    text-align: center;
+    /* Centra el texto del encabezado */
 }
 
 .header ion-title {
-    color: white; /* Color del texto del título en blanco */
-    font-weight: bold; /* Negrita */
+    color: white;
+    /* Color del texto del título en blanco */
+    font-weight: bold;
+    /* Negrita */
 }
 
 /* Estilo para el área de contenido con scroll */
 ion-content {
-    --background: #f0f4f8; /* Color de fondo general similar al anterior */
+    --background: #f0f4f8;
+    /* Color de fondo general similar al anterior */
 }
 
 /* Contenedor del contenido */
@@ -20,7 +25,8 @@ ion-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff; /* Fondo blanco */
+    background-color: #ffffff;
+    /* Fondo blanco */
 }
 
 /* Estilo de la tarjeta de adopción */
@@ -28,63 +34,84 @@ ion-content {
     width: 100%;
     max-width: 400px;
     margin-bottom: 16px;
-    border-radius: 16px; /* Bordes más redondeados para consistencia */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra similar al anterior */
-    border: 1px solid #4caf50; /* Verde consistente */
-    background-color: #ffffff; /* Fondo blanco para la tarjeta */
+    border-radius: 16px;
+    /* Bordes más redondeados para consistencia */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* Sombra similar al anterior */
+    border: 1px solid #4caf50;
+    /* Verde consistente */
+    background-color: #ffffff;
+    /* Fondo blanco para la tarjeta */
 }
 
 /* Imagen de la mascota */
 .pet-image {
-    border-radius: 16px 16px 0 0; /* Bordes redondeados consistentes */
+    border-radius: 16px 16px 0 0;
+    /* Bordes redondeados consistentes */
     height: 200px;
     object-fit: cover;
 }
 
 /* Estilo del encabezado de la tarjeta */
 ion-card-header {
-    background: #4caf50; /* Verde consistente */
-    color: white; /* Texto blanco para el encabezado */
-    padding: 12px; /* Espaciado consistente */
+    background: #4caf50;
+    /* Verde consistente */
+    color: white;
+    /* Texto blanco para el encabezado */
+    padding: 12px;
+    /* Espaciado consistente */
 }
 
 /* Estilo del título de la tarjeta */
 ion-card-title {
-    color: white; /* Color del texto del título */
-    font-size: 1.4em; /* Tamaño de fuente consistente */
-    font-weight: bold; /* Negrita */
+    color: white;
+    /* Color del texto del título */
+    font-size: 1.4em;
+    /* Tamaño de fuente consistente */
+    font-weight: bold;
+    /* Negrita */
 }
 
 /* Estilo del subtítulo de la tarjeta */
 ion-card-subtitle {
-    color: white; /* Color del subtítulo */
-    font-size: 1em; /* Tamaño de fuente consistente */
+    color: white;
+    /* Color del subtítulo */
+    font-size: 1em;
+    /* Tamaño de fuente consistente */
 }
 
 /* Estilo del contenido de la tarjeta */
 ion-card-content {
-    background-color: #f9f9f9; /* Fondo similar al anterior */
-    color: #333; /* Color del texto */
+    background-color: #f9f9f9;
+    /* Fondo similar al anterior */
+    color: #333;
+    /* Color del texto */
     padding: 16px;
 }
 
 /* Estilo del pie de la tarjeta */
 ion-footer {
-    background-color: #ffffff; /* Fondo blanco para el pie */
+    background-color: #ffffff;
+    /* Fondo blanco para el pie */
     padding: 8px;
 }
 
 /* Estilo del botón de adoptar */
 .adopt-button {
-    background: #4caf50; /* Verde consistente */
-    color: white; /* Texto blanco para el botón */
+    background: #4caf50;
+    /* Verde consistente */
+    color: white;
+    /* Texto blanco para el botón */
     font-weight: bold;
-    border: 1px solid #4caf50; /* Borde verde consistente */
-    transition: background-color 0.3s ease; /* Transición consistente */
+    border: 1px solid #4caf50;
+    /* Borde verde consistente */
+    transition: background-color 0.3s ease;
+    /* Transición consistente */
 }
 
 .adopt-button:hover {
-    background: #388e3c; /* Verde oscuro en hover */
+    background: #388e3c;
+    /* Verde oscuro en hover */
 }
 
 /* Estilo del contenedor del botón QR */
@@ -92,15 +119,20 @@ ion-footer {
     display: flex;
     align-items: center;
     margin-top: 16px;
-    background-color: #ffffff; /* Fondo blanco para el contenedor del botón QR */
-    padding: 8px; /* Espaciado alrededor del botón QR */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #ffffff;
+    /* Fondo blanco para el contenedor del botón QR */
+    padding: 8px;
+    /* Espaciado alrededor del botón QR */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
 }
 
 /* Estilo del botón QR */
 .qr-button {
-    background: #4caf50; /* Verde consistente */
+    background: #4caf50;
+    /* Verde consistente */
     color: white;
     border-radius: 50%;
     width: 48px;
@@ -112,27 +144,49 @@ ion-footer {
 
 /* Estilo del ícono en el botón QR */
 .qr-button ion-icon {
-    color: white; /* Color del ícono blanco */
-    font-size: 24px; /* Tamaño del ícono */
+    color: white;
+    /* Color del ícono blanco */
+    font-size: 24px;
+    /* Tamaño del ícono */
 }
 
 /* Estilo del texto del botón QR */
 .qr-button-text {
     margin-left: 8px;
-    color: #333; /* Color del texto negro para el texto "Crear QR" */
+    color: #333;
+    /* Color del texto negro para el texto "Crear QR" */
 }
 
 /* Estilo del contenedor del código QR */
 .qr-code-container {
     margin-top: 16px;
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    width: 100%; /* Ajusta el ancho del contenedor para ocupar el espacio disponible */
-    height: auto; /* Ajusta la altura automáticamente para contener el QR */
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    width: 100%;
+    /* Ajusta el ancho del contenedor para ocupar el espacio disponible */
+    height: auto;
+    /* Ajusta la altura automáticamente para contener el QR */
 }
 
-qrcode, ngx-qrcode {
-    max-width: 100%; /* Asegura que el QR no sea más ancho que el contenedor */
-    max-height: 100%; /* Asegura que el QR no sea más alto que el contenedor */
+qrcode,
+ngx-qrcode {
+    max-width: 100%;
+    /* Asegura que el QR no sea más ancho que el contenedor */
+    max-height: 100%;
+    /* Asegura que el QR no sea más alto que el contenedor */
+}
+
+.share-button {
+    --background: #28a745;
+    /* Color de fondo verde */
+    color: white;
+    /* Color del texto */
+}
+
+.share-button ion-icon {
+    margin-right: 5px;
+    /* Espacio entre el ícono y el texto */
 }

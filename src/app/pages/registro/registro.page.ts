@@ -50,7 +50,6 @@ export class RegistroPage implements OnInit {
         // Guarda el nombre de usuario en el localStorage
         localStorage.setItem('username', nombreUsuario);
 
-
         const toast = await this.toastController.create({
           message: 'Cuenta creada con éxito.',
           duration: 3000,

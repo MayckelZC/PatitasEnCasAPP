@@ -8,15 +8,17 @@ ion-content {
 
 /* Estilo del encabezado */
 ion-header {
-    --background: #4CAF50;
-    /* Fondo verde para el encabezado */
+    --background: #4caf50;
+    /* Cambia este valor al tono de verde que prefieras */
     color: white;
+    /* Asegura que el texto sea legible */
 }
 
 /* Estilo del título en el encabezado */
 ion-title {
     font-size: 1.5rem;
     text-align: center;
+
 }
 
 /* Contenedor para el card */
@@ -121,13 +123,21 @@ ion-text {
 
 /* Estilo del encabezado */
 ion-header {
-    --background: #4CAF50; /* Color de fondo verde */
-    --color: white; /* Color del texto en blanco */
+    --background: #4CAF50;
+    /* Color de fondo verde */
+    --color: white;
+    /* Color del texto en blanco */
 }
 
 /* Estilo del encabezado */
 ion-header {
-    --background: #4CAF50; /* Color de fondo verde */
-    --color: white; /* Color del texto en blanco */
+    --background: #4CAF50;
+    /* Color de fondo verde */
+    --color: white;
+    /* Color del texto en blanco */
 }
 
+ion-toolbar {
+    --background: #4caf50;
+    /* Color de fondo del toolbar */
+}

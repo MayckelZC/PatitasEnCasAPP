@@ -3,7 +3,8 @@ import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Adopcion } from 'src/app/models/adopcion';
+import { Adopcion } from 'src/app/models/Adopcion';
+import { HuachitosService } from '../../services/huachitos.service'; // Importa el servicio Huachitos
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,16 @@ export class HomePage implements AfterViewInit {
   allAdopciones: Adopcion[] = [];
   filteredAdopciones: Adopcion[] = [];
   nombreUsuario: string = '';
+  searchTerm: string = ''; // Agrega esta línea para la búsqueda
+  animals: any[] = []; // Array para almacenar los datos de los animales de la API
 
   constructor(
     private animationCtrl: AnimationController,
     private router: Router,
     private alertCtrl: AlertController,
     private authService: AuthService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private huachitosService: HuachitosService // Inyecta el servicio Huachitos
   ) {}
 
   async ngAfterViewInit() {
@@ -35,21 +39,31 @@ export class HomePage implements AfterViewInit {
 
     // Obtener el usuario actual
     const currentUser = await this.authService.getCurrentUser();
-
-    if (currentUser) {
-      this.nombreUsuario = currentUser.nombreUsuario; // Usa nombreUsuario directamente
-    } else {
-      this.nombreUsuario = 'Invitado'; // Si no hay usuario, usa 'Invitado'
-    }
+    this.nombreUsuario = currentUser ? currentUser.nombreUsuario : 'Invitado'; // Usa nombreUsuario directamente
 
     // Cargar adopciones desde Firestore
     await this.loadAdopciones();
+
+    // Cargar animales desde la API Huachitos
+    await this.loadAnimals();
   }
 
   async loadAdopciones() {
     const snapshot = await this.firestore.collection<Adopcion>('mascotas').get().toPromise();
-    this.allAdopciones = snapshot.docs.map(doc => doc.data() as Adopcion);
+    this.allAdopciones = snapshot.docs.map(doc => {
+      const data = doc.data() as Adopcion;
+      return { id: doc.id, ...data }; // Asegúrate de agregar el ID aquí
+    });
     this.filteredAdopciones = [...this.allAdopciones]; // Inicializa la lista filtrada
+  }
+
+  async loadAnimals() {
+    try {
+      this.animals = await this.huachitosService.getAnimals(); // Llama al servicio para obtener los animales
+      console.log('Animales cargados:', this.animals); // Muestra los animales en la consola
+    } catch (error) {
+      console.error('Error loading animals:', error);
+    }
   }
 
   createDogAnimation() {
@@ -81,9 +95,17 @@ export class HomePage implements AfterViewInit {
   }
 
   filterPets() {
-    this.filteredAdopciones = this.selectedFilter === 'all' 
-      ? [...this.allAdopciones] 
-      : this.allAdopciones.filter(adopcion => adopcion.tipoMascota === this.selectedFilter);
+    const term = this.searchTerm.toLowerCase();
+    this.filteredAdopciones = this.allAdopciones.filter(adopcion => 
+      adopcion.nombre.toLowerCase().includes(term)
+    );
+
+    // Filtrado por tipo de mascota
+    if (this.selectedFilter !== 'all') {
+      this.filteredAdopciones = this.filteredAdopciones.filter(adopcion => 
+        adopcion.tipoMascota === this.selectedFilter
+      );
+    }
   }
 
   async logout() {
@@ -113,6 +135,7 @@ export class HomePage implements AfterViewInit {
   viewDetails(adopcion: Adopcion) {
     this.router.navigate(['/detalle'], {
       queryParams: { 
+        id: adopcion.id, // Ahora pasamos el ID
         tipoMascota: adopcion.tipoMascota,
         tamano: adopcion.tamano,
         nombre: adopcion.nombre,
@@ -133,6 +156,9 @@ export class HomePage implements AfterViewInit {
   }
 
   readQR() {
-    this.router.navigate(['/read-qr']);
+    this.router.navigate(['/readqr']);
   }
+
+
+
 }
