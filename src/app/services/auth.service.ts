@@ -9,14 +9,14 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) {}
+  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) { }
 
   // Método para registrar un nuevo usuario
   async register(nombreUsuario: string, email: string, password: string): Promise<void> {
     try {
       // Crea un nuevo usuario con email y contraseña
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      
+
       // Guarda el nombre de usuario, el correo y el uid en Firestore
       await this.firestore.collection('users').doc(userCredential.user?.uid).set({
         nombreUsuario,
@@ -34,7 +34,7 @@ export class AuthService {
     try {
       // Busca el usuario en Firestore por nombre de usuario
       const userSnapshot = await this.firestore.collection('users', ref => ref.where('nombreUsuario', '==', identifier)).get().toPromise();
-      
+
       if (!userSnapshot.empty) {
         const userDoc = userSnapshot.docs[0];
         const userData = userDoc.data() as User; // Asegúrate de que userData sea del tipo User
@@ -85,7 +85,7 @@ export class AuthService {
       });
     });
   }
-  
+
   async resetPassword(email: string): Promise<void> {
     try {
       await this.afAuth.sendPasswordResetEmail(email);
@@ -94,7 +94,7 @@ export class AuthService {
       throw error; // Lanza el error para manejarlo en el componente
     }
   }
-  
+
 
 
 

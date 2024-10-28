@@ -10,7 +10,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class ReadQrPage {
 
-  constructor(private router: Router, private toastController: ToastController) {}
+  constructor(private router: Router, private toastController: ToastController) { }
 
   async startScan() {
     try {

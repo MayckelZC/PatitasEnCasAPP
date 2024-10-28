@@ -95,11 +95,16 @@ ion-button:hover {
 
 /* Estilo del botón de limpiar */
 .btn-clear {
-    --background: #007bff; /* Color de fondo azul */
-    --color: #fff; /* Color del texto blanco */
-    --border-radius: 8px; /* Bordes redondeados */
-    --padding-start: 16px; /* Espaciado interno a la izquierda */
-    --padding-end: 16px; /* Espaciado interno a la derecha */
+    --background: #007bff;
+    /* Color de fondo azul */
+    --color: #fff;
+    /* Color del texto blanco */
+    --border-radius: 8px;
+    /* Bordes redondeados */
+    --padding-start: 16px;
+    /* Espaciado interno a la izquierda */
+    --padding-end: 16px;
+    /* Espaciado interno a la derecha */
 }
 
 /* Estilo de la barra de progreso y el texto */
@@ -111,10 +116,14 @@ ion-button:hover {
 
 ion-progress-bar {
     flex: 1;
-    --background: #e0e0e0; /* Fondo de la barra */
-    --bar-background: #4CAF50; /* Color de la barra */
-    height: 10px; /* Altura de la barra */
-    margin-top: 10px; /* Espacio superior */
+    --background: #e0e0e0;
+    /* Fondo de la barra */
+    --bar-background: #4CAF50;
+    /* Color de la barra */
+    height: 10px;
+    /* Altura de la barra */
+    margin-top: 10px;
+    /* Espacio superior */
 }
 
 .progress-text {
