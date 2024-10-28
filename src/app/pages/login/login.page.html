@@ -14,10 +14,8 @@
         </ion-item>
 
         <ion-item>
-          <div class="checkbox-container">
-            <ion-checkbox [(ngModel)]="keepSession"></ion-checkbox>
-            <label class="checkbox-label">Mantener la sesión iniciada</label>
-          </div>
+          <ion-label>Mantener sesión iniciada</ion-label>
+          <ion-checkbox [(ngModel)]="keepSession" name="keepSession" slot="end"></ion-checkbox>
         </ion-item>
         
 
