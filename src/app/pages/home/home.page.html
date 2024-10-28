@@ -39,7 +39,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="content-container">
   <div class="welcome-container">
     <div class="welcome-message">
@@ -91,12 +90,16 @@
                 <ion-card-subtitle>{{ animal.tipo }}, {{ animal.edad }}</ion-card-subtitle>
               </ion-card-header>
               <ion-card-content>
-                {{ animal.desc_personalidad }}
+                <strong>Descripción Física:</strong> {{ animal.desc_fisica }} <br>
+                <strong>Descripción Personalidad:</strong> {{ animal.desc_personalidad }} <br>
+                <strong>Estado:</strong> {{ animal.estado }} <br>
+                <strong>Vacunas:</strong> {{ animal.vacunas > 0 ? 'Al día' : 'Pendientes' }} <br>
+                <strong>Esterilizado:</strong> {{ animal.esterilizado ? 'Sí' : 'No' }} <br>
+                <strong>Equipo:</strong> {{ animal.equipo }} <br>
+                <strong>Región:</strong> {{ animal.region }} <br>
+                <strong>Comuna:</strong> {{ animal.comuna }} <br>
+                <strong>Más información:</strong> <a href="{{ animal.url }}" target="_blank">Ver más detalles</a>
               </ion-card-content>
-              <div class="button-container">
-                <ion-button expand="full" class="details-button" color="green"
-                  [routerLink]="['/detalle', animal.id]">Detalles</ion-button>
-              </div>
             </ion-card>
           </ion-col>
         </ion-row>
@@ -110,12 +113,12 @@
     <ion-icon name="add-circle-outline"></ion-icon>
     Crear Adopción
   </ion-button>
-
+  <!-- 
   <ion-button (click)="readQR()">
     <ion-icon name="qr-code-outline"></ion-icon>
     Leer QR
   </ion-button>
-
+  -->
   <ion-button [routerLink]="['/misadopciones']">
     <ion-icon name="people-outline"></ion-icon>
     Mis Adopciones
