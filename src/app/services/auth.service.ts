@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User } from 'src/app/models/user'; // Asegúrate de que esta ruta sea correcta
+import { User } from 'src/app/models/user'; 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
