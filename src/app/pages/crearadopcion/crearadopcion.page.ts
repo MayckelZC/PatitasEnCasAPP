@@ -105,7 +105,7 @@ export class CrearadopcionPage implements OnInit {
   }
 
   onClear() {
-    this.adopcionForm.reset(); // Limpia el formulario
+    this.adopcionForm.reset(); 
   }
 
   
