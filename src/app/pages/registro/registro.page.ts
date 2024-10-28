@@ -19,7 +19,7 @@ export class RegistroPage implements OnInit {
     private toastController: ToastController,
     private alertController: AlertController,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cuentaForm = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class RegistroPage implements OnInit {
 
       try {
         await this.authService.register(nombreUsuario, correo, contraseña);
-        
+
         // Guarda el nombre de usuario en el localStorage
         localStorage.setItem('username', nombreUsuario);
 

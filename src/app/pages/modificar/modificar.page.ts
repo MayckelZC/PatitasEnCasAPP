@@ -18,7 +18,7 @@ export class ModificarPage implements OnInit {
     private firestore: AngularFirestore,
     private route: ActivatedRoute,
     private router: Router // Agrega el router para redirección
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
