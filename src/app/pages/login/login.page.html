@@ -13,6 +13,14 @@
           <ion-input [(ngModel)]="password" name="password" type="password" placeholder=""></ion-input>
         </ion-item>
 
+        <ion-item>
+          <div class="checkbox-container">
+            <ion-checkbox [(ngModel)]="keepSession"></ion-checkbox>
+            <label class="checkbox-label">Mantener la sesión iniciada</label>
+          </div>
+        </ion-item>
+        
+
         <ion-button expand="block" type="submit">Ingresar</ion-button>
         <div class="extra-options">
           <p><a (click)="navigateToResetPassword()">Restablecer Contraseña</a></p>

@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   // Método para iniciar sesión con nombre de usuario o correo electrónico
-  async login(identifier: string, password: string): Promise<any> {
+  async login(identifier: string, password: string, keepSession: boolean): Promise<any> {
     try {
       // Busca el usuario en Firestore por nombre de usuario
       const userSnapshot = await this.firestore.collection('users', ref => ref.where('nombreUsuario', '==', identifier)).get().toPromise();
@@ -41,10 +41,24 @@ export class AuthService {
         const email = userData.email; // Obtiene el correo electrónico del documento
 
         // Intenta iniciar sesión con el correo electrónico
-        return await this.afAuth.signInWithEmailAndPassword(email, password);
+        const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
+        
+        // Si el usuario desea mantener la sesión iniciada
+        if (keepSession) {
+          localStorage.setItem('userId', userCredential.user.uid); // Guarda el ID del usuario en localStorage
+        }
+
+        return userCredential; // Retorna el objeto de credenciales
       } else {
         // Si no se encuentra el usuario por nombre, intenta con el correo
-        return await this.afAuth.signInWithEmailAndPassword(identifier, password);
+        const userCredential = await this.afAuth.signInWithEmailAndPassword(identifier, password);
+        
+        // Si el usuario desea mantener la sesión iniciada
+        if (keepSession) {
+          localStorage.setItem('userId', userCredential.user.uid); // Guarda el ID del usuario en localStorage
+        }
+
+        return userCredential; // Retorna el objeto de credenciales
       }
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
@@ -60,6 +74,7 @@ export class AuthService {
   // Método para cerrar sesión
   async logout(): Promise<void> {
     await this.afAuth.signOut();
+    localStorage.removeItem('userId'); // Limpia el ID del usuario de localStorage
   }
 
   // Método para obtener los datos del usuario actual
@@ -94,8 +109,4 @@ export class AuthService {
       throw error; // Lanza el error para manejarlo en el componente
     }
   }
-
-
-
-
 }
