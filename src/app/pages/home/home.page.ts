@@ -32,7 +32,7 @@ export class HomePage implements AfterViewInit {
     private authService: AuthService,
     private firestore: AngularFirestore,
     private huachitosService: HuachitosService // Inyecta el servicio Huachitos
-  ) {}
+  ) { }
 
   async ngAfterViewInit() {
     this.createDogAnimation();
@@ -96,13 +96,13 @@ export class HomePage implements AfterViewInit {
 
   filterPets() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredAdopciones = this.allAdopciones.filter(adopcion => 
+    this.filteredAdopciones = this.allAdopciones.filter(adopcion =>
       adopcion.nombre.toLowerCase().includes(term)
     );
 
     // Filtrado por tipo de mascota
     if (this.selectedFilter !== 'all') {
-      this.filteredAdopciones = this.filteredAdopciones.filter(adopcion => 
+      this.filteredAdopciones = this.filteredAdopciones.filter(adopcion =>
         adopcion.tipoMascota === this.selectedFilter
       );
     }
@@ -134,7 +134,7 @@ export class HomePage implements AfterViewInit {
 
   viewDetails(adopcion: Adopcion) {
     this.router.navigate(['/detalle'], {
-      queryParams: { 
+      queryParams: {
         id: adopcion.id, // Ahora pasamos el ID
         tipoMascota: adopcion.tipoMascota,
         tamano: adopcion.tamano,

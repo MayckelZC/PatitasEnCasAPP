@@ -14,11 +14,11 @@ export class MisAdopcionesPage implements OnInit {
   misAdopciones: Adopcion[] = [];
 
   constructor(
-    private firestore: AngularFirestore, 
+    private firestore: AngularFirestore,
     private authService: AuthService,
     private router: Router,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     const currentUser = await this.authService.getCurrentUser();
@@ -60,5 +60,5 @@ export class MisAdopcionesPage implements OnInit {
   editAdopcion(adopcion: Adopcion) {
     this.router.navigate(['/modificar'], { queryParams: { id: adopcion.id } }); // Cambia a la página de modificar con el ID
   }
-  
+
 }
