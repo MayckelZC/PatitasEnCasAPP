@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { SessionService } from '../../services/session.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -15,55 +16,54 @@ export class LoginPage {
 
   constructor(
     private authService: AuthService,
+    private sessionService: SessionService,
     private toastController: ToastController,
     private router: Router
   ) {}
 
   async login() {
-    // Verificar si el identificador y la contraseña están ingresados
-    if (!this.identifier) {
-      const toast = await this.toastController.create({
-        message: 'Debes introducir un correo electrónico o un nombre de usuario.',
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
-      return; // Salir si el identificador no está ingresado
-    }
-
-    if (!this.password) {
-      const toast = await this.toastController.create({
-        message: 'Debes introducir una contraseña.',
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
-      return; // Salir si la contraseña no está ingresada
+    if (!this.identifier || !this.password) {
+      await this.showToast('Debes introducir un correo electrónico/usuario y una contraseña.');
+      return;
     }
 
     try {
-      // Llama al método de login con el parámetro keepSession
-      await this.authService.login(this.identifier, this.password, this.keepSession);
-      const toast = await this.toastController.create({
-        message: `Bienvenido, ${this.identifier}!`, // Mensaje de bienvenida
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
-      this.router.navigate(['/home']); // Redirige al usuario a la página de inicio
+      // Llama al método de login del AuthService
+      const userCredential = await this.authService.login(this.identifier, this.password, this.keepSession);
+
+      // Guardar la sesión
+      this.sessionService.saveSession(userCredential.user?.uid, this.keepSession);
+
+      // Mostrar mensaje de bienvenida
+      await this.showToast(`¡Bienvenido, ${this.identifier}!`);
+
+      // Redirigir al usuario a la página principal
+      this.router.navigate(['/home']);
     } catch (error) {
-      // Manejo de errores en el inicio de sesión
-      const errorMessage = error.code === 'auth/wrong-password' ? 
-        'Contraseña incorrecta. Por favor, intenta de nuevo.' : 
-        'Error al iniciar sesión. Verifica tus credenciales.';
-        
-      const toast = await this.toastController.create({
-        message: errorMessage,
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
+      await this.handleLoginError(error);
     }
+  }
+
+  // Método para mostrar mensajes Toast (cambiado a public)
+  public async showToast(message: string, duration: number = 2000, position: 'top' | 'middle' | 'bottom' = 'top') {
+    const toast = await this.toastController.create({ message, duration, position });
+    await toast.present();
+  }
+
+  // Manejo centralizado de errores
+  private async handleLoginError(error: any) {
+    const errorMessage = this.getErrorMessage(error);
+    await this.showToast(errorMessage);
+  }
+
+  // Método para obtener mensajes de error más descriptivos
+  private getErrorMessage(error: any): string {
+    const errorMap: { [key: string]: string } = {
+      'auth/wrong-password': 'Contraseña incorrecta. Por favor, intenta de nuevo.',
+      'auth/user-not-found': 'Usuario no encontrado. Verifica tus credenciales.',
+      'auth/invalid-email': 'Correo electrónico no válido.',
+    };
+    return errorMap[error.code] || 'Error al iniciar sesión. Verifica tus credenciales.';
   }
 
   // Navegar a la página de restablecimiento de contraseña
