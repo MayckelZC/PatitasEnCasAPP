@@ -1,133 +1,30 @@
-/* Estilo del encabezado y toolbar */
-ion-header,
-ion-toolbar {
+ion-content {
     --background: #4CAF50;
-    color: white;
-}
-
-ion-title {
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-/* Estilo de la tarjeta */
-ion-card {
-    width: 100%;
-    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  ion-card {
+    padding: 20px;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 1rem auto;
-}
-
-/* Estilo del título del formulario */
-.form-title {
-    font-size: 24px;
-    color: #4CAF50;
-    margin: 0;
+  }
+  
+  .form-title {
     text-align: center;
-}
-
-/* Estilo del área de contenido con scroll */
-ion-content {
-    --background: white;
-    padding: 0;
-}
-
-/* Estilo del formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-/* Estilo de los elementos dentro de un item */
-ion-item {
-    --background: #f7f7f7;
-    --border-radius: 8px;
-    margin-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
-}
-
-/* Estilo de las etiquetas */
-ion-label {
-    color: #4CAF50 !important;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-/* Estilo de las entradas de texto */
-ion-input {
-    --placeholder-color: #999;
-    color: #333;
-}
-
-/* Estilo de los botones */
-ion-button {
-    --background: #4CAF50;
-    color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-ion-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilo del grupo de botones */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Mensaje de error */
-.error-message {
-    color: #a94442;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* Estilo del botón de limpiar */
-.btn-clear {
-    --background: #007bff;
-    /* Color de fondo azul */
-    --color: #fff;
-    /* Color del texto blanco */
-    --border-radius: 8px;
-    /* Bordes redondeados */
-    --padding-start: 16px;
-    /* Espaciado interno a la izquierda */
-    --padding-end: 16px;
-    /* Espaciado interno a la derecha */
-}
-
-/* Estilo de la barra de progreso y el texto */
-.progress-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-ion-progress-bar {
-    flex: 1;
-    --background: #e0e0e0;
-    /* Fondo de la barra */
-    --bar-background: #4CAF50;
-    /* Color de la barra */
-    height: 10px;
-    /* Altura de la barra */
-    margin-top: 10px;
-    /* Espacio superior */
-}
-
-.progress-text {
-    font-size: 16px;
     color: #4CAF50;
-    margin-left: 10px;
-}
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: -10px;
+  }
+  

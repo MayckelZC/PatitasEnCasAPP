@@ -8,60 +8,99 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-title class="form-title">Crear Cuenta</ion-title>
-    <form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating">Nombre de Usuario</ion-label>
-        <ion-input formControlName="nombreUsuario"></ion-input>
-      </ion-item>
-      <div *ngIf="cuentaForm.get('nombreUsuario')?.errors?.['required']" class="error-message">
-        El nombre de usuario es obligatorio.
-      </div>
+  <div class="container">
+    <ion-card>
+      <ion-title class="form-title">Crear Cuenta</ion-title>
 
-      <ion-item>
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input formControlName="correo" type="email"></ion-input>
-      </ion-item>
-      <div *ngIf="cuentaForm.get('correo')?.errors?.['required']" class="error-message">
-        El correo electrónico es obligatorio.
-      </div>
-      <div *ngIf="cuentaForm.get('correo')?.errors?.['email']" class="error-message">
-        El correo electrónico no es válido.
-      </div>
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Nombre de usuario -->
+        <ion-item lines="full">
+          <ion-label position="floating">Nombre de Usuario</ion-label>
+          <ion-input formControlName="nombreUsuario"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="isFieldInvalid('nombreUsuario')">
+          El nombre de usuario es obligatorio.
+        </ion-text>
 
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input formControlName="contraseña" type="password"></ion-input>
-      </ion-item>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['required']" class="error-message">
-        La contraseña es obligatoria.
-      </div>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['minlength']" class="error-message">
-        La contraseña debe tener al menos 6 caracteres.
-      </div>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['noLetter']" class="error-message">
-        La contraseña debe contener al menos una letra.
-      </div>
+        <!-- Correo electrónico -->
+        <ion-item lines="full">
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="correo" type="email"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="isFieldInvalid('correo')">
+          El correo electrónico no es válido.
+        </ion-text>
 
-      <ion-item>
-        <ion-label position="floating">Confirmar Contraseña</ion-label>
-        <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
-      </ion-item>
-      <div *ngIf="cuentaForm.errors?.['passwordMismatch']" class="error-message">
-        Las contraseñas no coinciden.
-      </div>
+        <!-- Contraseña -->
+        <ion-item lines="full">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input formControlName="contraseña" type="password"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="isFieldInvalid('contraseña')">
+          La contraseña debe tener al menos 6 caracteres.
+        </ion-text>
 
-      <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid">Crear Cuenta</ion-button>
-        <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
-      </div>
+        <!-- Confirmar contraseña -->
+        <ion-item lines="full">
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
+          <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
+        </ion-item>
+        <!-- Ajuste para la validación de contraseñas -->
+        <ion-text color="danger" *ngIf="registroForm.errors?.['passwordMismatch']">
+          Las contraseñas no coinciden.
+        </ion-text>
 
-      <!-- Barra de Progreso -->
-      <ion-item class="progress-container">
-        <ion-progress-bar [value]="validationProgress"></ion-progress-bar>
-        <div class="progress-text">{{ (validationProgress * 100) | number:'1.0-0' }}%</div>
-      </ion-item>
-    </form>
-  </ion-card>
+        <!-- Nombre completo -->
+        <ion-item lines="full">
+          <ion-label position="floating">Nombre Completo</ion-label>
+          <ion-input formControlName="nombreCompleto"></ion-input>
+        </ion-item>
+
+        <!-- Número de teléfono -->
+        <ion-item lines="full">
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input formControlName="telefono" type="tel"></ion-input>
+        </ion-item>
+
+        <!-- Dirección -->
+        <ion-item lines="full">
+          <ion-label position="floating">Dirección (Ciudad, Estado, País)</ion-label>
+          <ion-input formControlName="direccion"></ion-input>
+        </ion-item>
+
+        <!-- Preferencias de adopción -->
+        <ion-item lines="full">
+          <ion-label>Tipo de Mascota</ion-label>
+          <ion-select formControlName="preferenciaMascota">
+            <ion-select-option value="perro">Perro</ion-select-option>
+            <ion-select-option value="gato">Gato</ion-select-option>
+            <ion-select-option value="otro">Otro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label>Tamaño Preferido</ion-label>
+          <ion-select formControlName="tamanoPreferido">
+            <ion-select-option value="pequeño">Pequeño</ion-select-option>
+            <ion-select-option value="mediano">Mediano</ion-select-option>
+            <ion-select-option value="grande">Grande</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Aceptar términos y condiciones -->
+        <ion-item lines="none">
+          <ion-checkbox formControlName="aceptarTerminos"></ion-checkbox>
+          <ion-label>Acepto los términos y condiciones</ion-label>
+        </ion-item>
+        <ion-text color="danger" *ngIf="isFieldInvalid('aceptarTerminos')">
+          Debes aceptar los términos.
+        </ion-text>
+
+        <!-- Botón de enviar -->
+        <ion-button expand="full" type="submit" class="submit-button" [disabled]="!registroForm.valid">
+          Crear Cuenta
+        </ion-button>
+      </form>
+    </ion-card>
+  </div>
 </ion-content>
