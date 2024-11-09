@@ -10,6 +10,7 @@ import { ToastController, NavController } from '@ionic/angular';
 })
 export class RegistroPage {
   registroForm: FormGroup;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -17,7 +18,6 @@ export class RegistroPage {
     private toastController: ToastController,
     private navCtrl: NavController
   ) {
-    // Inicializar el formulario con validaciones
     this.registroForm = this.fb.group(
       {
         nombreUsuario: ['', Validators.required],
@@ -27,61 +27,66 @@ export class RegistroPage {
         nombreCompleto: ['', Validators.required],
         telefono: [''],
         direccion: [''],
-        preferenciaMascota: [''],
-        tamanoPreferido: [''],
         aceptarTerminos: [false, Validators.requiredTrue],
       },
       { validators: this.passwordMatchValidator }
     );
   }
 
-  // Validación personalizada para verificar que las contraseñas coincidan
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('contraseña')?.value;
-    const confirmPassword = form.get('confirmarContraseña')?.value;
-    return password === confirmPassword ? null : { 'passwordMismatch': true };
-  }
-
   // Método para manejar el envío del formulario
   async onSubmit() {
     if (this.registroForm.valid) {
+      const { nombreUsuario, correo, contraseña, nombreCompleto, telefono, direccion } = this.registroForm.value;
+      this.loading = true;
+
       try {
-        const { nombreUsuario, correo, contraseña } = this.registroForm.value;
-        await this.authService.register(nombreUsuario, correo, contraseña);
+        await this.authService.register(
+          nombreUsuario,
+          correo,
+          contraseña,
+          nombreCompleto,
+          telefono,
+          direccion
+        );
         this.showToast('Cuenta creada con éxito.');
         this.navCtrl.navigateRoot('/home');
-      } catch (error) {
-        this.showToast(this.getErrorMessage(error));
+      } catch (error: any) {
+        console.error('Error al crear la cuenta:', error);
+        this.showToast('Hubo un error al crear la cuenta.');
+      } finally {
+        this.loading = false;
       }
     } else {
       this.showToast('Por favor, completa todos los campos obligatorios.');
     }
   }
 
-  // Método para verificar si un campo tiene errores
-  isFieldInvalid(field: string): boolean {
-    const control = this.registroForm.get(field);
-    return control && control.invalid && control.touched;
+  // Método para limpiar el formulario
+  limpiarFormulario() {
+    this.registroForm.reset();
+    this.showToast('Formulario limpiado.');
   }
 
-  // Método para mostrar mensajes de error
+  // Validación personalizada para asegurar que las contraseñas coincidan
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('contraseña')?.value;
+    const confirmPassword = form.get('confirmarContraseña')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  // Método para mostrar un mensaje Toast
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
       position: 'top',
     });
-    await toast.present();
+    toast.present();
   }
 
-  // Manejar mensajes de error para el registro
-  private getErrorMessage(error: any): string {
-    if (error.code === 'auth/email-already-in-use') {
-      return 'Este correo ya está registrado.';
-    } else if (error.code === 'auth/weak-password') {
-      return 'La contraseña es muy débil.';
-    } else {
-      return 'Hubo un error al crear la cuenta. Inténtalo de nuevo.';
-    }
+  // Método para verificar si un campo tiene errores
+  isFieldInvalid(field: string): boolean {
+    const control = this.registroForm.get(field);
+    return control && control.invalid && control.touched;
   }
 }
