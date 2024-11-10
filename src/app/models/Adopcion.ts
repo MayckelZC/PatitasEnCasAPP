@@ -12,4 +12,3 @@ export interface Adopcion {
     vacuna?: string;      
     url: string;          
 }
-  
