@@ -1,140 +1,114 @@
-/* Estilo del encabezado y toolbar */
-ion-header,
-ion-toolbar {
+/* Fondo general */
+ion-content {
     --background: #4CAF50;
-    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 20px;
 }
 
-ion-title {
-    font-size: 1.5rem;
-    text-align: center;
+/* Contenedor centrado */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 20px;
 }
 
-/* Estilo de la tarjeta */
+/* Estilo del card */
 ion-card {
     width: 100%;
-    max-width: 500px;
-    /* Ajusta el ancho máximo según tus necesidades */
+    max-width: 400px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 1rem auto;
+    padding: 25px 20px;
 }
 
-/* Estilo del título del formulario */
+/* Título del formulario */
 .form-title {
     font-size: 24px;
     color: #4CAF50;
-    margin: 0;
-    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-/* Estilo del área de contenido con scroll */
-ion-content {
-    --background: white;
-    padding: 0;
-}
-
-/* Estilo del formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-/* Estilo de los elementos dentro de un item */
+/* Estilos para los ion-item */
 ion-item {
     --background: #f7f7f7;
     --border-radius: 8px;
     margin-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
+    --color: #4CAF50;
 }
 
-/* Estilo de las etiquetas */
+/* Iconos dentro de los inputs */
+ion-icon {
+    color: #4CAF50;
+}
+
+/* Estilo para los labels (texto flotante) */
 ion-label {
-    color: #4CAF50 !important;
+    --color: #4CAF50 !important;
     font-size: 16px;
-    margin-bottom: 5px;
 }
 
-/* Estilo de las entradas de texto */
+/* Estilo para el texto dentro de los inputs */
 ion-input,
 ion-select,
 ion-textarea {
-    --placeholder-color: #999;
-    color: #333;
-}
-
-/* Estilo de los botones */
-ion-button {
-    --background: #4CAF50;
-    color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    margin-top: 10px;
+    --color: #4CAF50;
+    --placeholder-color: #4CAF50;
     font-size: 16px;
 }
 
-ion-button:hover {
-    background-color: #45a049;
+/* Estilo para los textos de error */
+ion-text[color="danger"] {
+    color: #f44336 !important;
+    font-size: 14px;
 }
 
-/* Estilo de la vista previa de la imagen */
-.image-preview {
-    text-align: center;
+/* Botón de Envío */
+.submit-button {
+    --background: #2196F3;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.submit-button:hover {
+    background-color: #1E88E5;
+}
+
+/* Botón de Limpiar */
+ion-button.btn-clear {
+    --background: #757575;
+    color: white;
     margin-top: 10px;
 }
 
-.image-preview img {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo del grupo de botones */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Mensaje de error obligatorio */
-.error-message {
-    color: #a94442;
-    /* Rojo oscuro para los errores */
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* Mensaje de éxito */
-.success-message {
-    background-color: #dff0d8;
-    color: #3c763d;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+/* Enlace para regresar al inicio */
+.extra-options {
     text-align: center;
+    margin-top: 20px;
 }
 
-/* Toast de éxito */
-.toast-center {
-    --toast-background: #dff0d8;
-    /* Fondo del toast */
-    --toast-color: #3c763d;
-    /* Color del texto */
-    --toast-padding: 16px;
-    --toast-border-radius: 8px;
-    --toast-text-align: center;
-    /* Centra el texto */
+a {
+    color: #4CAF50;
+    text-decoration: underline;
 }
 
-.btn-clear {
-    --background: #007bff; // Color de fondo azul
-    --color: #fff; // Color del texto blanco
-    --border-radius: 4px; // Bordes redondeados (opcional)
-    --padding-start: 16px; // Espaciado interno a la izquierda
-    --padding-end: 16px; // Espaciado interno a la derecha
+a:hover {
+    text-decoration: none;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    ion-card {
+        width: 90%;
+        padding: 20px;
+    }
 }
