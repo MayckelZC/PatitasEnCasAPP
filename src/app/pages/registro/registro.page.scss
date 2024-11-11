@@ -1,4 +1,4 @@
-/* Fondo general del ion-content */
+/* Fondo general */
 ion-content {
   --background: #4CAF50;
   display: flex;
@@ -8,7 +8,7 @@ ion-content {
   padding: 0 20px;
 }
 
-/* Contenedor para centrar el card */
+/* Contenedor centrado */
 .container {
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@ ion-content {
   padding-top: 20px;
 }
 
-/* Card del formulario */
+/* Estilo del card */
 ion-card {
   width: 100%;
   max-width: 400px;
@@ -26,7 +26,6 @@ ion-card {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 25px 20px;
-  text-align: center;
 }
 
 /* Título del formulario */
@@ -37,76 +36,58 @@ ion-card {
   margin-bottom: 20px;
 }
 
-/* Campos del formulario */
+/* Estilos para los ion-item */
 ion-item {
-  --background: #f1f8e9; /* Fondo verde claro */
+  --background: #f7f7f7;
   --border-radius: 8px;
   margin-bottom: 15px;
-  --padding-start: 15px;
-  --padding-end: 15px;
 }
 
 ion-icon {
-  color: #66bb6a; /* Verde claro basado en la imagen */
+  color: #4CAF50;
 }
 
-/* Estilos para ion-label */
+/* Estilo para los labels (texto flotante) */
 ion-label {
-  color: #66bb6a !important; /* Verde claro basado en la imagen */
+  color: #4CAF50 !important;
   font-size: 16px;
 }
 
-/* Estilo para el texto flotante (cuando el campo está enfocado o tiene valor) */
-ion-item.item-has-value ion-label,
-ion-item.ion-focused ion-label {
-  color: #66bb6a !important; /* Verde claro */
-}
-
-/* Campos de entrada */
+/* Estilo para el texto dentro de los inputs */
 ion-input {
-  --placeholder-color: #66bb6a; /* Verde claro */
-  color: #388E3C; /* Verde para el texto */
+  --color: #4CAF50;
+  --placeholder-color: #4CAF50;
   font-size: 16px;
 }
 
-/* Botón de envío */
+/* Botón de Envío */
 .submit-button {
   --background: #2196F3;
   color: white;
   font-weight: bold;
-  border-radius: 8px;
   margin-top: 20px;
-  height: 50px;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
 }
 
 .submit-button:hover {
   background-color: #1E88E5;
 }
 
-.submit-button:disabled {
-  opacity: 0.6;
-}
-
-/* Botón de limpiar */
-ion-button[color="dark"] {
-  margin-top: 10px;
-  height: 50px;
-  --background: #444;
+/* Botón de Limpiar */
+ion-button {
+  --background: #757575;
   color: white;
-  border-radius: 8px;
+  margin-top: 10px;
 }
 
-/* Estilo para el enlace */
+/* Enlace para regresar al inicio */
 .extra-options {
   text-align: center;
   margin-top: 20px;
 }
 
 a {
-  color: #66bb6a; /* Verde claro basado en la imagen */
+  color: #388E3C;
   text-decoration: underline;
 }
 
