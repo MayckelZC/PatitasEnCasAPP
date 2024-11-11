@@ -1,6 +1,7 @@
 /* Fondo general del ion-content */
 ion-content {
     --background: #4CAF50;
+    /* Fondo verde */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,13 +49,6 @@ ion-item {
 
 ion-icon {
     color: #4CAF50;
-    /* Iconos en verde */
-}
-
-ion-label {
-    color: #4CAF50 !important;
-    /* Etiquetas en verde */
-    font-size: 16px;
 }
 
 ion-input {
@@ -64,9 +58,9 @@ ion-input {
 }
 
 /* Botón de envío */
-.submit-button {
+.reset-button {
     --background: #2196F3;
-    /* Azul */
+    /* Azul para el botón */
     color: white;
     font-weight: bold;
     border-radius: 8px;
@@ -74,21 +68,16 @@ ion-input {
     height: 50px;
     font-size: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+.reset-button:hover {
     background-color: #1E88E5;
+    /* Azul más oscuro al pasar el ratón */
 }
 
-.submit-button:disabled {
+.reset-button:disabled {
     opacity: 0.6;
-}
-
-/* Botón de limpiar */
-.clear-button {
-    --background: #333;
-    color: white;
-    margin-top: 10px;
 }
 
 /* Estilo para el enlace */
@@ -98,8 +87,7 @@ ion-input {
 }
 
 a {
-    color: #4CAF50;
-    /* Verde */
+    color: #388E3C;
     text-decoration: underline;
 }
 
@@ -113,4 +101,19 @@ a:hover {
         padding: 20px;
         width: 90%;
     }
+}
+
+/* Estilos para las etiquetas */
+ion-label {
+    color: #4CAF50 !important;
+    /* Asegura que el texto sea verde */
+    font-size: 16px;
+}
+
+/* Estilo para el texto flotante (cuando el campo está enfocado o tiene valor) */
+ion-item.item-has-value ion-label,
+ion-item.ion-focused ion-label {
+    color: #4CAF50 !important;
+    /* Verde para el estado flotante */
+    font-weight: bold;
 }
