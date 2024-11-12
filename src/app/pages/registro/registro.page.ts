@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class RegistroPage implements OnInit {
   cuentaForm!: FormGroup;
   validationProgress = 0;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,14 +35,27 @@ export class RegistroPage implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
   
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   onClear() {
     this.cuentaForm.reset();
-    this.validationProgress = 0; // Resetear el progreso
+    this.validationProgress = 0;
+    this.selectedFile = null;
+    this.imagePreview = null;
   }
 
   async onSubmit() {
-    if (this.cuentaForm.valid) {
+    if (this.cuentaForm.valid && this.selectedFile) {
       const {
         nombreCompleto,
         nombreUsuario,
@@ -49,10 +64,10 @@ export class RegistroPage implements OnInit {
         telefono,
         direccion
       } = this.cuentaForm.value;
-  
+
       try {
-        // Llamada al servicio con los 6 argumentos esperados
-        await this.authService.register(
+        await this.authService.uploadImageAndRegister(
+          this.selectedFile,
           nombreCompleto,
           nombreUsuario,
           correo,
@@ -86,13 +101,12 @@ export class RegistroPage implements OnInit {
     } else {
       const alert = await this.alertController.create({
         header: 'Error',
-        message: 'Por favor, completa todos los campos correctamente.',
+        message: 'Por favor, completa todos los campos y selecciona una imagen.',
         buttons: ['OK'],
       });
       await alert.present();
     }
   }
-  
 
   passwordValidator(control: AbstractControl) {
     const value = control.value;
@@ -109,14 +123,23 @@ export class RegistroPage implements OnInit {
   }
 
   updateValidationProgress() {
-    const totalFields = 4; // Número total de campos
+    const totalFields = 7; // Número total de campos + imagen
     let validFields = 0;
 
+    if (this.cuentaForm.get('nombreCompleto')?.valid) validFields++;
     if (this.cuentaForm.get('nombreUsuario')?.valid) validFields++;
     if (this.cuentaForm.get('correo')?.valid) validFields++;
     if (this.cuentaForm.get('contraseña')?.valid) validFields++;
     if (this.cuentaForm.get('confirmarContraseña')?.valid) validFields++;
+    if (this.cuentaForm.get('telefono')?.valid) validFields++;
+    if (this.cuentaForm.get('direccion')?.valid) validFields++;
+    if (this.selectedFile) validFields++;
 
-    this.validationProgress = validFields / totalFields; // Actualiza el progreso
+    this.validationProgress = validFields / totalFields;
   }
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+  
 }

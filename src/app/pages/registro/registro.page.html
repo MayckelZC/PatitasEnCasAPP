@@ -1,98 +1,78 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Crear Cuenta</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
   <ion-card>
     <ion-title class="form-title">Crear Cuenta</ion-title>
     <form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
-      <!-- Nombre Completo -->
-      <ion-item>
-        <ion-label position="floating">Nombre Completo</ion-label>
-        <ion-input formControlName="nombreCompleto"></ion-input>
-      </ion-item>
-      <div *ngIf="cuentaForm.get('nombreCompleto')?.errors?.['required']" class="error-message">
-        El nombre completo es obligatorio.
-      </div>
-
+      
       <!-- Nombre de Usuario -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label position="floating">Nombre de Usuario</ion-label>
         <ion-input formControlName="nombreUsuario"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.get('nombreUsuario')?.errors?.['required']" class="error-message">
-        El nombre de usuario es obligatorio.
-      </div>
 
       <!-- Correo Electrónico -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
         <ion-label position="floating">Correo Electrónico</ion-label>
         <ion-input formControlName="correo" type="email"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.get('correo')?.errors?.['required']" class="error-message">
-        El correo electrónico es obligatorio.
-      </div>
-      <div *ngIf="cuentaForm.get('correo')?.errors?.['email']" class="error-message">
-        El correo electrónico no es válido.
-      </div>
 
       <!-- Contraseña -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input formControlName="contraseña" type="password"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['required']" class="error-message">
-        La contraseña es obligatoria.
-      </div>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['minlength']" class="error-message">
-        La contraseña debe tener al menos 6 caracteres.
-      </div>
-      <div *ngIf="cuentaForm.get('contraseña')?.errors?.['noLetter']" class="error-message">
-        La contraseña debe contener al menos una letra.
-      </div>
 
       <!-- Confirmar Contraseña -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
         <ion-label position="floating">Confirmar Contraseña</ion-label>
         <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.errors?.['passwordMismatch']" class="error-message">
-        Las contraseñas no coinciden.
-      </div>
+
+      <!-- Nombre Completo -->
+      <ion-item lines="none">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input formControlName="nombreCompleto"></ion-input>
+      </ion-item>
 
       <!-- Teléfono -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
         <ion-label position="floating">Teléfono</ion-label>
         <ion-input formControlName="telefono" type="tel"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.get('telefono')?.errors?.['required']" class="error-message">
-        El teléfono es obligatorio.
-      </div>
 
       <!-- Dirección -->
-      <ion-item>
+      <ion-item lines="none">
+        <ion-icon name="location-outline" slot="start"></ion-icon>
         <ion-label position="floating">Dirección</ion-label>
         <ion-input formControlName="direccion"></ion-input>
       </ion-item>
-      <div *ngIf="cuentaForm.get('direccion')?.errors?.['required']" class="error-message">
-        La dirección es obligatoria.
+
+      <!-- Seleccionar Imagen de Usuario -->
+      <div class="file-upload">
+        <ion-icon name="camera-outline"></ion-icon>
+        <label for="fileInput">Seleccionar Imagen</label>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+
+      <!-- Vista previa de la imagen -->
+      <div class="image-preview" *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Vista previa">
       </div>
 
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid">Crear Cuenta</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid || !selectedFile" class="btn-primary">Crear Cuenta</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
-
-      <!-- Barra de Progreso -->
-      <ion-item class="progress-container">
-        <ion-progress-bar [value]="validationProgress"></ion-progress-bar>
-        <div class="progress-text">{{ (validationProgress * 100) | number:'1.0-0' }}%</div>
-      </ion-item>
     </form>
+
+    <!-- Enlace para volver al inicio de sesión -->
+    <div class="footer-link">
+      <a (click)="goToHome()">Volver al inicio de sesión</a>
+    </div>
   </ion-card>
 </ion-content>

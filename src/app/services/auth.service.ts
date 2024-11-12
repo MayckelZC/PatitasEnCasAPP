@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,11 +12,13 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private storage: AngularFireStorage
   ) { }
 
-  // Método para registrar un nuevo usuario con nombre completo, teléfono y dirección
-  async register(
+  // Método para registrar un nuevo usuario con imagen, nombre completo, teléfono y dirección
+  async uploadImageAndRegister(
+    file: File,
     nombreCompleto: string,
     nombreUsuario: string,
     email: string,
@@ -28,6 +31,12 @@ export class AuthService {
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
       const uid = userCredential.user?.uid;
 
+      // Subir la imagen a Firebase Storage
+      const filePath = `users/${uid}`;
+      const fileRef = this.storage.ref(filePath);
+      await this.storage.upload(filePath, file);
+      const imageUrl = await fileRef.getDownloadURL().toPromise();
+
       // Guarda los datos del usuario en Firestore
       await this.firestore.collection('users').doc(uid).set({
         uid,
@@ -35,18 +44,18 @@ export class AuthService {
         nombreUsuario,
         email,
         telefono,
-        direccion
+        direccion,
+        imageUrl
       });
     } catch (error) {
       console.error('Error en el registro:', error);
-      throw error; // Lanza el error para manejarlo en el componente
+      throw error;
     }
   }
 
   // Método para iniciar sesión con nombre de usuario o correo electrónico
   async login(identifier: string, password: string, keepSession: boolean): Promise<any> {
     try {
-      // Busca el usuario por nombre de usuario en Firestore
       const userSnapshot = await this.firestore.collection('users', ref => ref.where('nombreUsuario', '==', identifier)).get().toPromise();
 
       if (!userSnapshot.empty) {
@@ -54,7 +63,6 @@ export class AuthService {
         const userData = userDoc.data() as User;
         const email = userData.email;
 
-        // Inicia sesión con el correo electrónico obtenido
         const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
         
         if (keepSession) {
@@ -62,7 +70,6 @@ export class AuthService {
         }
         return userCredential;
       } else {
-        // Si no se encuentra el nombre de usuario, intenta con el correo directamente
         const userCredential = await this.afAuth.signInWithEmailAndPassword(identifier, password);
         
         if (keepSession) {
