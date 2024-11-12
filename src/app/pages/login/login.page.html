@@ -1,30 +1,63 @@
-<ion-content padding>
+<ion-content>
   <div class="container">
+    <!-- Logo centrado arriba del formulario -->
+    <div class="logo">
+      <img src="assets/imgs/paw.png" alt="Logo de la aplicación" />
+    </div>
+
     <ion-card>
       <ion-title class="form-title">Iniciar Sesión</ion-title>
+
       <form (ngSubmit)="login()">
-        <ion-item>
+        <!-- Campo para el correo electrónico o nombre de usuario -->
+        <ion-item lines="full">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
           <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input [(ngModel)]="identifier" name="identifier" placeholder=""></ion-input>
+          <ion-input 
+            [(ngModel)]="identifier" 
+            name="identifier" 
+            type="text" 
+            required 
+            autocomplete="username"
+            spellcheck="false" 
+            aria-label="Correo Electrónico">
+          </ion-input>
         </ion-item>
 
-        <ion-item>
+        <!-- Campo para la contraseña -->
+        <ion-item lines="full">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input [(ngModel)]="password" name="password" type="password" placeholder=""></ion-input>
+          <ion-input 
+            [(ngModel)]="password" 
+            name="password" 
+            type="password" 
+            required 
+            autocomplete="current-password"
+            aria-label="Contraseña">
+          </ion-input>
         </ion-item>
 
         <!-- Checkbox para mantener sesión iniciada -->
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Mantener sesión iniciada</ion-label>
-          <ion-checkbox [(ngModel)]="keepSession" name="keepSession" slot="end"></ion-checkbox>
+          <ion-checkbox 
+            [(ngModel)]="keepSession" 
+            name="keepSession" 
+            slot="end" 
+            aria-label="Mantener sesión iniciada">
+          </ion-checkbox>
         </ion-item>
 
-        <ion-button expand="block" type="submit">Ingresar</ion-button>
-        <div class="extra-options">
-          <p><a (click)="navigateToResetPassword()">Restablecer Contraseña</a></p>
-          <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
-        </div>
+        <!-- Botón de inicio de sesión -->
+        <ion-button expand="block" type="submit" class="login-button">Ingresar</ion-button>
       </form>
+
+      <!-- Enlaces adicionales -->
+      <div class="extra-options">
+        <p><a (click)="navigateToResetPassword()">Restablecer Contraseña</a></p>
+        <p>¿Nuevo aquí? <a (click)="register()">Regístrate</a></p>
+      </div>
     </ion-card>
   </div>
 </ion-content>
