@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyDzptjsOo-8gZ8URYJ-LxoQCb6cGBphGpU",
-    authDomain: "patitasencasapp-33b1d.firebaseapp.com",
-    projectId: "patitasencasapp-33b1d",
-    storageBucket: "patitasencasapp-33b1d.appspot.com", // Corrige el storageBucket
-    messagingSenderId: "499613011515",
-    appId: "1:499613011515:web:ef0abf8131949d5389d61e",
-    measurementId: "G-Z6NJBTFNH9"
+    apiKey: "AIzaSyCC-4CCI-fZqifbGyRZSMhZ728FHDHFQjA",
+    authDomain: "patitasbd.firebaseapp.com",
+    projectId: "patitasbd",
+    storageBucket: "patitasbd.firebasestorage.app",
+    messagingSenderId: "1005276565435",
+    appId: "1:1005276565435:web:25114275471f777e38fe9e",
+    measurementId: "G-7L5HT6EE3F"
   }
 };
