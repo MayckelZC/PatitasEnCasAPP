@@ -1,115 +1,133 @@
-/* Fondo general del ion-content */
-ion-content {
-  --background: #4CAF50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 0 20px;
+/* Estilo del encabezado y toolbar */
+ion-header,
+ion-toolbar {
+    --background: #4CAF50;
+    color: white;
 }
 
-/* Contenedor para centrar el card */
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding-top: 20px;
+ion-title {
+    font-size: 1.5rem;
+    text-align: center;
 }
 
-/* Card del formulario */
+/* Estilo de la tarjeta */
 ion-card {
-  width: 100%;
-  max-width: 400px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 25px 20px;
-  text-align: center;
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 1rem auto;
 }
 
-/* Título del formulario */
+/* Estilo del título del formulario */
 .form-title {
-  font-size: 24px;
-  color: #4CAF50;
-  font-weight: bold;
-  margin-bottom: 20px;
+    font-size: 24px;
+    color: #4CAF50;
+    margin: 0;
+    text-align: center;
 }
 
-/* Campos del formulario */
+/* Estilo del área de contenido con scroll */
+ion-content {
+    --background: white;
+    padding: 0;
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Estilo de los elementos dentro de un item */
 ion-item {
-  --background: #f1f8e9; /* Fondo verde claro */
-  --border-radius: 8px;
-  margin-bottom: 15px;
-  --padding-start: 15px;
-  --padding-end: 15px;
+    --background: #f7f7f7;
+    --border-radius: 8px;
+    margin-bottom: 15px;
+    --padding-start: 15px;
+    --padding-end: 15px;
 }
 
-ion-icon {
-  color: #66bb6a; /* Verde claro basado en la imagen */
-}
-
-/* Estilos para ion-label */
+/* Estilo de las etiquetas */
 ion-label {
-  color: #66bb6a !important; /* Verde claro basado en la imagen */
-  font-size: 16px;
+    color: #4CAF50 !important;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
-/* Estilo para el texto flotante (cuando el campo está enfocado o tiene valor) */
-ion-item.item-has-value ion-label,
-ion-item.ion-focused ion-label {
-  color: #66bb6a !important; /* Verde claro */
-}
-
-/* Campos de entrada */
+/* Estilo de las entradas de texto */
 ion-input {
-  --placeholder-color: #66bb6a; /* Verde claro */
-  color: #388E3C; /* Verde para el texto */
-  font-size: 16px;
+    --placeholder-color: #999;
+    color: #333;
 }
 
-/* Botón de envío */
-.submit-button {
-  --background: #2196F3;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  margin-top: 20px;
-  height: 50px;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+/* Estilo de los botones */
+ion-button {
+    --background: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: #1E88E5;
+ion-button:hover {
+    background-color: #45a049;
 }
 
-.submit-button:disabled {
-  opacity: 0.6;
+/* Estilo del grupo de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Botón de limpiar */
-ion-button[color="dark"] {
-  margin-top: 10px;
-  height: 50px;
-  --background: #444;
-  color: white;
-  border-radius: 8px;
+/* Mensaje de error */
+.error-message {
+    color: #a94442;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
-/* Estilo para el enlace */
-.extra-options {
-  text-align: center;
-  margin-top: 20px;
+/* Estilo del botón de limpiar */
+.btn-clear {
+    --background: #007bff;
+    /* Color de fondo azul */
+    --color: #fff;
+    /* Color del texto blanco */
+    --border-radius: 8px;
+    /* Bordes redondeados */
+    --padding-start: 16px;
+    /* Espaciado interno a la izquierda */
+    --padding-end: 16px;
+    /* Espaciado interno a la derecha */
 }
 
-a {
-  color: #66bb6a; /* Verde claro basado en la imagen */
-  text-decoration: underline;
+/* Estilo de la barra de progreso y el texto */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-a:hover {
-  text-decoration: none;
+ion-progress-bar {
+    flex: 1;
+    --background: #e0e0e0;
+    /* Fondo de la barra */
+    --bar-background: #4CAF50;
+    /* Color de la barra */
+    height: 10px;
+    /* Altura de la barra */
+    margin-top: 10px;
+    /* Espacio superior */
+}
+
+.progress-text {
+    font-size: 16px;
+    color: #4CAF50;
+    margin-left: 10px;
 }
