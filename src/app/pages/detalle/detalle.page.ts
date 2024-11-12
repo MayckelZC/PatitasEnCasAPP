@@ -38,32 +38,37 @@ export class DetallePage implements OnInit {
     if (this.pet) {
       const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
       const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
+      const microchipText = this.pet.microchip ? 'Sí' : 'No';
+
+      const edadText = this.pet.etapaVida === 'cachorro'
+        ? `${this.pet.edadMeses} meses`
+        : `${this.pet.edadAnios} años`;
 
       const detailLink = `https://sitioenconstruccion.com/detalle?id=${this.pet.id}`; 
 
       const shareContent = `
         Detalles de la Mascota en Adopción:
         Tipo de Mascota: ${this.pet.tipoMascota}
-        Edad: ${this.pet.edad}
+        Edad: ${edadText}
         Raza: ${this.pet.raza}
         Color: ${this.pet.color}
         Vacunas: ${vacunasText}
         Esterilizado: ${esterilizadoText}
+        Microchip: ${microchipText}
         Tamaño: ${this.pet.tamano}
+        Condiciones de Salud: ${this.pet.condicionesSalud || 'Ninguna'}
         Descripción: ${this.pet.descripcion}
         Para más detalles, visita: ${detailLink}
-        Imagen: ${this.pet.url}
       `.trim();
 
       await Share.share({
         title: 'Detalles de la Mascota en Adopción',
         text: shareContent,
-        url: this.pet.url, 
+        url: this.pet.urlImagen, 
         dialogTitle: 'Compartir Detalles',
       });
     } else {
       console.error('No se pudo compartir, los detalles de la mascota no están disponibles.');
     }
   }
-
 }

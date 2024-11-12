@@ -14,17 +14,19 @@
   <ion-list>
     <ion-item *ngFor="let adopcion of misAdopciones">
       <ion-label>
-        <h2>{{ adopcion.nombre }}</h2>
+        <h2>{{ adopcion.nombre || 'Sin nombre' }}</h2>
         <p>Tipo: {{ adopcion.tipoMascota }}</p>
         <p>Tamaño: {{ adopcion.tamano }}</p>
-        <p>Edad: {{ adopcion.edad }} años</p>
+        <p>Edad: {{ adopcion.etapaVida === 'cachorro' ? adopcion.edadMeses + ' meses' : adopcion.edadAnios + ' años' }}</p>
         <p>Sexo: {{ adopcion.sexo }}</p>
         <p>Raza: {{ adopcion.raza }}</p>
         <p>Color: {{ adopcion.color }}</p>
-        <p>Descripción: {{ adopcion.descripcion }}</p>
-        <p>URL de la imagen: {{ adopcion.url }}</p>
+        <p>Condiciones de Salud: {{ adopcion.condicionesSalud || 'Ninguna' }}</p>
+        <p>Descripción: {{ adopcion.descripcion || 'No disponible' }}</p>
+        <p>Microchip: {{ adopcion.microchip ? 'Sí' : 'No' }}</p>
+        <p>Vacuna: {{ adopcion.vacuna ? 'Al día' : 'Pendiente' }}</p>
         <p>Esterilizado: {{ adopcion.esterilizado ? 'Sí' : 'No' }}</p>
-        <p>Vacuna: {{ adopcion.vacuna ? 'Sí' : 'No' }}</p>
+        <p>URL de la imagen: {{ adopcion.urlImagen }}</p>
       </ion-label>
       <ion-buttons slot="end">
         <ion-button (click)="editAdopcion(adopcion)">Modificar</ion-button>

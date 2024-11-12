@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AuthService } from '../../services/auth.service'; // Importa el servicio de autenticación
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-crearadopcion',
@@ -16,97 +16,92 @@ export class CrearadopcionPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private alertController: AlertController,
-    private firestore: AngularFirestore, // Inyecta el servicio de Firestore
-    private authService: AuthService // Inyecta el servicio de autenticación
-  ) { }
+    private firestore: AngularFirestore,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.adopcionForm = this.formBuilder.group({
       tipoMascota: ['', Validators.required],
       tamano: ['', Validators.required],
-      nombre: ['', [Validators.pattern('^[A-Za-z]+$')]], // Solo letras, opcional
-      edad: ['', [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]], // Solo números
+      etapaVida: ['', Validators.required],
+      edadMeses: ['', [Validators.min(0), Validators.max(12), Validators.pattern('^[0-9]+$')]],
+      edadAnios: ['', [Validators.min(1), Validators.max(100), Validators.pattern('^[0-9]+$')]],
+      nombre: ['', [Validators.pattern('^[A-Za-z]+$')]],
       sexo: ['', Validators.required],
-      raza: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]], // Solo letras y espacios
-      color: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]], // Solo letras y espacios
+      raza: ['', [Validators.pattern('^[A-Za-z ]+$')]],
+      color: ['', [Validators.pattern('^[A-Za-z ]+$')]],
       esterilizado: [false],
       vacuna: [false],
-      descripcion: ['', [Validators.pattern('^[A-Za-z0-9 ]*$')]], // Acepta letras, números y espacios
-      url: ['', [Validators.required, Validators.pattern('https?://.+')]], // URL de la imagen
+      microchip: [false],
+      descripcion: ['', [Validators.pattern('^[A-Za-z0-9 ]*$')]],
+      urlImagen: ['', [Validators.pattern('https?://.+')]]
     });
+
+    this.adopcionForm.get('etapaVida')?.valueChanges.subscribe((etapa) => {
+      this.actualizarValidacionesEdad(etapa);
+    });
+  }
+
+  actualizarValidacionesEdad(etapa: string) {
+    const edadMesesControl = this.adopcionForm.get('edadMeses');
+    const edadAniosControl = this.adopcionForm.get('edadAnios');
+
+    if (etapa === 'cachorro') {
+      edadMesesControl?.setValidators([Validators.required, Validators.min(0), Validators.max(12), Validators.pattern('^[0-9]+$')]);
+      edadAniosControl?.clearValidators();
+      edadAniosControl?.reset();
+    } else if (etapa === 'adulto') {
+      edadAniosControl?.setValidators([Validators.required, Validators.min(1), Validators.max(100), Validators.pattern('^[0-9]+$')]);
+      edadMesesControl?.clearValidators();
+      edadMesesControl?.reset();
+    }
+
+    edadMesesControl?.updateValueAndValidity();
+    edadAniosControl?.updateValueAndValidity();
+  }
+
+  validarEdadMeses(event: any) {
+    const inputValue = event.target.value;
+    if (inputValue > 12) {
+      event.target.value = 12;
+      this.adopcionForm.get('edadMeses')?.setValue(12);
+    }
+  }
+
+  validarEdadAnios(event: any) {
+    const inputValue = event.target.value;
+    if (inputValue > 100) {
+      event.target.value = 100;
+      this.adopcionForm.get('edadAnios')?.setValue(100);
+    }
   }
 
   async onSubmit() {
     if (this.adopcionForm.valid) {
-      const alert = await this.alertController.create({
-        header: 'Confirmación',
-        message: '¿Deseas crear esta nueva adopción?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            handler: () => {
-              console.log('Creación de adopción cancelada');
-            },
-          },
-          {
-            text: 'Confirmar',
-            handler: async () => {
-              const formData = this.adopcionForm.value;
+      const formData = this.adopcionForm.value;
+      const currentUser = await this.authService.getCurrentUser();
 
-              // Obtener el usuario actual
-              const currentUser = await this.authService.getCurrentUser();
-              if (currentUser) {
-                formData.userId = currentUser.uid; // Agregar userId
+      if (currentUser) {
+        formData.userId = currentUser.uid;
 
-                // Guarda los datos en Firestore
-                try {
-                  await this.firestore.collection('mascotas').add(formData);
-                  const toast = await this.toastController.create({
-                    message: 'Adopción creada con éxito.',
-                    duration: 3000,
-                    position: 'top',
-                    cssClass: 'toast-center',
-                  });
-                  toast.present();
-                  this.adopcionForm.reset(); // Limpia el formulario
-                } catch (error) {
-                  console.error('Error guardando adopción:', error);
-                  const toast = await this.toastController.create({
-                    message: 'Error al guardar la adopción.',
-                    duration: 2000,
-                    position: 'top',
-                  });
-                  toast.present();
-                }
-              } else {
-                const toast = await this.toastController.create({
-                  message: 'No se pudo obtener el usuario actual.',
-                  duration: 2000,
-                  position: 'top',
-                });
-                toast.present();
-              }
-            },
-          },
-        ],
-      });
-
-      await alert.present();
-    } else {
-      const toast = await this.toastController.create({
-        message: 'Por favor, completa todos los campos correctamente.',
-        duration: 2000,
-        position: 'top',
-      });
-      toast.present();
-      console.log('Formulario inválido');
+        try {
+          await this.firestore.collection('mascotas').add(formData);
+          const toast = await this.toastController.create({
+            message: 'Adopción creada con éxito.',
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
+          this.adopcionForm.reset();
+        } catch (error) {
+          console.error('Error guardando adopción:', error);
+        }
+      }
     }
   }
 
   onClear() {
     this.adopcionForm.reset();
   }
-
-
 }

@@ -1,140 +1,131 @@
-/* Estilo del encabezado y toolbar */
+/* Encabezado y toolbar */
 ion-header,
 ion-toolbar {
-    --background: #4CAF50;
-    color: white;
+  --background: #4CAF50;
+  color: white;
 }
 
 ion-title {
-    font-size: 1.5rem;
-    text-align: center;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
-/* Estilo de la tarjeta */
+/* Tarjeta */
 ion-card {
-    width: 100%;
-    max-width: 500px;
-    /* Ajusta el ancho máximo según tus necesidades */
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 1rem auto;
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  padding: 20px;
 }
 
-/* Estilo del título del formulario */
+/* Título del formulario */
 .form-title {
-    font-size: 24px;
-    color: #4CAF50;
-    margin: 0;
-    text-align: center;
+  text-align: center;
+  font-size: 24px;
+  color: #4CAF50;
+  margin-bottom: 1rem;
 }
 
-/* Estilo del área de contenido con scroll */
-ion-content {
-    --background: white;
-    padding: 0;
-}
-
-/* Estilo del formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-/* Estilo de los elementos dentro de un item */
+/* Elementos del formulario */
 ion-item {
-    --background: #f7f7f7;
-    --border-radius: 8px;
-    margin-bottom: 15px;
-    --padding-start: 15px;
-    --padding-end: 15px;
+  --background: #f7f7f7;
+  --border-radius: 8px;
+  margin-bottom: 15px;
+  --padding-start: 10px;
 }
 
-/* Estilo de las etiquetas */
+ion-icon {
+  color: #4CAF50;
+}
+
+/* Colorear etiquetas en verde */
 ion-label {
-    color: #4CAF50 !important;
-    font-size: 16px;
-    margin-bottom: 5px;
+  color: #4CAF50 !important;
 }
 
-/* Estilo de las entradas de texto */
+/* Campos de entrada */
 ion-input,
-ion-select,
+ion-textarea,
+ion-select {
+  color: #4CAF50;
+}
+
+/* Estilo para los select y textarea */
+ion-select {
+  margin-top: 5px;
+}
+
 ion-textarea {
-    --placeholder-color: #999;
-    color: #333;
+  margin-top: 10px;
+  --min-height: 100px;
+  border-radius: 8px;
+  padding: 10px;
 }
 
-/* Estilo de los botones */
-ion-button {
-    --background: #4CAF50;
-    color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-size: 16px;
+/* Checkbox */
+ion-checkbox {
+  --background: #4CAF50;
+  --checkmark-color: white;
 }
 
-ion-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilo de la vista previa de la imagen */
-.image-preview {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.image-preview img {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo del grupo de botones */
+/* Botones */
 .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/* Mensaje de error obligatorio */
-.error-message {
-    color: #a94442;
-    /* Rojo oscuro para los errores */
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* Mensaje de éxito */
-.success-message {
-    background-color: #dff0d8;
-    color: #3c763d;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-/* Toast de éxito */
-.toast-center {
-    --toast-background: #dff0d8;
-    /* Fondo del toast */
-    --toast-color: #3c763d;
-    /* Color del texto */
-    --toast-padding: 16px;
-    --toast-border-radius: 8px;
-    --toast-text-align: center;
-    /* Centra el texto */
+.btn-primary {
+  --background: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
 .btn-clear {
-    --background: #007bff; // Color de fondo azul
-    --color: #fff; // Color del texto blanco
-    --border-radius: 4px; // Bordes redondeados (opcional)
-    --padding-start: 16px; // Espaciado interno a la izquierda
-    --padding-end: 16px; // Espaciado interno a la derecha
+  --background: #9E9E9E;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #a94442;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Vista previa de la imagen */
+.image-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enlace de pie de página */
+.footer-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-link a {
+  color: #4CAF50;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-link a:hover {
+  color: #388E3C;
 }

@@ -12,7 +12,9 @@
     <ion-title class="form-title">Crear Adopción</ion-title>
     <form [formGroup]="adopcionForm" (ngSubmit)="onSubmit()">
 
-      <ion-item>
+      <!-- Tipo de Mascota -->
+      <ion-item lines="none">
+        <ion-icon name="paw-outline" slot="start"></ion-icon>
         <ion-label position="floating">Tipo de Mascota</ion-label>
         <ion-select formControlName="tipoMascota" required>
           <ion-select-option value="perro">Perro</ion-select-option>
@@ -20,11 +22,10 @@
           <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="adopcionForm.get('tipoMascota')?.errors?.['required']" class="error-message">
-        El tipo de mascota es obligatorio.
-      </div>
 
-      <ion-item>
+      <!-- Tamaño -->
+      <ion-item lines="none">
+        <ion-icon name="resize-outline" slot="start"></ion-icon>
         <ion-label position="floating">Tamaño</ion-label>
         <ion-select formControlName="tamano" required>
           <ion-select-option value="pequeño">Pequeño</ion-select-option>
@@ -32,75 +33,121 @@
           <ion-select-option value="grande">Grande</ion-select-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="adopcionForm.get('tamano')?.errors?.['required']" class="error-message">
-        El tamaño es obligatorio.
-      </div>
 
-      <ion-item>
+      <!-- Etapa de Vida -->
+      <ion-item lines="none">
+        <ion-icon name="time-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Etapa de Vida</ion-label>
+        <ion-select formControlName="etapaVida" required>
+          <ion-select-option value="cachorro">Cachorro</ion-select-option>
+          <ion-select-option value="adulto">Adulto</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Edad en Meses (solo si es cachorro) -->
+      <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro'" lines="none">
+        <ion-icon name="hourglass-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Edad (Meses)</ion-label>
+        <ion-input 
+          formControlName="edadMeses" 
+          type="number" 
+          min="0" 
+          max="12" 
+          placeholder="0 - 12 meses"
+          (ionInput)="validarEdadMeses($event)">
+        </ion-input>
+      </ion-item>
+
+      <!-- Edad en Años (solo si es adulto) -->
+      <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto'" lines="none">
+        <ion-icon name="hourglass-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Edad (Años)</ion-label>
+        <ion-input 
+          formControlName="edadAnios" 
+          type="number" 
+          min="1" 
+          max="100" 
+          placeholder="1 - 100 años"
+          (ionInput)="validarEdadAnios($event)">
+        </ion-input>
+      </ion-item>
+
+      <!-- Nombre (Opcional) -->
+      <ion-item lines="none">
+        <ion-icon name="text-outline" slot="start"></ion-icon>
         <ion-label position="floating">Nombre (Opcional)</ion-label>
         <ion-input formControlName="nombre"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Edad</ion-label>
-        <ion-input formControlName="edad" type="number" required></ion-input>
-      </ion-item>
-      <div *ngIf="adopcionForm.get('edad')?.errors?.['required']" class="error-message">
-        La edad es obligatoria.
-      </div>
-
-      <ion-item>
+      <!-- Sexo -->
+      <ion-item lines="none">
+        <ion-icon name="male-female-outline" slot="start"></ion-icon>
         <ion-label position="floating">Sexo</ion-label>
         <ion-select formControlName="sexo" required>
           <ion-select-option value="macho">Macho</ion-select-option>
           <ion-select-option value="hembra">Hembra</ion-select-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="adopcionForm.get('sexo')?.errors?.['required']" class="error-message">
-        El sexo es obligatorio.
-      </div>
 
-      <ion-item>
+      <!-- Raza -->
+      <ion-item lines="none">
+        <ion-icon name="shapes-outline" slot="start"></ion-icon>
         <ion-label position="floating">Raza</ion-label>
-        <ion-input formControlName="raza"></ion-input>
+        <ion-input formControlName="raza" required></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!-- Color -->
+      <ion-item lines="none">
+        <ion-icon name="color-palette-outline" slot="start"></ion-icon>
         <ion-label position="floating">Color</ion-label>
         <ion-input formControlName="color" required></ion-input>
       </ion-item>
-      <div *ngIf="adopcionForm.get('color')?.errors?.['required']" class="error-message">
-        El color es obligatorio.
-      </div>
 
-      <ion-item>
+      <!-- Descripción -->
+      <ion-item lines="none">
+        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
         <ion-label position="floating">Descripción</ion-label>
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">URL de la imagen</ion-label>
-        <ion-input formControlName="url" required></ion-input>
-      </ion-item>
-      <div *ngIf="adopcionForm.get('url')?.errors?.['required']" class="error-message">
-        La URL de la imagen es obligatoria.
-      </div>
-      <div *ngIf="adopcionForm.get('url')?.errors?.['pattern']" class="error-message">
-        Debe ser una URL válida.
-      </div>
-
-      <ion-item>
+      <!-- ¿Está esterilizado? -->
+      <ion-item lines="none">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
         <ion-label>¿Está esterilizado?</ion-label>
         <ion-checkbox formControlName="esterilizado"></ion-checkbox>
       </ion-item>
 
-      <ion-item>
+      <!-- ¿Está vacunado? -->
+      <ion-item lines="none">
+        <ion-icon name="checkmark-done-circle-outline" slot="start"></ion-icon>
         <ion-label>¿Está vacunado?</ion-label>
         <ion-checkbox formControlName="vacuna"></ion-checkbox>
       </ion-item>
 
+      <!-- ¿Tiene microchip? -->
+      <ion-item lines="none">
+        <ion-icon name="barcode-outline" slot="start"></ion-icon>
+        <ion-label>¿Tiene microchip?</ion-label>
+        <ion-checkbox formControlName="microchip"></ion-checkbox>
+      </ion-item>
+
+      <!-- Condiciones de salud -->
+      <ion-item lines="none">
+        <ion-icon name="medkit-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Condiciones de Salud</ion-label>
+        <ion-textarea formControlName="condicionesSalud"></ion-textarea>
+      </ion-item>
+
+      <!-- URL de la imagen -->
+      <ion-item lines="none">
+        <ion-icon name="image-outline" slot="start"></ion-icon>
+        <ion-label position="floating">URL de la imagen</ion-label>
+        <ion-input formControlName="urlImagen" type="url" required></ion-input>
+      </ion-item>
+
+      <!-- Botones de acción -->
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid">Guardar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Guardar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>

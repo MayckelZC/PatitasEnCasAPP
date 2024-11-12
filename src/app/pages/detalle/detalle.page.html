@@ -3,26 +3,31 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title style="color: white;">Detalles de {{ pet?.nombre }}</ion-title>
+    <ion-title style="color: white;">Detalles de {{ pet?.nombre || 'Sin nombre' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="content-container">
     <ion-card class="pet-adopt-card">
-      <ion-img [src]="pet?.url" class="pet-image"></ion-img>
+      <ion-img [src]="pet?.urlImagen" class="pet-image"></ion-img>
       <ion-card-header>
-        <ion-card-title>{{ pet?.nombre }}</ion-card-title>
+        <ion-card-title>{{ pet?.nombre || 'Sin nombre' }}</ion-card-title>
         <ion-card-subtitle>{{ pet?.tipoMascota }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p><strong>Edad:</strong> {{ pet?.edad }} años</p>
+        <!-- Mostrar la edad según la etapa de vida -->
+        <p><strong>Edad:</strong> 
+          {{ pet?.etapaVida === 'cachorro' ? pet?.edadMeses + ' meses' : pet?.edadAnios + ' años' }}
+        </p>
         <p><strong>Raza:</strong> {{ pet?.raza }}</p>
         <p><strong>Color:</strong> {{ pet?.color }}</p>
         <p><strong>Vacunas:</strong> {{ pet?.vacuna ? 'Al día' : 'Pendientes' }}</p>
         <p><strong>Esterilizado:</strong> {{ pet?.esterilizado ? 'Sí' : 'No' }}</p>
+        <p><strong>Microchip:</strong> {{ pet?.microchip ? 'Sí' : 'No' }}</p>
         <p><strong>Tamaño:</strong> {{ pet?.tamano }}</p>
-        <p><strong>Descripción: </strong>{{ pet?.descripcion }}</p>
+        <p><strong>Condiciones de Salud:</strong> {{ pet?.condicionesSalud || 'Sin condiciones' }}</p>
+        <p><strong>Descripción: </strong>{{ pet?.descripcion || 'No hay descripción disponible' }}</p>
       </ion-card-content>
       <ion-footer>
         <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
@@ -32,17 +37,17 @@
       </ion-footer>
     </ion-card>
     
-    <!-- Botón para crear el QR 
+    <!-- Botón para crear el QR -->
     <div class="qr-button-container">
       <ion-button class="qr-button" (click)="generateQRCode()">
         <ion-icon name="qr-code-outline"></ion-icon>
       </ion-button>
       <p class="qr-button-text">Crear QR</p>
-    </div>-->
+    </div>
 
-    <!-- Contenedor para el QR generado 
+    <!-- Contenedor para el QR generado -->
     <div class="qr-code-container" *ngIf="qrData">
       <qrcode [qrdata]="qrData" class="qr-code"></qrcode>
-    </div>-->
+    </div>
   </div>
 </ion-content>

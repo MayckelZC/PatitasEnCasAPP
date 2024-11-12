@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Adopcion } from 'src/app/models/Adopcion';
-import { HuachitosService } from '../../services/huachitos.service'; // Importa el servicio Huachitos
+import { HuachitosService } from '../../services/huachitos.service';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +22,8 @@ export class HomePage implements AfterViewInit {
   allAdopciones: Adopcion[] = [];
   filteredAdopciones: Adopcion[] = [];
   nombreUsuario: string = '';
-  searchTerm: string = ''; // Agrega esta línea para la búsqueda
-  animals: any[] = []; // Array para almacenar los datos de los animales de la API
+  searchTerm: string = '';
+  animals: any[] = [];
 
   constructor(
     private animationCtrl: AnimationController,
@@ -31,20 +31,16 @@ export class HomePage implements AfterViewInit {
     private alertCtrl: AlertController,
     private authService: AuthService,
     private firestore: AngularFirestore,
-    private huachitosService: HuachitosService // Inyecta el servicio Huachitos
+    private huachitosService: HuachitosService
   ) {}
 
   async ngAfterViewInit() {
     this.createDogAnimation();
 
-    // Obtener el usuario actual
     const currentUser = await this.authService.getCurrentUser();
-    this.nombreUsuario = currentUser ? currentUser.nombreUsuario : 'Invitado'; // Usa nombreUsuario directamente
+    this.nombreUsuario = currentUser ? currentUser.nombreUsuario : 'Invitado';
 
-    // Cargar adopciones desde Firestore
     await this.loadAdopciones();
-
-    // Cargar animales desde la API Huachitos
     await this.loadAnimals();
   }
 
@@ -52,15 +48,14 @@ export class HomePage implements AfterViewInit {
     const snapshot = await this.firestore.collection<Adopcion>('mascotas').get().toPromise();
     this.allAdopciones = snapshot.docs.map(doc => {
       const data = doc.data() as Adopcion;
-      return { id: doc.id, ...data }; // Asegúrate de agregar el ID aquí
+      return { id: doc.id, ...data };
     });
-    this.filteredAdopciones = [...this.allAdopciones]; // Inicializa la lista filtrada
+    this.filteredAdopciones = [...this.allAdopciones];
   }
 
   async loadAnimals() {
     try {
-      this.animals = await this.huachitosService.getAnimals(); // Llama al servicio para obtener los animales
-      console.log('Animales cargados:', this.animals); // Muestra los animales en la consola
+      this.animals = await this.huachitosService.getAnimals();
     } catch (error) {
       console.error('Error loading animals:', error);
     }
@@ -75,7 +70,7 @@ export class HomePage implements AfterViewInit {
 
       dogElement.onerror = () => {
         console.error('No se pudo cargar la imagen:', randomImage);
-        dogElement.src = 'assets/imgs/default-dog.png'; // Imagen por defecto en caso de error
+        dogElement.src = 'assets/imgs/default-dog.png';
       };
 
       const dogAnimation = this.animationCtrl.create()
@@ -100,7 +95,6 @@ export class HomePage implements AfterViewInit {
       adopcion.nombre.toLowerCase().includes(term)
     );
 
-    // Filtrado por tipo de mascota
     if (this.selectedFilter !== 'all') {
       this.filteredAdopciones = this.filteredAdopciones.filter(adopcion =>
         adopcion.tipoMascota === this.selectedFilter
@@ -121,8 +115,8 @@ export class HomePage implements AfterViewInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this.authService.logout(); // Llama al método de cierre de sesión del AuthService
-            localStorage.removeItem('userId'); // Elimina el ID del usuario de localStorage
+            this.authService.logout();
+            localStorage.removeItem('userId');
             this.router.navigate(['/login']);
           }
         }
@@ -135,18 +129,22 @@ export class HomePage implements AfterViewInit {
   viewDetails(adopcion: Adopcion) {
     this.router.navigate(['/detalle'], {
       queryParams: {
-        id: adopcion.id, // Ahora pasamos el ID
+        id: adopcion.id,
         tipoMascota: adopcion.tipoMascota,
         tamano: adopcion.tamano,
         nombre: adopcion.nombre,
-        edad: adopcion.edad,
+        etapaVida: adopcion.etapaVida,
+        edadMeses: adopcion.edadMeses,
+        edadAnios: adopcion.edadAnios,
         sexo: adopcion.sexo,
         raza: adopcion.raza,
         color: adopcion.color,
         descripcion: adopcion.descripcion,
         esterilizado: adopcion.esterilizado,
         vacuna: adopcion.vacuna,
-        url: adopcion.url // Agregamos la URL de la imagen
+        microchip: adopcion.microchip,
+        condicionesSalud: adopcion.condicionesSalud,
+        urlImagen: adopcion.urlImagen
       }
     });
   }

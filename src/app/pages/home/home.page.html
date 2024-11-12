@@ -55,17 +55,21 @@
       <!-- Mostrar las adopciones filtradas -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adopcion of filteredAdopciones">
         <ion-card class="pet-card">
-          <ion-img [src]="adopcion.url" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
+          <ion-img [src]="adopcion.urlImagen" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
           <ion-card-header>
-            <ion-card-title>{{ adopcion.nombre }}</ion-card-title>
-            <ion-card-subtitle>{{ adopcion.tipoMascota }}, {{ adopcion.edad }} años</ion-card-subtitle>
+            <ion-card-title>{{ adopcion.nombre || 'Sin nombre' }}</ion-card-title>
+            <ion-card-subtitle>
+              {{ adopcion.tipoMascota }},
+              {{ adopcion.etapaVida === 'cachorro' ? adopcion.edadMeses + ' meses' : adopcion.edadAnios + ' años' }}
+            </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            {{ adopcion.descripcion }}
+            {{ adopcion.descripcion || 'No hay descripción disponible' }}
           </ion-card-content>
           <div class="button-container">
-            <ion-button expand="full" class="details-button" color="green"
-              (click)="viewDetails(adopcion)">Detalles</ion-button>
+            <ion-button expand="full" class="details-button" color="green" (click)="viewDetails(adopcion)">
+              Detalles
+            </ion-button>
             <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
           </div>
         </ion-card>
@@ -113,12 +117,6 @@
     <ion-icon name="add-circle-outline"></ion-icon>
     Crear Adopción
   </ion-button>
-  <!-- 
-  <ion-button (click)="readQR()">
-    <ion-icon name="qr-code-outline"></ion-icon>
-    Leer QR
-  </ion-button>
-  -->
   <ion-button [routerLink]="['/misadopciones']">
     <ion-icon name="people-outline"></ion-icon>
     Mis Adopciones
