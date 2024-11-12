@@ -48,12 +48,7 @@
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Meses)</ion-label>
-        <ion-input 
-          formControlName="edadMeses" 
-          type="number" 
-          min="0" 
-          max="12" 
-          placeholder="0 - 12 meses"
+        <ion-input formControlName="edadMeses" type="number" min="0" max="12" placeholder="0 - 12 meses"
           (ionInput)="validarEdadMeses($event)">
         </ion-input>
       </ion-item>
@@ -62,12 +57,7 @@
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Años)</ion-label>
-        <ion-input 
-          formControlName="edadAnios" 
-          type="number" 
-          min="1" 
-          max="100" 
-          placeholder="1 - 100 años"
+        <ion-input formControlName="edadAnios" type="number" min="1" max="100" placeholder="1 - 100 años"
           (ionInput)="validarEdadAnios($event)">
         </ion-input>
       </ion-item>
@@ -138,16 +128,21 @@
         <ion-textarea formControlName="condicionesSalud"></ion-textarea>
       </ion-item>
 
-      <!-- URL de la imagen -->
+      <!-- Subir Imagen -->
       <ion-item lines="none">
-        <ion-icon name="image-outline" slot="start"></ion-icon>
-        <ion-label position="floating">URL de la imagen</ion-label>
-        <ion-input formControlName="urlImagen" type="url" required></ion-input>
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        <ion-label>Subir Imagen</ion-label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
       </ion-item>
+
+      <!-- Vista previa de la imagen subida -->
+      <ion-img *ngIf="previewImage" [src]="previewImage" class="image-preview"></ion-img>
+
 
       <!-- Botones de acción -->
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Guardar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid"
+          class="btn-primary">Guardar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>
