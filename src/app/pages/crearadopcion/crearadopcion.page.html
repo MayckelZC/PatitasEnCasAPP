@@ -1,17 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
+      <ion-title class="left-title">Crear Adopción</ion-title>
     </ion-buttons>
-    <ion-title>Crear Adopción</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']">Volver</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-title class="form-title">Crear Adopción</ion-title>
+    <ion-title class="form-title">Formulario de Adopción</ion-title>
     <form [formGroup]="adopcionForm" (ngSubmit)="onSubmit()">
-
       <!-- Tipo de Mascota -->
       <ion-item lines="none">
         <ion-icon name="paw-outline" slot="start"></ion-icon>
@@ -44,22 +46,18 @@
         </ion-select>
       </ion-item>
 
-      <!-- Edad en Meses (solo si es cachorro) -->
+      <!-- Edad en Meses (Cachorro) -->
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Meses)</ion-label>
-        <ion-input formControlName="edadMeses" type="number" min="0" max="12" placeholder="0 - 12 meses"
-          (ionInput)="validarEdadMeses($event)">
-        </ion-input>
+        <ion-input formControlName="edadMeses" type="number" min="0" max="12" placeholder="0 - 12 meses"></ion-input>
       </ion-item>
 
-      <!-- Edad en Años (solo si es adulto) -->
+      <!-- Edad en Años (Adulto) -->
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Años)</ion-label>
-        <ion-input formControlName="edadAnios" type="number" min="1" max="100" placeholder="1 - 100 años"
-          (ionInput)="validarEdadAnios($event)">
-        </ion-input>
+        <ion-input formControlName="edadAnios" type="number" min="1" max="100" placeholder="1 - 100 años"></ion-input>
       </ion-item>
 
       <!-- Nombre (Opcional) -->
@@ -100,49 +98,43 @@
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
 
-      <!-- ¿Está esterilizado? -->
+      <!-- Esterilizado -->
       <ion-item lines="none">
         <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
         <ion-label>¿Está esterilizado?</ion-label>
         <ion-checkbox formControlName="esterilizado"></ion-checkbox>
       </ion-item>
 
-      <!-- ¿Está vacunado? -->
+      <!-- Vacunado -->
       <ion-item lines="none">
         <ion-icon name="checkmark-done-circle-outline" slot="start"></ion-icon>
         <ion-label>¿Está vacunado?</ion-label>
         <ion-checkbox formControlName="vacuna"></ion-checkbox>
       </ion-item>
 
-      <!-- ¿Tiene microchip? -->
+      <!-- Microchip -->
       <ion-item lines="none">
         <ion-icon name="barcode-outline" slot="start"></ion-icon>
         <ion-label>¿Tiene microchip?</ion-label>
         <ion-checkbox formControlName="microchip"></ion-checkbox>
       </ion-item>
 
-      <!-- Condiciones de salud -->
-      <ion-item lines="none">
-        <ion-icon name="medkit-outline" slot="start"></ion-icon>
-        <ion-label position="floating">Condiciones de Salud</ion-label>
-        <ion-textarea formControlName="condicionesSalud"></ion-textarea>
-      </ion-item>
-
       <!-- Subir Imagen -->
       <ion-item lines="none">
         <ion-icon name="camera-outline" slot="start"></ion-icon>
         <ion-label>Subir Imagen</ion-label>
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        <div class="upload-buttons">
+          <ion-button expand="full" (click)="captureImage()">Tomar Foto</ion-button>
+          <ion-button expand="full" (click)="onFileSelected($event)">Seleccionar Imagen</ion-button>
+        </div>
       </ion-item>
 
-      <!-- Vista previa de la imagen subida -->
+      <!-- Vista previa de la imagen -->
       <ion-img *ngIf="previewImage" [src]="previewImage" class="image-preview"></ion-img>
-
 
       <!-- Botones de acción -->
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid"
-          class="btn-primary">Guardar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Guardar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>

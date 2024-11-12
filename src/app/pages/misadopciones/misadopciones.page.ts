@@ -12,6 +12,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class MisAdopcionesPage implements OnInit {
   misAdopciones: Adopcion[] = [];
+  filteredAdopciones: Adopcion[] = [];
+  selectedFilter: string = 'all';
 
   constructor(
     private firestore: AngularFirestore,
@@ -25,6 +27,15 @@ export class MisAdopcionesPage implements OnInit {
     if (currentUser) {
       const snapshot = await this.firestore.collection<Adopcion>('mascotas', ref => ref.where('userId', '==', currentUser.uid)).get().toPromise();
       this.misAdopciones = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Adopcion[];
+      this.filterAdopciones();
+    }
+  }
+
+  filterAdopciones() {
+    if (this.selectedFilter === 'all') {
+      this.filteredAdopciones = this.misAdopciones;
+    } else {
+      this.filteredAdopciones = this.misAdopciones.filter(adopcion => adopcion.tipoMascota === this.selectedFilter);
     }
   }
 
@@ -46,6 +57,7 @@ export class MisAdopcionesPage implements OnInit {
             this.firestore.collection('mascotas').doc(id).delete().then(() => {
               console.log('Adopción eliminada con éxito');
               this.misAdopciones = this.misAdopciones.filter(adopcion => adopcion.id !== id);
+              this.filterAdopciones();
             }).catch(error => {
               console.error('Error al eliminar la adopción:', error);
             });
@@ -58,7 +70,6 @@ export class MisAdopcionesPage implements OnInit {
   }
 
   editAdopcion(adopcion: Adopcion) {
-    this.router.navigate(['/modificar'], { queryParams: { id: adopcion.id } }); // Cambia a la página de modificar con el ID
+    this.router.navigate(['/modificar'], { queryParams: { id: adopcion.id } });
   }
-
 }

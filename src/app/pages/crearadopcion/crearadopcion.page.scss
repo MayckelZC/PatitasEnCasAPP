@@ -135,3 +135,41 @@ ion-checkbox {
 ion-content {
     --background: #4CAF50; /* Verde claro */
 }
+
+.upload-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn-select-image {
+    --background: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .image-preview {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    max-height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+/* Vista previa de la imagen más pequeña */
+.image-preview {
+    display: block;
+    margin: 10px auto; /* Centrar la imagen con un margen superior */
+    max-width: 100%;
+    max-height: 100px; /* Limitar la altura para que sea más pequeña */
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Mantener la proporción de la imagen sin deformación */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  

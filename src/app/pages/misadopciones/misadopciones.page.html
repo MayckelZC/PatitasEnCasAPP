@@ -10,28 +10,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let adopcion of misAdopciones">
-      <ion-label>
-        <h2>{{ adopcion.nombre || 'Sin nombre' }}</h2>
-        <p>Tipo: {{ adopcion.tipoMascota }}</p>
-        <p>Tamaño: {{ adopcion.tamano }}</p>
-        <p>Edad: {{ adopcion.etapaVida === 'cachorro' ? adopcion.edadMeses + ' meses' : adopcion.edadAnios + ' años' }}</p>
-        <p>Sexo: {{ adopcion.sexo }}</p>
-        <p>Raza: {{ adopcion.raza }}</p>
-        <p>Color: {{ adopcion.color }}</p>
-        <p>Condiciones de Salud: {{ adopcion.condicionesSalud || 'Ninguna' }}</p>
-        <p>Descripción: {{ adopcion.descripcion || 'No disponible' }}</p>
-        <p>Microchip: {{ adopcion.microchip ? 'Sí' : 'No' }}</p>
-        <p>Vacuna: {{ adopcion.vacuna ? 'Al día' : 'Pendiente' }}</p>
-        <p>Esterilizado: {{ adopcion.esterilizado ? 'Sí' : 'No' }}</p>
-        <p>URL de la imagen: {{ adopcion.urlImagen }}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="editAdopcion(adopcion)">Modificar</ion-button>
-        <ion-button color="danger" (click)="deleteAdopcion(adopcion.id)">Eliminar</ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+<ion-content class="content-container">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adopcion of misAdopciones">
+        <ion-card class="adoption-card">
+          <ion-img [src]="adopcion.urlImagen" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ adopcion.nombre || 'Sin nombre' }}</ion-card-title>
+            <ion-card-subtitle>{{ adopcion.tipoMascota }}</ion-card-subtitle>
+          </ion-card-header>
+          <div class="button-container">
+            <ion-button color="primary" expand="block" (click)="editAdopcion(adopcion)">
+              <ion-icon name="create-outline" slot="start"></ion-icon> Modificar
+            </ion-button>
+            <ion-button color="danger" expand="block" (click)="deleteAdopcion(adopcion.id)">
+              <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar
+            </ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
