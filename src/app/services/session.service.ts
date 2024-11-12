@@ -1,33 +1,28 @@
+// src/app/services/session.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  private readonly USER_KEY = 'userId';
+  private readonly SESSION_KEY = 'user_session';
 
-  // Método para guardar la sesión del usuario
-  saveSession(userId: string, keepSession: boolean): void {
-    if (keepSession) {
-      localStorage.setItem(this.USER_KEY, userId); // Persistir en localStorage
-    } else {
-      sessionStorage.setItem(this.USER_KEY, userId); // Persistir en sessionStorage
+  // Guarda la sesión en localStorage o sessionStorage
+  saveSession(uid: string | undefined, keepSession: boolean): void {
+    if (uid) {
+      const storage = keepSession ? localStorage : sessionStorage;
+      storage.setItem(this.SESSION_KEY, uid);
     }
   }
 
-  // Método para obtener la sesión del usuario
+  // Obtiene la sesión almacenada
   getSession(): string | null {
-    return localStorage.getItem(this.USER_KEY) || sessionStorage.getItem(this.USER_KEY);
+    return sessionStorage.getItem(this.SESSION_KEY) || localStorage.getItem(this.SESSION_KEY);
   }
 
-  // Método para verificar si hay un usuario autenticado
-  isLoggedIn(): boolean {
-    return !!this.getSession();
-  }
-
-  // Método para eliminar la sesión del usuario
+  // Limpia la sesión almacenada
   clearSession(): void {
-    localStorage.removeItem(this.USER_KEY);
-    sessionStorage.removeItem(this.USER_KEY);
+    sessionStorage.removeItem(this.SESSION_KEY);
+    localStorage.removeItem(this.SESSION_KEY);
   }
 }

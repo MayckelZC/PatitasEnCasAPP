@@ -1,8 +1,9 @@
+// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat'; // Usa compat para mayor facilidad
@@ -17,6 +18,7 @@ import { environment } from '../environments/environment'; // Archivo de configu
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule, // Añade ReactiveFormsModule aquí
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa Firebase
     AngularFireAuthModule, // Proporciona el módulo de autenticación
     AngularFirestoreModule, // Proporciona el módulo de Firestore
