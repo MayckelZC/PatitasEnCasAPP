@@ -11,6 +11,16 @@
   <ion-card>
     <ion-title class="form-title">Crear Cuenta</ion-title>
     <form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
+      <!-- Nombre Completo -->
+      <ion-item>
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input formControlName="nombreCompleto"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('nombreCompleto')?.errors?.['required']" class="error-message">
+        El nombre completo es obligatorio.
+      </div>
+
+      <!-- Nombre de Usuario -->
       <ion-item>
         <ion-label position="floating">Nombre de Usuario</ion-label>
         <ion-input formControlName="nombreUsuario"></ion-input>
@@ -19,6 +29,7 @@
         El nombre de usuario es obligatorio.
       </div>
 
+      <!-- Correo Electrónico -->
       <ion-item>
         <ion-label position="floating">Correo Electrónico</ion-label>
         <ion-input formControlName="correo" type="email"></ion-input>
@@ -30,6 +41,7 @@
         El correo electrónico no es válido.
       </div>
 
+      <!-- Contraseña -->
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input formControlName="contraseña" type="password"></ion-input>
@@ -44,12 +56,31 @@
         La contraseña debe contener al menos una letra.
       </div>
 
+      <!-- Confirmar Contraseña -->
       <ion-item>
         <ion-label position="floating">Confirmar Contraseña</ion-label>
         <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
       </ion-item>
       <div *ngIf="cuentaForm.errors?.['passwordMismatch']" class="error-message">
         Las contraseñas no coinciden.
+      </div>
+
+      <!-- Teléfono -->
+      <ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input formControlName="telefono" type="tel"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('telefono')?.errors?.['required']" class="error-message">
+        El teléfono es obligatorio.
+      </div>
+
+      <!-- Dirección -->
+      <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input formControlName="direccion"></ion-input>
+      </ion-item>
+      <div *ngIf="cuentaForm.get('direccion')?.errors?.['required']" class="error-message">
+        La dirección es obligatoria.
       </div>
 
       <div class="button-group">

@@ -23,17 +23,16 @@ export class RegistroPage implements OnInit {
 
   ngOnInit() {
     this.cuentaForm = this.formBuilder.group({
+      nombreCompleto: ['', Validators.required],
       nombreUsuario: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      contraseña: ['', [Validators.required, Validators.minLength(6), this.passwordValidator]],
+      contraseña: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContraseña: ['', Validators.required],
+      telefono: ['', Validators.required],
+      direccion: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
-
-    // Escuchar cambios en el formulario
-    this.cuentaForm.valueChanges.subscribe(() => {
-      this.updateValidationProgress();
-    });
   }
+  
 
   onClear() {
     this.cuentaForm.reset();
@@ -42,33 +41,41 @@ export class RegistroPage implements OnInit {
 
   async onSubmit() {
     if (this.cuentaForm.valid) {
-      const { nombreUsuario, correo, contraseña } = this.cuentaForm.value;
-
+      const {
+        nombreCompleto,
+        nombreUsuario,
+        correo,
+        contraseña,
+        telefono,
+        direccion
+      } = this.cuentaForm.value;
+  
       try {
-        await this.authService.register(nombreUsuario, correo, contraseña);
-
-        // Guarda el nombre de usuario en el localStorage
+        // Llamada al servicio con los 6 argumentos esperados
+        await this.authService.register(
+          nombreCompleto,
+          nombreUsuario,
+          correo,
+          contraseña,
+          telefono,
+          direccion
+        );
+  
         localStorage.setItem('username', nombreUsuario);
-
+  
         const toast = await this.toastController.create({
           message: 'Cuenta creada con éxito.',
           duration: 3000,
           position: 'top',
         });
         toast.present();
-
-        // Redirigir al usuario a la página de inicio
+  
         this.router.navigate(['/home']);
       } catch (error) {
         let errorMessage = 'Error al crear la cuenta. Por favor, intenta de nuevo.';
         if (error.code === 'auth/email-already-in-use') {
-          errorMessage = 'El correo electrónico ya está en uso. Por favor, usa otro.';
-        } else if (error.code === 'auth/invalid-email') {
-          errorMessage = 'Debes introducir un correo electrónico válido.';
-        } else if (error.code === 'auth/weak-password') {
-          errorMessage = 'La contraseña debe tener al menos 6 caracteres.';
+          errorMessage = 'El correo electrónico ya está en uso.';
         }
-
         const alert = await this.alertController.create({
           header: 'Error',
           message: errorMessage,
@@ -83,9 +90,9 @@ export class RegistroPage implements OnInit {
         buttons: ['OK'],
       });
       await alert.present();
-      console.log('Formulario inválido');
     }
   }
+  
 
   passwordValidator(control: AbstractControl) {
     const value = control.value;

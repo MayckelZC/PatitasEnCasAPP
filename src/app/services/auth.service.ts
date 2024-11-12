@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User } from 'src/app/models/user'; 
+import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,19 +9,33 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
+  ) { }
 
-  // Método para registrar un nuevo usuario
-  async register(nombreUsuario: string, email: string, password: string): Promise<void> {
+  // Método para registrar un nuevo usuario con nombre completo, teléfono y dirección
+  async register(
+    nombreCompleto: string,
+    nombreUsuario: string,
+    email: string,
+    password: string,
+    telefono: string,
+    direccion: string
+  ): Promise<void> {
     try {
       // Crea un nuevo usuario con email y contraseña
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const uid = userCredential.user?.uid;
 
-      // Guarda el nombre de usuario, el correo y el uid en Firestore
-      await this.firestore.collection('users').doc(userCredential.user?.uid).set({
+      // Guarda los datos del usuario en Firestore
+      await this.firestore.collection('users').doc(uid).set({
+        uid,
+        nombreCompleto,
         nombreUsuario,
         email,
-        uid: userCredential.user?.uid // Guarda el uid
+        telefono,
+        direccion
       });
     } catch (error) {
       console.error('Error en el registro:', error);
@@ -32,81 +46,79 @@ export class AuthService {
   // Método para iniciar sesión con nombre de usuario o correo electrónico
   async login(identifier: string, password: string, keepSession: boolean): Promise<any> {
     try {
-      // Busca el usuario en Firestore por nombre de usuario
+      // Busca el usuario por nombre de usuario en Firestore
       const userSnapshot = await this.firestore.collection('users', ref => ref.where('nombreUsuario', '==', identifier)).get().toPromise();
 
       if (!userSnapshot.empty) {
         const userDoc = userSnapshot.docs[0];
-        const userData = userDoc.data() as User; // Asegúrate de que userData sea del tipo User
-        const email = userData.email; // Obtiene el correo electrónico del documento
+        const userData = userDoc.data() as User;
+        const email = userData.email;
 
-        // Intenta iniciar sesión con el correo electrónico
+        // Inicia sesión con el correo electrónico obtenido
         const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
         
-        // Si el usuario desea mantener la sesión iniciada
         if (keepSession) {
-          localStorage.setItem('userId', userCredential.user.uid); // Guarda el ID del usuario en localStorage
+          localStorage.setItem('userId', userCredential.user.uid);
         }
-
-        return userCredential; // Retorna el objeto de credenciales
+        return userCredential;
       } else {
-        // Si no se encuentra el usuario por nombre, intenta con el correo
+        // Si no se encuentra el nombre de usuario, intenta con el correo directamente
         const userCredential = await this.afAuth.signInWithEmailAndPassword(identifier, password);
         
-        // Si el usuario desea mantener la sesión iniciada
         if (keepSession) {
-          localStorage.setItem('userId', userCredential.user.uid); // Guarda el ID del usuario en localStorage
+          localStorage.setItem('userId', userCredential.user.uid);
         }
-
-        return userCredential; // Retorna el objeto de credenciales
+        return userCredential;
       }
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
-      throw error; // Lanza el error para manejarlo en el componente
+      throw error;
     }
   }
 
   // Método para verificar si el usuario está autenticado
   isAuthenticated(): Observable<boolean> {
-    return this.afAuth.authState.pipe(map(user => !!user)); // Devuelve true si hay un usuario autenticado
+    return this.afAuth.authState.pipe(map(user => !!user));
   }
 
   // Método para cerrar sesión
   async logout(): Promise<void> {
     await this.afAuth.signOut();
-    localStorage.removeItem('userId'); // Limpia el ID del usuario de localStorage
+    localStorage.removeItem('userId');
   }
 
-  // Método para obtener los datos del usuario actual
+  // Método para obtener los datos del usuario por UID
   async getUserData(uid: string): Promise<User | null> {
     const userDoc = await this.firestore.collection('users').doc(uid).get().toPromise();
-    return userDoc.exists ? (userDoc.data() as User) : null; // Retorna null si el documento no existe
+    return userDoc.exists ? (userDoc.data() as User) : null;
   }
 
-  // Método para obtener el usuario actual
+  // Método para obtener el usuario actualmente autenticado
   getCurrentUser(): Promise<User | null> {
     return new Promise((resolve, reject) => {
-      this.afAuth.authState.subscribe(user => {
+      this.afAuth.authState.subscribe(async user => {
         if (user) {
-          this.getUserData(user.uid).then(userData => {
+          try {
+            const userData = await this.getUserData(user.uid);
             resolve(userData);
-          }).catch(error => {
+          } catch (error) {
             console.error('Error al obtener datos del usuario:', error);
             reject(error);
-          });
+          }
         } else {
-          resolve(null); // No hay usuario autenticado
+          resolve(null);
         }
       });
     });
   }
 
+  // Método para restablecer la contraseña
   async resetPassword(email: string): Promise<void> {
     try {
       await this.afAuth.sendPasswordResetEmail(email);
     } catch (error) {
       console.error('Error al enviar el correo de restablecimiento:', error);
-      throw error; // Lanza el error para manejarlo en el componente
+      throw error;
     }
   }
 }
