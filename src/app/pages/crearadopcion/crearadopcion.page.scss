@@ -172,4 +172,11 @@ ion-content {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  .image-preview {
+    width: 150px;  /* Ajusta el ancho según tus necesidades */
+    height: 150px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Ajusta cómo se escala la imagen */
+    border-radius: 10px; /* Esquinas redondeadas (opcional) */
+    margin-top: 10px;
+  }
   
