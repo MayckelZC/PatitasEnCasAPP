@@ -1,3 +1,4 @@
+<!-- src/app/pages/detalle/detalle.page.html -->
 <ion-header>
   <ion-toolbar style="--background: #28a745;">
     <ion-buttons slot="start">
@@ -16,7 +17,7 @@
         <ion-card-subtitle>{{ pet?.tipoMascota }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <!-- Mostrar la edad según la etapa de vida -->
+        <!-- Detalles de la Mascota -->
         <p><strong>Edad:</strong> 
           {{ pet?.etapaVida === 'cachorro' ? pet?.edadMeses + ' meses' : pet?.edadAnios + ' años' }}
         </p>
@@ -27,7 +28,14 @@
         <p><strong>Microchip:</strong> {{ pet?.microchip ? 'Sí' : 'No' }}</p>
         <p><strong>Tamaño:</strong> {{ pet?.tamano }}</p>
         <p><strong>Condiciones de Salud:</strong> {{ pet?.condicionesSalud || 'Sin condiciones' }}</p>
-        <p><strong>Descripción: </strong>{{ pet?.descripcion || 'No hay descripción disponible' }}</p>
+        <p><strong>Descripción:</strong> {{ pet?.descripcion || 'No hay descripción disponible' }}</p>
+        
+        <!-- Sección de Información del Publicador -->
+        <h2>Información del Publicador</h2>
+        <p><strong>Nombre Completo:</strong> {{ user?.nombreCompleto || 'No disponible' }}</p>
+        <p><strong>Email:</strong> {{ user?.email || 'No disponible' }}</p>
+        <p><strong>Teléfono:</strong> {{ user?.telefono || 'No disponible' }}</p>
+        <p><strong>Dirección:</strong> {{ user?.direccion || 'No disponible' }}</p>
       </ion-card-content>
       <ion-footer>
         <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
@@ -36,18 +44,5 @@
         </ion-button>
       </ion-footer>
     </ion-card>
-    
-    <!-- Botón para crear el QR -->
-    <div class="qr-button-container">
-      <ion-button class="qr-button" (click)="generateQRCode()">
-        <ion-icon name="qr-code-outline"></ion-icon>
-      </ion-button>
-      <p class="qr-button-text">Crear QR</p>
-    </div>
-
-    <!-- Contenedor para el QR generado -->
-    <div class="qr-code-container" *ngIf="qrData">
-      <qrcode [qrdata]="qrData" class="qr-code"></qrcode>
-    </div>
   </div>
 </ion-content>

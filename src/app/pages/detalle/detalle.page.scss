@@ -190,3 +190,24 @@ ngx-qrcode {
     margin-right: 5px;
     /* Espacio entre el ícono y el texto */
 }
+
+/* Estilo ajustado para el encabezado <h2> */
+h2 {
+    position: relative;
+    padding-left: 12px; /* Espaciado a la izquierda para la línea */
+    font-size: 1.2em;
+    color: #4caf50; /* Color del texto verde */
+    margin-top: 24px; /* Aumentar separación con la descripción anterior */
+    margin-bottom: 8px; /* Reducir separación con el contenido del publicador */
+
+    /* Línea verde a la izquierda */
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px; /* Grosor de la línea */
+        background-color: #4caf50; /* Color verde */
+    }
+}
