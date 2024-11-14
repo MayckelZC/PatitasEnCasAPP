@@ -1,12 +1,17 @@
-<!-- src/app/pages/detalle/detalle.page.html -->
 <ion-header>
   <ion-toolbar style="--background: #28a745;">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+    <ion-title slot="start" style="color: white;">
+      Crear Adopción
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home" style="color: white;">
+        VOLVER
+      </ion-button>
     </ion-buttons>
-    <ion-title style="color: white;">Detalles de {{ pet?.nombre || 'Sin nombre' }}</ion-title>
   </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content>
   <div class="content-container">
