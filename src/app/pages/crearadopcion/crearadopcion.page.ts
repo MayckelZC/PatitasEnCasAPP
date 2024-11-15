@@ -90,8 +90,12 @@ export class CrearadopcionPage implements OnInit {
         this.previewImage = reader.result as string;
       };
       reader.readAsDataURL(file);
+      console.log('Imagen seleccionada:', file.name);
+    } else {
+      console.error('No se seleccionó ningún archivo.');
     }
   }
+  
 
   async captureImage() {
     const image = await Camera.getPhoto({

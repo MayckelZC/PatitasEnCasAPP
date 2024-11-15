@@ -124,17 +124,20 @@
         <ion-icon name="camera-outline" slot="start"></ion-icon>
         <ion-label>Subir Imagen</ion-label>
         <div class="upload-buttons">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" #fileInput />
+          <ion-button expand="full" (click)="fileInput.click()">Seleccionar Imagen</ion-button>
           <ion-button expand="full" (click)="captureImage()">Tomar Foto</ion-button>
-          <ion-button expand="full" (click)="onFileSelected($event)">Seleccionar Imagen</ion-button>
         </div>
       </ion-item>
+
 
       <!-- Vista previa de la imagen -->
       <ion-img *ngIf="previewImage" [src]="previewImage" class="image-preview"></ion-img>
 
       <!-- Botones de acción -->
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Guardar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid"
+          class="btn-primary">Guardar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>
