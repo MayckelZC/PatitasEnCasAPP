@@ -1,0 +1,182 @@
+/* Encabezado y toolbar */
+ion-header,
+ion-toolbar {
+    --background: #4CAF50;
+    color: white;
+}
+
+ion-title {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Tarjeta */
+ion-card {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    padding: 20px;
+}
+
+/* Título del formulario */
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+/* Elementos del formulario */
+ion-item {
+    --background: #f7f7f7;
+    --border-radius: 8px;
+    margin-bottom: 15px;
+    --padding-start: 10px;
+}
+
+ion-icon {
+    color: #4CAF50;
+}
+
+/* Colorear etiquetas en verde */
+ion-label {
+    color: #4CAF50 !important;
+}
+
+/* Campos de entrada */
+ion-input,
+ion-textarea,
+ion-select {
+    color: #4CAF50;
+}
+
+/* Estilo para los select y textarea */
+ion-select {
+    margin-top: 5px;
+}
+
+ion-textarea {
+    margin-top: 10px;
+    --min-height: 100px;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Checkbox */
+ion-checkbox {
+    --background: #4CAF50;
+    --checkmark-color: white;
+}
+
+/* Botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    --background: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-clear {
+    --background: #9E9E9E;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #a94442;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Vista previa de la imagen */
+.image-preview {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enlace de pie de página */
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-link a {
+    color: #4CAF50;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.footer-link a:hover {
+    color: #388E3C;
+}
+
+
+/* Fondo general */
+ion-content {
+    --background: #4CAF50; /* Verde claro */
+}
+
+.upload-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn-select-image {
+    --background: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+  
+  .image-preview {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    max-height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+/* Vista previa de la imagen más pequeña */
+.image-preview {
+    display: block;
+    margin: 10px auto; /* Centrar la imagen con un margen superior */
+    max-width: 100%;
+    max-height: 100px; /* Limitar la altura para que sea más pequeña */
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Mantener la proporción de la imagen sin deformación */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-preview {
+    width: 150px;  /* Ajusta el ancho según tus necesidades */
+    height: 150px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Ajusta cómo se escala la imagen */
+    border-radius: 10px; /* Esquinas redondeadas (opcional) */
+    margin-top: 10px;
+  }
+  

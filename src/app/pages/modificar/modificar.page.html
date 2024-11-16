@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/misadopciones"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
+      <ion-title class="left-title">Modificar Adopción</ion-title>
     </ion-buttons>
-    <ion-title>Modificar Adopción</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/misadopciones']">Volver</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,8 +14,9 @@
   <ion-card>
     <ion-title class="form-title">Modificar Adopción</ion-title>
     <form [formGroup]="adopcionForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <ion-item>
+      <!-- Tipo de Mascota -->
+      <ion-item lines="none">
+        <ion-icon name="paw-outline" slot="start"></ion-icon>
         <ion-label position="floating">Tipo de Mascota</ion-label>
         <ion-select formControlName="tipoMascota" required>
           <ion-select-option value="perro">Perro</ion-select-option>
@@ -21,7 +25,9 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!-- Tamaño -->
+      <ion-item lines="none">
+        <ion-icon name="resize-outline" slot="start"></ion-icon>
         <ion-label position="floating">Tamaño</ion-label>
         <ion-select formControlName="tamano" required>
           <ion-select-option value="pequeño">Pequeño</ion-select-option>
@@ -30,17 +36,40 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!-- Etapa de Vida -->
+      <ion-item lines="none">
+        <ion-icon name="time-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Etapa de Vida</ion-label>
+        <ion-select formControlName="etapaVida" required>
+          <ion-select-option value="cachorro">Cachorro</ion-select-option>
+          <ion-select-option value="adulto">Adulto</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Edad en Meses (Cachorro) -->
+      <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro'" lines="none">
+        <ion-icon name="hourglass-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Edad (Meses)</ion-label>
+        <ion-input formControlName="edadMeses" type="number" min="0" max="12"></ion-input>
+      </ion-item>
+
+      <!-- Edad en Años (Adulto) -->
+      <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto'" lines="none">
+        <ion-icon name="hourglass-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Edad (Años)</ion-label>
+        <ion-input formControlName="edadAnios" type="number" min="1" max="100"></ion-input>
+      </ion-item>
+
+      <!-- Nombre -->
+      <ion-item lines="none">
+        <ion-icon name="text-outline" slot="start"></ion-icon>
         <ion-label position="floating">Nombre</ion-label>
         <ion-input formControlName="nombre"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Edad</ion-label>
-        <ion-input formControlName="edad" type="number" required></ion-input>
-      </ion-item>
-
-      <ion-item>
+      <!-- Sexo -->
+      <ion-item lines="none">
+        <ion-icon name="male-female-outline" slot="start"></ion-icon>
         <ion-label position="floating">Sexo</ion-label>
         <ion-select formControlName="sexo" required>
           <ion-select-option value="macho">Macho</ion-select-option>
@@ -48,30 +77,46 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!-- Raza -->
+      <ion-item lines="none">
+        <ion-icon name="shapes-outline" slot="start"></ion-icon>
         <ion-label position="floating">Raza</ion-label>
         <ion-input formControlName="raza" required></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!-- Color -->
+      <ion-item lines="none">
+        <ion-icon name="color-palette-outline" slot="start"></ion-icon>
         <ion-label position="floating">Color</ion-label>
         <ion-input formControlName="color" required></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!-- Descripción -->
+      <ion-item lines="none">
+        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
         <ion-label position="floating">Descripción</ion-label>
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">URL de la imagen</ion-label>
-        <ion-input formControlName="url" required></ion-input>
+      <!-- Subir Imagen -->
+      <ion-item lines="none">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        <ion-label>Subir Imagen</ion-label>
+        <div class="upload-buttons">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" #fileInput />
+          <ion-button expand="full" (click)="fileInput.click()">Seleccionar Imagen</ion-button>
+          <ion-button expand="full" (click)="captureImage()">Tomar Foto</ion-button>
+        </div>
       </ion-item>
 
-      <footer>
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid">Aceptar</ion-button>
+      <!-- Vista previa de la imagen -->
+      <ion-img *ngIf="previewImage" [src]="previewImage" class="image-preview"></ion-img>
+
+      <!-- Botones de acción -->
+      <div class="button-group">
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Actualizar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Cancelar</ion-button>
-      </footer>
+      </div>
     </form>
   </ion-card>
 </ion-content>

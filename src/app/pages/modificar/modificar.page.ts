@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Adopcion } from 'src/app/models/Adopcion';
+import { ToastController } from '@ionic/angular';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-modificar',
@@ -10,59 +13,138 @@ import { Adopcion } from 'src/app/models/Adopcion';
   styleUrls: ['./modificar.page.scss'],
 })
 export class ModificarPage implements OnInit {
-  adopcionForm: FormGroup;
-  adopcionId: string;
+  adopcionForm!: FormGroup;
+  adopcionId!: string;
+  previewImage: string | null = null;
+  selectedImage: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private firestore: AngularFirestore,
     private route: ActivatedRoute,
-    private router: Router // Agrega el router para redirección
-  ) { }
+    private router: Router,
+    private toastController: ToastController,
+    private storage: AngularFireStorage
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.adopcionId = params['id']; // Obtener el ID desde queryParams
-      this.adopcionForm = this.formBuilder.group({
-        tipoMascota: [''],
-        tamano: [''],
-        nombre: [''],
-        edad: [''],
-        sexo: [''],
-        raza: [''],
-        color: [''],
-        descripcion: [''],
-        url: [''],
-        esterilizado: [false],
-        vacuna: [false],
-      });
-      this.loadAdopcion(); // Cargar datos después de obtener el ID
+      this.adopcionId = params['id'];
+      this.initForm();
+      this.loadAdopcion();
+    });
+  }
+
+  initForm() {
+    this.adopcionForm = this.formBuilder.group({
+      tipoMascota: ['', Validators.required],
+      tamano: ['', Validators.required],
+      etapaVida: [''],
+      edadMeses: [''],
+      edadAnios: [''],
+      nombre: [''],
+      sexo: ['', Validators.required],
+      raza: [''],
+      color: [''],
+      descripcion: [''],
+      urlImagen: [''],
+      esterilizado: [false],
+      vacuna: [false],
+      microchip: [false]
     });
   }
 
   loadAdopcion() {
-    this.firestore.collection('mascotas').doc(this.adopcionId).valueChanges().subscribe((adopcion: Adopcion) => {
-      if (adopcion) {
-        this.adopcionForm.patchValue(adopcion);
-      } else {
-        console.error('No se encontró la adopción con el ID:', this.adopcionId);
-      }
-    }, error => {
-      console.error('Error al cargar la adopción:', error);
+    this.firestore
+      .collection('mascotas')
+      .doc(this.adopcionId)
+      .valueChanges()
+      .subscribe((adopcion: Adopcion | undefined) => {
+        if (adopcion) {
+          this.adopcionForm.patchValue(adopcion);
+          this.previewImage = adopcion.urlImagen || null;
+        }
+      });
+  }
+
+  async onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async captureImage() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera,
+      allowEditing: false
     });
+
+    if (image?.dataUrl) {
+      this.previewImage = image.dataUrl;
+      this.selectedImage = this.dataURLtoFile(image.dataUrl, 'captured_image.png');
+    }
+  }
+
+  dataURLtoFile(dataUrl: string, filename: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  async uploadImage(): Promise<string | null> {
+    if (!this.selectedImage) return null;
+    const filePath = `adopciones/${new Date().getTime()}_${this.selectedImage.name}`;
+    const fileRef = this.storage.ref(filePath);
+    await this.storage.upload(filePath, this.selectedImage);
+    return fileRef.getDownloadURL().toPromise();
   }
 
   async onSubmit() {
-    try {
-      await this.firestore.collection('mascotas').doc(this.adopcionId).update(this.adopcionForm.value);
-      console.log('Adopción actualizada con éxito');
-      this.router.navigate(['/misadopciones']); // Redirige después de guardar
-    } catch (error) {
-      console.error('Error al actualizar la adopción:', error);
+    if (this.adopcionForm.valid) {
+      const formData = this.adopcionForm.value;
+
+      // Si se seleccionó una nueva imagen, súbela y actualiza la URL
+      if (this.selectedImage) {
+        const imageUrl = await this.uploadImage();
+        formData.urlImagen = imageUrl;
+      }
+
+      try {
+        await this.firestore.collection('mascotas').doc(this.adopcionId).update(formData);
+        
+        // Mostrar mensaje de éxito al usuario
+        const toast = await this.toastController.create({
+          message: 'Adopción actualizada con éxito.',
+          duration: 2000,
+          position: 'top'
+        });
+        await toast.present();
+
+        // Redirigir al usuario a la página de inicio
+        this.router.navigate(['/home']);
+      } catch (error) {
+        console.error('Error al actualizar la adopción:', error);
+      }
     }
   }
 
   onClear() {
     this.adopcionForm.reset();
+    this.previewImage = null;
+    this.selectedImage = null;
   }
 }

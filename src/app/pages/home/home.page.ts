@@ -1,17 +1,18 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { AnimationController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Adopcion } from 'src/app/models/Adopcion';
 import { HuachitosService } from '../../services/huachitos.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements AfterViewInit {
+export class HomePage implements AfterViewInit, OnDestroy {
   readonly dogImages: string[] = [
     'assets/imgs/pixelart-bird.gif',
     'assets/imgs/pixelart-cat.png',
@@ -24,6 +25,7 @@ export class HomePage implements AfterViewInit {
   nombreUsuario: string = '';
   searchTerm: string = '';
   animals: any[] = [];
+  private adopcionesSubscription!: Subscription;
 
   constructor(
     private animationCtrl: AnimationController,
@@ -40,17 +42,23 @@ export class HomePage implements AfterViewInit {
     const currentUser = await this.authService.getCurrentUser();
     this.nombreUsuario = currentUser ? currentUser.nombreUsuario : 'Invitado';
 
-    await this.loadAdopciones();
+    this.loadAdopciones();
     await this.loadAnimals();
   }
 
-  async loadAdopciones() {
-    const snapshot = await this.firestore.collection<Adopcion>('mascotas').get().toPromise();
-    this.allAdopciones = snapshot.docs.map(doc => {
-      const data = doc.data() as Adopcion;
-      return { id: doc.id, ...data };
-    });
-    this.filteredAdopciones = [...this.allAdopciones];
+  loadAdopciones() {
+    // Usamos `snapshotChanges()` para escuchar los cambios en tiempo real
+    this.adopcionesSubscription = this.firestore
+      .collection<Adopcion>('mascotas')
+      .snapshotChanges()
+      .subscribe(snapshot => {
+        this.allAdopciones = snapshot.map(docChange => {
+          const data = docChange.payload.doc.data() as Adopcion;
+          const id = docChange.payload.doc.id;
+          return { id, ...data };
+        });
+        this.filterPets(); // Filtrar según el término de búsqueda y los filtros seleccionados
+      });
   }
 
   async loadAnimals() {
@@ -155,5 +163,12 @@ export class HomePage implements AfterViewInit {
 
   readQR() {
     this.router.navigate(['/readqr']);
+  }
+
+  ngOnDestroy() {
+    // Limpiar la suscripción para evitar fugas de memoria
+    if (this.adopcionesSubscription) {
+      this.adopcionesSubscription.unsubscribe();
+    }
   }
 }
