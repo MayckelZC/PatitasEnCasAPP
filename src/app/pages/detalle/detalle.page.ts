@@ -46,18 +46,18 @@ export class DetallePage implements OnInit {
     });
   }
 
-  async shareAdopcion() {
+  async shareDetails() {
     if (this.pet) {
       const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
       const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
       const microchipText = this.pet.microchip ? 'Sí' : 'No';
-
+  
       const edadText = this.pet.etapaVida === 'cachorro'
         ? `${this.pet.edadMeses} meses`
         : `${this.pet.edadAnios} años`;
-
+  
       const detailLink = `https://sitioenconstruccion.com/detalle?id=${this.pet.id}`; 
-
+  
       const shareContent = `
         Detalles de la Mascota en Adopción:
         Tipo de Mascota: ${this.pet.tipoMascota}
@@ -70,17 +70,68 @@ export class DetallePage implements OnInit {
         Tamaño: ${this.pet.tamano}
         Condiciones de Salud: ${this.pet.condicionesSalud || 'Ninguna'}
         Descripción: ${this.pet.descripcion}
+  
         Para más detalles, visita: ${detailLink}
       `.trim();
-
-      await Share.share({
-        title: 'Detalles de la Mascota en Adopción',
-        text: shareContent,
-        url: this.pet.urlImagen, 
-        dialogTitle: 'Compartir Detalles',
-      });
+  
+      try {
+        await Share.share({
+          title: 'Detalles de la Mascota en Adopción',
+          text: shareContent,
+          url: this.pet.urlImagen, // URL de la imagen
+          dialogTitle: 'Compartir Detalles',
+        });
+      } catch (error) {
+        console.error('Error al intentar compartir detalles:', error);
+      }
     } else {
       console.error('No se pudo compartir, los detalles de la mascota no están disponibles.');
     }
   }
+  
+  
+  async sendAdoptionEmail() {
+    if (this.pet && this.user?.email) {
+      const edadText = this.pet.etapaVida === 'cachorro'
+        ? `${this.pet.edadMeses} meses`
+        : `${this.pet.edadAnios} años`;
+  
+      const vacunasText = this.pet.vacuna ? 'Al día' : 'Pendientes';
+      const esterilizadoText = this.pet.esterilizado ? 'Sí' : 'No';
+      const microchipText = this.pet.microchip ? 'Sí' : 'No';
+  
+      const mailSubject = 'Adoptar';
+      const mailBody = `
+        Hola, estoy interesado/a en adoptar a tu mascota publicada en la plataforma.
+  
+        Detalles de la Mascota:
+        - Nombre: ${this.pet.nombre || 'Sin nombre'}
+        - Tipo de Mascota: ${this.pet.tipoMascota}
+        - Edad: ${edadText}
+        - Raza: ${this.pet.raza}
+        - Color: ${this.pet.color}
+        - Vacunas: ${vacunasText}
+        - Esterilizado: ${esterilizadoText}
+        - Microchip: ${microchipText}
+        - Tamaño: ${this.pet.tamano}
+        - Condiciones de Salud: ${this.pet.condicionesSalud || 'Ninguna'}
+        - Descripción: ${this.pet.descripcion || 'Sin descripción disponible'}
+  
+        Espero tu respuesta para continuar con el proceso de adopción.
+  
+        Saludos,
+      `.trim();
+  
+      const mailToLink = `mailto:${this.user.email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+  
+      try {
+        window.location.href = mailToLink; // Abrir cliente de correo
+      } catch (error) {
+        console.error('Error al intentar enviar el correo:', error);
+      }
+    } else {
+      console.error('No se pudo enviar el correo. Asegúrate de que los detalles del usuario y la mascota estén disponibles.');
+    }
+  }
+  
 }

@@ -43,10 +43,13 @@
         <p><strong>Dirección:</strong> {{ user?.direccion || 'No disponible' }}</p>
       </ion-card-content>
       <ion-footer>
-        <ion-button expand="full" class="adopt-button">Adoptar</ion-button>
-        <ion-button expand="full" class="share-button" (click)="shareAdopcion()">
+        <ion-button expand="full" class="adopt-button" (click)="sendAdoptionEmail()">
+          Adoptar
+        </ion-button>
+        <ion-button expand="full" class="share-button" (click)="shareDetails()">
           <ion-icon name="share-social-outline"></ion-icon> Compartir Detalles
         </ion-button>
+        
       </ion-footer>
     </ion-card>
   </div>
