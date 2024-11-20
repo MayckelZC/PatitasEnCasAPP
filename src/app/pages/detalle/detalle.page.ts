@@ -56,8 +56,6 @@ export class DetallePage implements OnInit {
         ? `${this.pet.edadMeses} meses`
         : `${this.pet.edadAnios} años`;
   
-      const detailLink = `https://sitioenconstruccion.com/detalle?id=${this.pet.id}`; 
-  
       const shareContent = `
         Detalles de la Mascota en Adopción:
         Tipo de Mascota: ${this.pet.tipoMascota}
@@ -69,9 +67,9 @@ export class DetallePage implements OnInit {
         Microchip: ${microchipText}
         Tamaño: ${this.pet.tamano}
         Condiciones de Salud: ${this.pet.condicionesSalud || 'Ninguna'}
-        Descripción: ${this.pet.descripcion}
-  
-        Para más detalles, visita: ${detailLink}
+        Descripción: ${this.pet.descripcion || 'Sin descripción disponible'}
+        
+        Imagen: Esta es la foto de ${this.pet.nombre || 'la mascota en adopción'}.
       `.trim();
   
       try {
@@ -90,6 +88,7 @@ export class DetallePage implements OnInit {
   }
   
   
+
   async sendAdoptionEmail() {
     if (this.pet && this.user?.email) {
       const edadText = this.pet.etapaVida === 'cachorro'
@@ -133,5 +132,4 @@ export class DetallePage implements OnInit {
       console.error('No se pudo enviar el correo. Asegúrate de que los detalles del usuario y la mascota estén disponibles.');
     }
   }
-  
 }

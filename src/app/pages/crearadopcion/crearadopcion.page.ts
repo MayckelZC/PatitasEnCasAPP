@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AuthService } from '../../services/auth.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crearadopcion',
@@ -22,7 +23,8 @@ export class CrearadopcionPage implements OnInit {
     private alertController: AlertController,
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,14 +34,15 @@ export class CrearadopcionPage implements OnInit {
       etapaVida: ['', Validators.required],
       edadMeses: ['', [Validators.min(0), Validators.max(12), Validators.pattern('^[0-9]+$')]],
       edadAnios: ['', [Validators.min(1), Validators.max(100), Validators.pattern('^[0-9]+$')]],
-      nombre: ['', [Validators.pattern('^[A-Za-z]+$')]],
+      nombre: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
       sexo: ['', Validators.required],
-      raza: ['', [Validators.pattern('^[A-Za-z ]+$')]],
-      color: ['', [Validators.pattern('^[A-Za-z ]+$')]],
+      raza: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
+      color: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
       esterilizado: [false],
       vacuna: [false],
       microchip: [false],
-      descripcion: ['', [Validators.pattern('^[A-Za-z0-9 ]*$')]]
+      descripcion: ['', [Validators.pattern('^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñÜü., ]*$')]], // Se aceptan tildes y caracteres básicos
+      condicionesSalud: ['', [Validators.pattern('^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñÜü., ]*$')]], // Se aceptan tildes y caracteres básicos
     });
 
     this.adopcionForm.get('etapaVida')?.valueChanges.subscribe((etapa) => {
@@ -65,22 +68,6 @@ export class CrearadopcionPage implements OnInit {
     edadAniosControl?.updateValueAndValidity();
   }
 
-  validarEdadMeses(event: any) {
-    const inputValue = event.target.value;
-    if (inputValue > 12) {
-      event.target.value = 12;
-      this.adopcionForm.get('edadMeses')?.setValue(12);
-    }
-  }
-
-  validarEdadAnios(event: any) {
-    const inputValue = event.target.value;
-    if (inputValue > 100) {
-      event.target.value = 100;
-      this.adopcionForm.get('edadAnios')?.setValue(100);
-    }
-  }
-
   async onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -90,19 +77,17 @@ export class CrearadopcionPage implements OnInit {
         this.previewImage = reader.result as string;
       };
       reader.readAsDataURL(file);
-      console.log('Imagen seleccionada:', file.name);
     } else {
       console.error('No se seleccionó ningún archivo.');
     }
   }
-  
 
   async captureImage() {
     const image = await Camera.getPhoto({
       quality: 90,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
-      allowEditing: false
+      allowEditing: false,
     });
 
     if (image?.dataUrl) {
@@ -143,15 +128,24 @@ export class CrearadopcionPage implements OnInit {
 
         try {
           await this.firestore.collection('mascotas').add(formData);
+
+          // Mostrar mensaje de éxito
           const toast = await this.toastController.create({
             message: 'Adopción creada con éxito.',
             duration: 3000,
-            position: 'top'
+            position: 'top',
           });
           toast.present();
+
+          // Limpiar formulario
           this.adopcionForm.reset();
           this.previewImage = null;
           this.selectedImage = null;
+
+          // Redirigir al home y refrescar
+          this.router.navigate(['/home']).then(() => {
+            location.reload();
+          });
         } catch (error) {
           console.error('Error guardando adopción:', error);
         }

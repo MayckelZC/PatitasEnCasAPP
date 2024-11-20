@@ -40,17 +40,18 @@ export class ModificarPage implements OnInit {
       tipoMascota: ['', Validators.required],
       tamano: ['', Validators.required],
       etapaVida: [''],
-      edadMeses: [''],
-      edadAnios: [''],
-      nombre: [''],
+      edadMeses: ['', [Validators.min(0), Validators.max(12), Validators.pattern('^[0-9]+$')]],
+      edadAnios: ['', [Validators.min(1), Validators.max(100), Validators.pattern('^[0-9]+$')]],
+      nombre: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Acepta tildes y ñ
       sexo: ['', Validators.required],
-      raza: [''],
-      color: [''],
-      descripcion: [''],
+      raza: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Acepta tildes y ñ
+      color: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Acepta tildes y ñ
+      descripcion: ['', [Validators.pattern('^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñÜü., ]*$')]], // Acepta tildes, números y signos básicos
+      condicionesSalud: ['', [Validators.pattern('^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñÜü., ]*$')]], // Se agrega "Condiciones de Salud"
       urlImagen: [''],
       esterilizado: [false],
       vacuna: [false],
-      microchip: [false]
+      microchip: [false],
     });
   }
 
@@ -84,7 +85,7 @@ export class ModificarPage implements OnInit {
       quality: 90,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
-      allowEditing: false
+      allowEditing: false,
     });
 
     if (image?.dataUrl) {
@@ -125,12 +126,12 @@ export class ModificarPage implements OnInit {
 
       try {
         await this.firestore.collection('mascotas').doc(this.adopcionId).update(formData);
-        
+
         // Mostrar mensaje de éxito al usuario
         const toast = await this.toastController.create({
           message: 'Adopción actualizada con éxito.',
           duration: 2000,
-          position: 'top'
+          position: 'top',
         });
         await toast.present();
 

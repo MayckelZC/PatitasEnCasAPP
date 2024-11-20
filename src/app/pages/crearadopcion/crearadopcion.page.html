@@ -98,6 +98,13 @@
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
 
+      <!-- Condiciones de Salud -->
+      <ion-item lines="none">
+        <ion-icon name="medkit-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Condiciones de Salud</ion-label>
+        <ion-textarea formControlName="condicionesSalud" placeholder="Ej. alergias, cirugías, etc."></ion-textarea>
+      </ion-item>
+
       <!-- Esterilizado -->
       <ion-item lines="none">
         <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
@@ -129,7 +136,6 @@
           <ion-button expand="full" (click)="captureImage()">Tomar Foto</ion-button>
         </div>
       </ion-item>
-
 
       <!-- Vista previa de la imagen -->
       <ion-img *ngIf="previewImage" [src]="previewImage" class="image-preview"></ion-img>
