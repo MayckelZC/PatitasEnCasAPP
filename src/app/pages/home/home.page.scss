@@ -1,136 +1,33 @@
 /* Estilo para el fondo de la página */
 ion-content {
   --background: #f0f4f8;
-  /* Color de fondo general de la página */
-  padding-bottom: 80px;
-  /* Espacio para evitar que el contenido se esconda detrás del footer */
+  padding-bottom: 80px; /* Espacio para evitar que el contenido se esconda detrás del footer */
 }
 
 /* Estilo para el contenedor de contenido */
 .content-container {
-  padding: 10px;
-  /* Espacio interno para el contenedor */
+  padding: 10px; /* Espacio interno para el contenedor */
 }
 
 /* Estilo para el ion-searchbar */
 ion-searchbar {
-  --background: white;
-  /* Fondo blanco */
-  --color: #4caf50;
-  /* Color de texto verde */
-  --placeholder-color: #4caf50;
-  /* Color del texto del placeholder en verde */
-  border-radius: 8px;
-  /* Bordes redondeados */
+  --background: white; /* Fondo blanco */
+  --color: #4caf50; /* Color de texto verde */
+  --placeholder-color: #4caf50; /* Color del texto del placeholder en verde */
+  border-radius: 8px; /* Bordes redondeados */
 }
 
 /* Estilo para el input dentro del ion-searchbar */
 ion-searchbar .searchbar-input {
-  color: #4caf50;
-  /* Color de texto verde */
+  color: #4caf50; /* Color de texto verde */
 }
 
 /* Estilo para el icono de búsqueda */
 ion-searchbar .searchbar-icon {
-  color: #4caf50;
-  /* Color del icono en verde */
+  color: #4caf50; /* Color del icono en verde */
 }
 
-/* Estilo para la tarjeta de adopción de mascotas */
-.pet-card {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  margin: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #ffffff;
-  position: relative;
-}
-
-.pet-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.pet-card ion-img {
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-
-.pet-card ion-card-header {
-  background: #4caf50;
-  color: white;
-  padding: 12px;
-  text-align: center;
-}
-
-.pet-card ion-card-title {
-  font-size: 1.4em;
-  font-weight: bold;
-  margin: 0;
-  color: white;
-}
-
-.pet-card ion-card-subtitle {
-  font-size: 1em;
-  margin: 0;
-  font-weight: 300;
-  color: white;
-}
-
-.pet-card ion-card-content {
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 16px;
-  font-size: 0.9em;
-  text-align: center;
-}
-
-/* Estilo para el contenedor de los botones */
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  /* Espacio entre los botones */
-  padding: 16px;
-  /* Espacio alrededor */
-}
-
-/* Estilo para el botón de detalles */
-.details-button {
-  background: #4caf50;
-  color: white;
-  font-size: 1em;
-  width: 100%;
-  /* Asegura que el botón ocupe el ancho completo */
-  max-width: 150px;
-  transition: background-color 0.3s ease;
-}
-
-.details-button:hover {
-  background: #388e3c;
-}
-
-/* Estilo para el botón de adoptar */
-.adopt-button {
-  background: #4caf50;
-  /* Color de fondo verde */
-  color: white;
-  /* Color del texto */
-  font-size: 1em;
-  /* Tamaño de la fuente */
-  width: 100%;
-  /* Asegura que el botón ocupe el ancho completo */
-}
-
-.adopt-button:hover {
-  background: #388e3c;
-}
-
-/* Estilo para el encabezado */
+/* Estilo del encabezado */
 .header {
   --background: #4caf50;
   color: white;
@@ -165,15 +62,13 @@ ion-searchbar .searchbar-icon {
 /* Estilo del botón de logout */
 .header ion-buttons ion-button {
   --color: red;
-  --background: transparent;
-  /* Asegura que el fondo del botón sea transparente para mostrar el color del texto */
+  --background: transparent; /* Fondo transparente */
 }
 
 /* Estilo del ícono de logout */
 .header ion-buttons ion-button ion-icon[name="paw"] {
   font-size: 24px;
-  color: red;
-  /* Color del ícono */
+  color: red; /* Color del ícono */
 }
 
 /* Estilo para el contenedor del perro animado */
@@ -193,7 +88,6 @@ ion-searchbar .searchbar-icon {
 
 /* Animación de rebote para el perro */
 @keyframes bounce {
-
   0%,
   20%,
   50%,
@@ -246,17 +140,14 @@ ion-segment-button ion-label {
 }
 
 /* Estilos para el footer y los botones en el footer */
-
 .footer {
   background-color: #4caf50;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
-  /* Espacio adicional en los lados */
+  padding: 10px 20px; /* Espacio adicional en los lados */
   bottom: 0;
   width: 100%;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
-
 }
 
 .footer ion-button {
@@ -273,13 +164,11 @@ ion-segment-button ion-label {
 }
 
 .footer ion-button:first-of-type {
-  margin-right: auto;
-  /* Separar el primer botón a la izquierda */
+  margin-right: auto; /* Separar el primer botón a la izquierda */
 }
 
 .footer ion-button:last-of-type {
-  margin-left: auto;
-  /* Separar el segundo botón a la derecha */
+  margin-left: auto; /* Separar el segundo botón a la derecha */
 }
 
 /* Estilo para el ícono del botón */
@@ -294,45 +183,26 @@ ion-segment-button ion-label {
   justify-content: center;
   align-items: center;
   height: 50px;
-  /* Ajusta la altura según tus necesidades */
   background-color: #f0f4f8;
-  /* Color de fondo general de la página */
   border-radius: 8px;
-  /* Bordes redondeados opcionales */
   margin: 20px 0;
-  /* Espacio arriba y abajo */
   padding: 10px;
-  /* Espacio interno */
 }
 
 .welcome-message {
   color: #4caf50;
-  /* Color del texto verde */
   font-size: 1.5em;
-  /* Tamaño del texto */
   font-weight: bold;
-  /* Negrita */
   text-align: center;
-  /* Alineación del texto al centro */
 }
 
-/* Añade esto a tu archivo SCSS */
-ion-toolbar {
-  --background: #4caf50;
-  /* Color de fondo del toolbar */
-}
-
+/* Ajusta el ancho de los botones del ion-segment */
 ion-segment {
   width: 100%;
-  /* Asegura que el segmento ocupe el 100% del ancho */
   display: flex;
   overflow-x: auto;
-  /* Permite el desplazamiento horizontal */
 }
 
-
-
 ion-segment-button {
-  flex: 1;
-  /* Asegura que cada botón ocupe el mismo espacio */
+  flex: 1; /* Asegura que cada botón ocupe el mismo espacio */
 }

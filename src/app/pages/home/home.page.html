@@ -54,25 +54,16 @@
     <ion-row>
       <!-- Mostrar las adopciones filtradas -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adopcion of filteredAdopciones">
-        <ion-card class="pet-card">
-          <ion-img [src]="adopcion.urlImagen" alt="Imagen de {{ adopcion.nombre }}"></ion-img>
-          <ion-card-header>
-            <ion-card-title>{{ adopcion.nombre || 'Sin nombre' }}</ion-card-title>
-            <ion-card-subtitle>
-              {{ adopcion.tipoMascota }},
-              {{ adopcion.etapaVida === 'cachorro' ? adopcion.edadMeses + ' meses' : adopcion.edadAnios + ' años' }}
-            </ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            {{ adopcion.descripcion || 'No hay descripción disponible' }}
-          </ion-card-content>
-          <div class="button-container">
-            <ion-button expand="full" class="details-button" color="green" (click)="viewDetails(adopcion)">
-              Conocer Más
-            </ion-button>
-          </div>
-
-        </ion-card>
+        <app-card
+          [nombre]="adopcion.nombre"
+          [tipoMascota]="adopcion.tipoMascota"
+          [etapaVida]="adopcion.etapaVida"
+          [edadMeses]="adopcion.edadMeses"
+          [edadAnios]="adopcion.edadAnios"
+          [descripcion]="adopcion.descripcion"
+          [urlImagen]="adopcion.urlImagen"
+          [onDetails]="onDetails.bind(this, adopcion)">
+        </app-card>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -87,24 +78,15 @@
         <ion-row>
           <!-- Mostrar los animales de la API Huachitos -->
           <ion-col size="12" size-md="6" size-lg="4" *ngFor="let animal of animals">
-            <ion-card class="pet-card">
-              <ion-img [src]="animal.imagen" alt="Imagen de {{ animal.nombre }}"></ion-img>
-              <ion-card-header>
-                <ion-card-title>{{ animal.nombre }}</ion-card-title>
-                <ion-card-subtitle>{{ animal.tipo }}, {{ animal.edad }}</ion-card-subtitle>
-              </ion-card-header>
-              <ion-card-content>
-                <strong>Descripción Física:</strong> {{ animal.desc_fisica }} <br>
-                <strong>Descripción Personalidad:</strong> {{ animal.desc_personalidad }} <br>
-                <strong>Estado:</strong> {{ animal.estado }} <br>
-                <strong>Vacunas:</strong> {{ animal.vacunas > 0 ? 'Al día' : 'Pendientes' }} <br>
-                <strong>Esterilizado:</strong> {{ animal.esterilizado ? 'Sí' : 'No' }} <br>
-                <strong>Equipo:</strong> {{ animal.equipo }} <br>
-                <strong>Región:</strong> {{ animal.region }} <br>
-                <strong>Comuna:</strong> {{ animal.comuna }} <br>
-                <strong>Más información:</strong> <a href="{{ animal.url }}" target="_blank">Ver más detalles</a>
-              </ion-card-content>
-            </ion-card>
+            <app-card
+              [nombre]="animal.nombre"
+              [tipoMascota]="animal.tipo"
+              [etapaVida]="'adulto'"
+              [edadAnios]="animal.edad"
+              [descripcion]="animal.desc_personalidad"
+              [urlImagen]="animal.imagen"
+              [onDetails]="onHuachitosDetails.bind(this, animal.url)">
+            </app-card>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -1,0 +1,74 @@
+/* Estilo para la tarjeta de adopción de mascotas */
+.pet-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  margin: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.pet-card ion-img {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.pet-card ion-card-header {
+  background: #4caf50;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.pet-card ion-card-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.pet-card ion-card-subtitle {
+  font-size: 1em;
+  margin: 0;
+  font-weight: 300;
+  color: white;
+}
+
+.pet-card ion-card-content {
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 16px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+/* Estilo para el contenedor de los botones */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+}
+
+/* Estilo para el botón de detalles */
+.details-button {
+  background: #4caf50;
+  color: white;
+  font-size: 1em;
+  width: 100%;
+  max-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.details-button:hover {
+  background: #388e3c;
+}

@@ -47,17 +47,16 @@ export class HomePage implements AfterViewInit, OnDestroy {
   }
 
   loadAdopciones() {
-    // Usamos `snapshotChanges()` para escuchar los cambios en tiempo real
     this.adopcionesSubscription = this.firestore
       .collection<Adopcion>('mascotas')
       .snapshotChanges()
-      .subscribe(snapshot => {
-        this.allAdopciones = snapshot.map(docChange => {
+      .subscribe((snapshot) => {
+        this.allAdopciones = snapshot.map((docChange) => {
           const data = docChange.payload.doc.data() as Adopcion;
           const id = docChange.payload.doc.id;
           return { id, ...data };
         });
-        this.filterPets(); // Filtrar según el término de búsqueda y los filtros seleccionados
+        this.filterPets();
       });
   }
 
@@ -99,13 +98,13 @@ export class HomePage implements AfterViewInit, OnDestroy {
 
   filterPets() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredAdopciones = this.allAdopciones.filter(adopcion =>
+    this.filteredAdopciones = this.allAdopciones.filter((adopcion) =>
       adopcion.nombre.toLowerCase().includes(term)
     );
 
     if (this.selectedFilter !== 'all') {
-      this.filteredAdopciones = this.filteredAdopciones.filter(adopcion =>
-        adopcion.tipoMascota === this.selectedFilter
+      this.filteredAdopciones = this.filteredAdopciones.filter(
+        (adopcion) => adopcion.tipoMascota === this.selectedFilter
       );
     }
   }
@@ -126,9 +125,9 @@ export class HomePage implements AfterViewInit, OnDestroy {
             this.authService.logout();
             localStorage.removeItem('userId');
             this.router.navigate(['/login']);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -152,21 +151,20 @@ export class HomePage implements AfterViewInit, OnDestroy {
         vacuna: adopcion.vacuna,
         microchip: adopcion.microchip,
         condicionesSalud: adopcion.condicionesSalud,
-        urlImagen: adopcion.urlImagen
-      }
+        urlImagen: adopcion.urlImagen,
+      },
     });
   }
 
-  createAdoption() {
-    this.router.navigate(['/crearadopcion']);
+  onDetails(adopcion: Adopcion) {
+    this.viewDetails(adopcion);
   }
 
-  readQR() {
-    this.router.navigate(['/readqr']);
+  onHuachitosDetails(url: string) {
+    window.open(url, '_blank');
   }
 
   ngOnDestroy() {
-    // Limpiar la suscripción para evitar fugas de memoria
     if (this.adopcionesSubscription) {
       this.adopcionesSubscription.unsubscribe();
     }

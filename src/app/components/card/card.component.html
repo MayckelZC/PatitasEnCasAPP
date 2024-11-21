@@ -1,0 +1,18 @@
+<ion-card class="pet-card">
+  <ion-img [src]="urlImagen" alt="Imagen de {{ nombre }}"></ion-img>
+  <ion-card-header>
+    <ion-card-title>{{ nombre || 'Sin nombre' }}</ion-card-title>
+    <ion-card-subtitle>
+      {{ tipoMascota }},
+      {{ etapaVida === 'cachorro' ? edadMeses + ' meses' : edadAnios + ' años' }}
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{ descripcion || 'No hay descripción disponible' }}
+  </ion-card-content>
+  <div class="button-container">
+    <ion-button expand="full" class="details-button" color="green" (click)="onDetails()">
+      Conocer Más
+    </ion-button>
+  </div>
+</ion-card>
