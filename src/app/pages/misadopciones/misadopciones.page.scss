@@ -1,109 +1,111 @@
 /* Estilo para el contenido */
 .content-container {
-    padding: 16px;
-    background-color: #a5d6a7; /* Fondo verde claro para el contenedor */
-  }
-  
-  /* Estilo para el ion-grid */
-  ion-grid {
-    background-color: white; /* Fondo verde claro para el grid */
-    padding: 0;
-  }
-  
-  /* Estilo para las tarjetas */
-  .adoption-card {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #ffffff;
-  }
-  
-  .adoption-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  }
-  
-  .adoption-card ion-img {
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .adoption-card ion-card-header {
-    background: #4caf50;
-    color: white;
-    padding: 12px;
-    text-align: center;
-  }
-  
-  .adoption-card ion-card-title {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .adoption-card ion-card-subtitle {
-    font-size: 1em;
-    margin-top: 5px;
-    color: white;
-  }
-  
-  /* Estilo para los botones */
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px;
-  }
-  
-  ion-button {
-    --border-radius: 8px;
-    --background: #4caf50;
-    --color: white; /* Color del texto e íconos en blanco */
-    color: white !important; /* Asegura que el texto sea blanco */
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-  }
-  
-  ion-button::part(native) {
-    color: white; /* Color del texto en blanco para el botón nativo */
-  }
-  
-  ion-button ion-icon {
-    color: white !important; /* Asegura que el ícono sea blanco */
-  }
-  
-  /* Botón de modificar */
-  ion-button[color="primary"] {
-    --background: #66bb6a;
-    --color: white;
-  }
-  
-  /* Botón de eliminar */
-  ion-button[color="danger"] {
-    --background: #81c784;
-    --color: white;
-  }
-  
-  ion-button:hover {
-    filter: brightness(0.9);
-  }
+  padding: 16px;
+  background-color: #f9f9f9; /* Fondo blanco roto */
+}
+
+/* Estilo para el ion-grid */
+ion-grid {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Estilo para las tarjetas */
+.adoption-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+}
+
+.adoption-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.adoption-card ion-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.adoption-card ion-card-header {
+  background: #4caf50;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.adoption-card ion-card-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: white;
+}
+
+.adoption-card ion-card-subtitle {
+  font-size: 1em;
+  margin-top: 5px;
+  color: white;
+}
+
+/* Estilo para los botones */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+ion-button {
+  --border-radius: 8px;
+  --background: #4caf50;
+  --color: white; /* Color del texto e íconos en blanco */
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+ion-button::part(native) {
+  color: white; /* Color del texto en blanco para el botón nativo */
+}
+
+ion-button ion-icon {
+  color: white !important; /* Asegura que el ícono sea blanco */
+}
+
+/* Botón de modificar */
+ion-button[color="primary"] {
+  --background: #66bb6a;
+  --color: white;
+}
+
+/* Botón de eliminar */
+ion-button[color="danger"] {
+  --background: #e57373; /* Fondo rojo claro */
+  --color: white;
+}
+
+ion-button:hover {
+  filter: brightness(0.9);
+}
 
 /* Estilo para el ion-toolbar */
 ion-toolbar {
-    --background: #4caf50; /* Fondo verde */
-    --color: white; /* Texto en blanco */
-  }
-  
-  /* Asegura que el título sea blanco */
-  ion-toolbar ion-title {
-    color: white !important;
-  }
-  
-  /* Asegura que los botones también sean blancos */
-  ion-toolbar ion-button {
-    --color: white;
-  }
-  
+  --background: #4caf50; /* Fondo verde */
+  --color: white; /* Texto en blanco */
+}
+
+/* Asegura que el título sea blanco */
+ion-toolbar ion-title {
+  color: white !important;
+}
+
+/* Asegura que los botones también sean blancos */
+ion-toolbar ion-button {
+  --color: white;
+}
+
+ion-content {
+  --background: #ffffff; /* Fondo blanco */
+}
