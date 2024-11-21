@@ -6,6 +6,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 
 import { DetallePageRoutingModule } from './detalle-routing.module';
 import { DetallePage } from './detalle.page';
+import { CardModule } from 'src/app/components/card/card.module'; // Importa el módulo del CardComponent
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { DetallePage } from './detalle.page';
     FormsModule,
     IonicModule,
     QRCodeModule, 
-    DetallePageRoutingModule
+    DetallePageRoutingModule,
+    CardModule // Agrégalo aquí
   ],
   declarations: [DetallePage]
 })

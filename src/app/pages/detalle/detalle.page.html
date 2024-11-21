@@ -1,56 +1,54 @@
 <ion-header>
   <ion-toolbar style="--background: #28a745;">
-    <ion-title slot="start" style="color: white;">
-      Crear Adopción
-    </ion-title>
+    <ion-title slot="start" style="color: white;">Detalles de Mascota</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/home" style="color: white;">
-        VOLVER
-      </ion-button>
+      <ion-button routerLink="/home" style="color: white;">VOLVER</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content>
   <div class="content-container">
-    <ion-card class="pet-adopt-card">
-      <ion-img [src]="pet?.urlImagen" class="pet-image"></ion-img>
+    <ion-card class="pet-details-card">
+      <ion-img [src]="pet?.urlImagen" alt="Imagen de {{ pet?.nombre }}"></ion-img>
       <ion-card-header>
         <ion-card-title>{{ pet?.nombre || 'Sin nombre' }}</ion-card-title>
         <ion-card-subtitle>{{ pet?.tipoMascota }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <!-- Detalles de la Mascota -->
         <p><strong>Edad:</strong> 
           {{ pet?.etapaVida === 'cachorro' ? pet?.edadMeses + ' meses' : pet?.edadAnios + ' años' }}
         </p>
-        <p><strong>Raza:</strong> {{ pet?.raza }}</p>
-        <p><strong>Color:</strong> {{ pet?.color }}</p>
+        <p><strong>Raza:</strong> {{ pet?.raza || 'No especificada' }}</p>
+        <p><strong>Color:</strong> {{ pet?.color || 'No especificado' }}</p>
         <p><strong>Vacunas:</strong> {{ pet?.vacuna ? 'Al día' : 'Pendientes' }}</p>
         <p><strong>Esterilizado:</strong> {{ pet?.esterilizado ? 'Sí' : 'No' }}</p>
         <p><strong>Microchip:</strong> {{ pet?.microchip ? 'Sí' : 'No' }}</p>
-        <p><strong>Tamaño:</strong> {{ pet?.tamano }}</p>
+        <p><strong>Tamaño:</strong> {{ pet?.tamano || 'No especificado' }}</p>
         <p><strong>Condiciones de Salud:</strong> {{ pet?.condicionesSalud || 'Sin condiciones' }}</p>
         <p><strong>Descripción:</strong> {{ pet?.descripcion || 'No hay descripción disponible' }}</p>
-        
-        <!-- Sección de Información del Publicador -->
-        <h2>Información del Publicador</h2>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="publisher-info-card">
+      <ion-card-header>
+        <ion-card-title>Información del Publicador</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
         <p><strong>Nombre Completo:</strong> {{ user?.nombreCompleto || 'No disponible' }}</p>
         <p><strong>Email:</strong> {{ user?.email || 'No disponible' }}</p>
         <p><strong>Teléfono:</strong> {{ user?.telefono || 'No disponible' }}</p>
         <p><strong>Dirección:</strong> {{ user?.direccion || 'No disponible' }}</p>
       </ion-card-content>
-      <ion-footer>
-        <ion-button expand="full" class="adopt-button" (click)="sendAdoptionEmail()">
-          Adoptar
-        </ion-button>
-        <ion-button expand="full" class="share-button" (click)="shareDetails()">
-          <ion-icon name="share-social-outline"></ion-icon> Compartir Detalles
-        </ion-button>
-        
-      </ion-footer>
     </ion-card>
+
+    <div class="button-container">
+      <ion-button expand="full" class="adopt-button" (click)="sendAdoptionEmail()">
+        Adoptar
+      </ion-button>
+      <ion-button expand="full" class="share-button" (click)="shareDetails()">
+        <ion-icon name="share-social-outline"></ion-icon> Compartir Detalles
+      </ion-button>
+    </div>
   </div>
 </ion-content>

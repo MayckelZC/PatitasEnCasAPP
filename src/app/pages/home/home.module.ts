@@ -5,18 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { CardComponent } from '../../components/card/card.component'; // Importar el componente
+import { CardModule } from '../../components/card/card.module'; // Importar el módulo que contiene CardComponent
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    CardModule // Importar el módulo que exporta CardComponent
   ],
   declarations: [
-    HomePage,
-    CardComponent // Declarar el componente
+    HomePage // Declarar solo HomePage
   ]
 })
 export class HomePageModule {}

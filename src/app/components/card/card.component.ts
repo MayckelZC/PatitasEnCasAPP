@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-card', // Este selector debe coincidir
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
@@ -13,7 +13,5 @@ export class CardComponent {
   @Input() edadAnios?: number;
   @Input() descripcion!: string;
   @Input() urlImagen!: string;
-
-  // Método de salida para "Conocer Más"
-  @Input() onDetails!: () => void;
+  @Input() onDetails!: () => void; // Asegúrate de que todos los Inputs estén aquí
 }
