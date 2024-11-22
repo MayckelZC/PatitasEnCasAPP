@@ -24,6 +24,9 @@
           <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('tipoMascota')?.touched && adopcionForm.get('tipoMascota')?.invalid">
+        Debes seleccionar un tipo de mascota.
+      </ion-text>
 
       <!-- Tamaño -->
       <ion-item lines="none">
@@ -35,6 +38,9 @@
           <ion-select-option value="grande">Grande</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('tamano')?.touched && adopcionForm.get('tamano')?.invalid">
+        Debes seleccionar un tamaño.
+      </ion-text>
 
       <!-- Etapa de Vida -->
       <ion-item lines="none">
@@ -45,20 +51,61 @@
           <ion-select-option value="adulto">Adulto</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('etapaVida')?.touched && adopcionForm.get('etapaVida')?.invalid">
+        Debes seleccionar una etapa de vida.
+      </ion-text>
 
       <!-- Edad en Meses (Cachorro) -->
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Meses)</ion-label>
-        <ion-input formControlName="edadMeses" type="number" min="0" max="12" placeholder="0 - 12 meses"></ion-input>
+        <ion-input 
+          formControlName="edadMeses" 
+          type="number" 
+          min="0" 
+          max="12" 
+          placeholder="0 - 12 meses" 
+          (ionChange)="onEdadMesesChange($event)">
+        </ion-input>
       </ion-item>
+      <!-- Mensajes de Error para Edad (Meses) -->
+      <div *ngIf="adopcionForm.get('etapaVida')?.value === 'cachorro' && adopcionForm.get('edadMeses')?.touched">
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadMeses')?.hasError('required')">
+          La edad en meses es requerida.
+        </ion-text>
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadMeses')?.hasError('min') || adopcionForm.get('edadMeses')?.hasError('max')">
+          La edad debe estar entre 0 y 12 meses.
+        </ion-text>
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadMeses')?.hasError('pattern')">
+          Solo se permiten números.
+        </ion-text>
+      </div>
 
       <!-- Edad en Años (Adulto) -->
       <ion-item *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto'" lines="none">
         <ion-icon name="hourglass-outline" slot="start"></ion-icon>
         <ion-label position="floating">Edad (Años)</ion-label>
-        <ion-input formControlName="edadAnios" type="number" min="1" max="100" placeholder="1 - 100 años"></ion-input>
+        <ion-input 
+          formControlName="edadAnios" 
+          type="number" 
+          min="1" 
+          max="100" 
+          placeholder="1 - 100 años" 
+          (ionChange)="onEdadAniosChange($event)">
+        </ion-input>
       </ion-item>
+      <!-- Mensajes de Error para Edad (Años) -->
+      <div *ngIf="adopcionForm.get('etapaVida')?.value === 'adulto' && adopcionForm.get('edadAnios')?.touched">
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadAnios')?.hasError('required')">
+          La edad en años es requerida.
+        </ion-text>
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadAnios')?.hasError('min') || adopcionForm.get('edadAnios')?.hasError('max')">
+          La edad debe estar entre 1 y 100 años.
+        </ion-text>
+        <ion-text color="danger" *ngIf="adopcionForm.get('edadAnios')?.hasError('pattern')">
+          Solo se permiten números.
+        </ion-text>
+      </div>
 
       <!-- Nombre (Opcional) -->
       <ion-item lines="none">
@@ -66,6 +113,9 @@
         <ion-label position="floating">Nombre (Opcional)</ion-label>
         <ion-input formControlName="nombre"></ion-input>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('nombre')?.touched && adopcionForm.get('nombre')?.hasError('pattern')">
+        Solo se permiten letras y espacios.
+      </ion-text>
 
       <!-- Sexo -->
       <ion-item lines="none">
@@ -76,6 +126,9 @@
           <ion-select-option value="hembra">Hembra</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('sexo')?.touched && adopcionForm.get('sexo')?.invalid">
+        Debes seleccionar un sexo.
+      </ion-text>
 
       <!-- Raza -->
       <ion-item lines="none">
@@ -83,6 +136,12 @@
         <ion-label position="floating">Raza</ion-label>
         <ion-input formControlName="raza" required></ion-input>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('raza')?.touched && adopcionForm.get('raza')?.hasError('pattern')">
+        Solo se permiten letras y espacios.
+      </ion-text>
+      <ion-text color="danger" *ngIf="adopcionForm.get('raza')?.touched && adopcionForm.get('raza')?.invalid && !adopcionForm.get('raza')?.hasError('pattern')">
+        La raza es requerida.
+      </ion-text>
 
       <!-- Color -->
       <ion-item lines="none">
@@ -90,6 +149,12 @@
         <ion-label position="floating">Color</ion-label>
         <ion-input formControlName="color" required></ion-input>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('color')?.touched && adopcionForm.get('color')?.hasError('pattern')">
+        Solo se permiten letras y espacios.
+      </ion-text>
+      <ion-text color="danger" *ngIf="adopcionForm.get('color')?.touched && adopcionForm.get('color')?.invalid && !adopcionForm.get('color')?.hasError('pattern')">
+        El color es requerido.
+      </ion-text>
 
       <!-- Descripción -->
       <ion-item lines="none">
@@ -97,6 +162,9 @@
         <ion-label position="floating">Descripción</ion-label>
         <ion-textarea formControlName="descripcion"></ion-textarea>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('descripcion')?.touched && adopcionForm.get('descripcion')?.hasError('pattern')">
+        La descripción contiene caracteres no permitidos.
+      </ion-text>
 
       <!-- Condiciones de Salud -->
       <ion-item lines="none">
@@ -104,6 +172,9 @@
         <ion-label position="floating">Condiciones de Salud</ion-label>
         <ion-textarea formControlName="condicionesSalud" placeholder="Ej. alergias, cirugías, etc."></ion-textarea>
       </ion-item>
+      <ion-text color="danger" *ngIf="adopcionForm.get('condicionesSalud')?.touched && adopcionForm.get('condicionesSalud')?.hasError('pattern')">
+        Las condiciones de salud contienen caracteres no permitidos.
+      </ion-text>
 
       <!-- Esterilizado -->
       <ion-item lines="none">
@@ -142,8 +213,7 @@
 
       <!-- Botones de acción -->
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid"
-          class="btn-primary">Guardar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!adopcionForm.valid" class="btn-primary">Guardar</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>

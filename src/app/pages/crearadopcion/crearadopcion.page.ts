@@ -36,8 +36,8 @@ export class CrearadopcionPage implements OnInit {
       edadAnios: ['', [Validators.min(1), Validators.max(100), Validators.pattern('^[0-9]+$')]],
       nombre: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
       sexo: ['', Validators.required],
-      raza: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
-      color: ['', [Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
+      raza: ['', [Validators.required, Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
+      color: ['', [Validators.required, Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$')]], // Se aceptan tildes y ñ
       esterilizado: [false],
       vacuna: [false],
       microchip: [false],
@@ -119,6 +119,35 @@ export class CrearadopcionPage implements OnInit {
   async onSubmit() {
     if (this.adopcionForm.valid) {
       const formData = this.adopcionForm.value;
+
+      // Validación adicional para Edad Meses
+      if (formData.etapaVida === 'cachorro') {
+        if (formData.edadMeses > 12) {
+          const toast = await this.toastController.create({
+            message: 'La edad en meses no puede ser mayor a 12.',
+            duration: 3000,
+            color: 'danger',
+            position: 'top',
+          });
+          toast.present();
+          return;
+        }
+      }
+
+      // Validación adicional para Edad Años
+      if (formData.etapaVida === 'adulto') {
+        if (formData.edadAnios < 1 || formData.edadAnios > 100) {
+          const toast = await this.toastController.create({
+            message: 'La edad en años debe estar entre 1 y 100.',
+            duration: 3000,
+            color: 'danger',
+            position: 'top',
+          });
+          toast.present();
+          return;
+        }
+      }
+
       const currentUser = await this.authService.getCurrentUser();
 
       if (currentUser) {
@@ -148,8 +177,24 @@ export class CrearadopcionPage implements OnInit {
           });
         } catch (error) {
           console.error('Error guardando adopción:', error);
+          const toast = await this.toastController.create({
+            message: 'Hubo un error al guardar la adopción. Por favor, intenta nuevamente.',
+            duration: 3000,
+            color: 'danger',
+            position: 'top',
+          });
+          toast.present();
         }
       }
+    } else {
+      // Mostrar mensaje si el formulario no es válido
+      const toast = await this.toastController.create({
+        message: 'Por favor, completa todos los campos requeridos correctamente.',
+        duration: 3000,
+        color: 'warning',
+        position: 'top',
+      });
+      toast.present();
     }
   }
 
@@ -157,5 +202,29 @@ export class CrearadopcionPage implements OnInit {
     this.adopcionForm.reset();
     this.previewImage = null;
     this.selectedImage = null;
+  }
+
+  onEdadMesesChange(event: any) {
+    const value = event.detail.value;
+    if (value !== null && value !== undefined) {
+      const numericValue = Number(value);
+      if (numericValue > 12) {
+        this.adopcionForm.get('edadMeses')?.setValue(12);
+      } else if (numericValue < 0) {
+        this.adopcionForm.get('edadMeses')?.setValue(0);
+      }
+    }
+  }
+
+  onEdadAniosChange(event: any) {
+    const value = event.detail.value;
+    if (value !== null && value !== undefined) {
+      const numericValue = Number(value);
+      if (numericValue > 100) {
+        this.adopcionForm.get('edadAnios')?.setValue(100);
+      } else if (numericValue < 1) {
+        this.adopcionForm.get('edadAnios')?.setValue(1);
+      }
+    }
   }
 }
