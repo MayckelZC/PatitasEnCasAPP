@@ -1,0 +1,44 @@
+.not-found-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    background-color: #ffffff !important;
+    /* Fuerza el fondo blanco */
+}
+
+.not-found-container {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.not-found-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: #388e3c;
+    /* Verde principal */
+    margin: 0.5rem 0;
+}
+
+p {
+    font-size: 1.1rem;
+    color: white;
+    /* Gris oscuro */
+    margin: 1rem 0 2rem;
+}
+
+ion-button {
+    --background: #388e3c;
+    /* Verde del botón */
+    --background-hover: #2e7d32;
+    --border-radius: 20px;
+    font-size: 1rem;
+    padding: 0.8rem;
+}
