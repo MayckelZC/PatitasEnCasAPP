@@ -53,6 +53,26 @@ export class AuthService {
     }
   }
 
+  // Método para verificar si un nombre de usuario está disponible
+  async isUsernameAvailable(username: string): Promise<boolean> {
+    const users = await this.firestore
+      .collection('users', ref => ref.where('nombreUsuario', '==', username))
+      .get()
+      .toPromise();
+
+    return users?.empty ?? true; // Devuelve true si no hay coincidencias
+  }
+
+  // Método para verificar si un número de teléfono está disponible
+  async isPhoneAvailable(phone: string): Promise<boolean> {
+    const users = await this.firestore
+      .collection('users', ref => ref.where('telefono', '==', phone))
+      .get()
+      .toPromise();
+
+    return users?.empty ?? true; // Devuelve true si no hay coincidencias
+  }
+
   // Método para iniciar sesión con nombre de usuario o correo electrónico
   async login(identifier: string, password: string, keepSession: boolean): Promise<any> {
     try {
@@ -66,14 +86,14 @@ export class AuthService {
         const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
         
         if (keepSession) {
-          localStorage.setItem('userId', userCredential.user.uid);
+          localStorage.setItem('userId', userCredential.user?.uid || '');
         }
         return userCredential;
       } else {
         const userCredential = await this.afAuth.signInWithEmailAndPassword(identifier, password);
         
         if (keepSession) {
-          localStorage.setItem('userId', userCredential.user.uid);
+          localStorage.setItem('userId', userCredential.user?.uid || '');
         }
         return userCredential;
       }
@@ -128,4 +148,15 @@ export class AuthService {
       throw error;
     }
   }
+
+
+  async isEmailAvailable(email: string): Promise<boolean> {
+    const users = await this.firestore
+      .collection('users', (ref) => ref.where('email', '==', email))
+      .get()
+      .toPromise();
+  
+    return users?.empty ?? true; // Devuelve true si no hay coincidencias
+  }
+  
 }

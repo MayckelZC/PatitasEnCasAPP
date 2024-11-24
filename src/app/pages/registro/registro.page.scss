@@ -1,13 +1,14 @@
 /* Encabezado y toolbar */
 ion-header,
 ion-toolbar {
-  --background: #4CAF50;
+  --background: #4CAF50; /* Verde primario */
   color: white;
 }
 
 ion-title {
   text-align: center;
   font-size: 1.5rem;
+  font-weight: bold; /* Mejora: Hace que el título sea más visible */
 }
 
 /* Tarjeta */
@@ -25,6 +26,7 @@ ion-card {
   text-align: center;
   font-size: 24px;
   color: #4CAF50;
+  font-weight: 600; /* Mejora: Mayor contraste para el título del formulario */
 }
 
 /* Estilo de los elementos del formulario */
@@ -33,6 +35,11 @@ ion-item {
   --border-radius: 8px;
   margin-bottom: 15px;
   --padding-start: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Mejora: Sutil profundidad */
+}
+
+ion-item:focus-within {
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.5); /* Mejora: Resalta el campo activo */
 }
 
 ion-icon {
@@ -41,6 +48,7 @@ ion-icon {
 
 ion-label {
   color: #4CAF50 !important; /* Texto de los labels en verde */
+  font-size: 14px; /* Mejora: Tamaño más pequeño para limpieza visual */
 }
 
 ion-input {
@@ -58,11 +66,13 @@ ion-input {
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background-color 0.3s ease; /* Mejora: Efecto de transición */
 }
 
 .file-upload label {
   cursor: pointer;
   margin-left: 10px;
+  font-weight: 500; /* Mejora: Hace el texto del botón más destacado */
 }
 
 .file-upload input[type="file"] {
@@ -70,7 +80,7 @@ ion-input {
 }
 
 .file-upload:hover {
-  background-color: #388E3C;
+  background-color: #388E3C; /* Mejora: Indica interacción */
 }
 
 /* Vista previa de la imagen */
@@ -99,6 +109,12 @@ ion-input {
   --background: #4CAF50;
   color: white;
   border-radius: 8px;
+  font-weight: bold; /* Mejora: Botón más visible */
+  transition: transform 0.2s ease; /* Mejora: Efecto de clic */
+}
+
+.btn-primary:active {
+  transform: scale(0.97); /* Mejora: Efecto de presión */
 }
 
 .btn-clear {
@@ -116,14 +132,27 @@ ion-input {
 .footer-link a {
   color: #4CAF50;
   text-decoration: underline;
+  font-weight: 500; /* Mejora: Enlace más visible */
 }
 
 .footer-link a:hover {
-  color: #388E3C;
+  color: #388E3C; /* Mejora: Feedback al pasar el cursor */
 }
 
 /* Fondo del contenido */
 ion-content {
-    --background: #4CAF50; /* Fondo verde */
-    padding: 0;
+  --background: #4CAF50; /* Fondo verde */
+  padding: 0;
+}
+
+/* Responsivo: Mejora en pantallas pequeñas */
+@media (max-width: 768px) {
+  ion-card {
+    margin: 1rem auto;
+    padding: 15px;
   }
+
+  .form-title {
+    font-size: 20px; /* Mejora: Ajuste del título en pantallas pequeñas */
+  }
+}

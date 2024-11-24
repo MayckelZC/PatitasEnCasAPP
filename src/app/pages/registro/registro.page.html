@@ -2,20 +2,38 @@
   <ion-card>
     <ion-title class="form-title">Crear Cuenta</ion-title>
     <form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
-      
+
+      <!-- Nombre Completo -->
+      <ion-item lines="none">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input formControlName="nombreCompleto"></ion-input>
+      </ion-item>
+
       <!-- Nombre de Usuario -->
       <ion-item lines="none">
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label position="floating">Nombre de Usuario</ion-label>
-        <ion-input formControlName="nombreUsuario"></ion-input>
+        <ion-input formControlName="nombreUsuario"
+          (ionBlur)="checkUsernameAvailability(cuentaForm.get('nombreUsuario')?.value)">
+        </ion-input>
+        <ion-note *ngIf="cuentaForm.get('nombreUsuario')?.hasError('usernameTaken')" color="danger">
+          Este nombre de usuario ya existe.
+        </ion-note>
       </ion-item>
 
       <!-- Correo Electrónico -->
       <ion-item lines="none">
         <ion-icon name="mail-outline" slot="start"></ion-icon>
         <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input formControlName="correo" type="email"></ion-input>
+        <ion-input formControlName="correo" type="email"
+          (ionBlur)="checkEmailAvailability(cuentaForm.get('correo')?.value)">
+        </ion-input>
+        <ion-note *ngIf="cuentaForm.get('correo')?.hasError('emailTaken')" color="danger">
+          Este correo ya está en uso.
+        </ion-note>
       </ion-item>
+
 
       <!-- Contraseña -->
       <ion-item lines="none">
@@ -29,20 +47,21 @@
         <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
         <ion-label position="floating">Confirmar Contraseña</ion-label>
         <ion-input formControlName="confirmarContraseña" type="password"></ion-input>
-      </ion-item>
-
-      <!-- Nombre Completo -->
-      <ion-item lines="none">
-        <ion-icon name="person-outline" slot="start"></ion-icon>
-        <ion-label position="floating">Nombre Completo</ion-label>
-        <ion-input formControlName="nombreCompleto"></ion-input>
+        <ion-note *ngIf="cuentaForm.hasError('passwordMismatch')" color="danger">
+          Las contraseñas no coinciden.
+        </ion-note>
       </ion-item>
 
       <!-- Teléfono -->
       <ion-item lines="none">
         <ion-icon name="call-outline" slot="start"></ion-icon>
         <ion-label position="floating">Teléfono</ion-label>
-        <ion-input formControlName="telefono" type="tel"></ion-input>
+        <ion-input formControlName="telefono" type="tel"
+          (ionBlur)="checkPhoneAvailability(cuentaForm.get('telefono')?.value)">
+        </ion-input>
+        <ion-note *ngIf="cuentaForm.get('telefono')?.hasError('phoneTaken')" color="danger">
+          Este número ya está registrado.
+        </ion-note>
       </ion-item>
 
       <!-- Dirección -->
@@ -65,7 +84,8 @@
       </div>
 
       <div class="button-group">
-        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid || !selectedFile" class="btn-primary">Crear Cuenta</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="!cuentaForm.valid || !selectedFile"
+          class="btn-primary">Crear Cuenta</ion-button>
         <ion-button expand="full" class="btn-clear" (click)="onClear()">Limpiar</ion-button>
       </div>
     </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
@@ -21,7 +21,7 @@ export class RegistroPage implements OnInit {
     private toastController: ToastController,
     private alertController: AlertController,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.cuentaForm = this.formBuilder.group({
@@ -31,10 +31,10 @@ export class RegistroPage implements OnInit {
       contraseña: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContraseña: ['', Validators.required],
       telefono: ['', Validators.required],
-      direccion: ['', Validators.required]
+      direccion: ['', Validators.required],
     }, { validator: this.passwordMatchValidator });
   }
-  
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -56,14 +56,7 @@ export class RegistroPage implements OnInit {
 
   async onSubmit() {
     if (this.cuentaForm.valid && this.selectedFile) {
-      const {
-        nombreCompleto,
-        nombreUsuario,
-        correo,
-        contraseña,
-        telefono,
-        direccion
-      } = this.cuentaForm.value;
+      const { nombreCompleto, nombreUsuario, correo, contraseña, telefono, direccion } = this.cuentaForm.value;
 
       try {
         await this.authService.uploadImageAndRegister(
@@ -75,16 +68,16 @@ export class RegistroPage implements OnInit {
           telefono,
           direccion
         );
-  
+
         localStorage.setItem('username', nombreUsuario);
-  
+
         const toast = await this.toastController.create({
           message: 'Cuenta creada con éxito.',
           duration: 3000,
           position: 'top',
         });
         toast.present();
-  
+
         this.router.navigate(['/home']);
       } catch (error) {
         let errorMessage = 'Error al crear la cuenta. Por favor, intenta de nuevo.';
@@ -105,6 +98,24 @@ export class RegistroPage implements OnInit {
         buttons: ['OK'],
       });
       await alert.present();
+    }
+  }
+
+  async checkUsernameAvailability(username: string) {
+    if (username) {
+      const isAvailable = await this.authService.isUsernameAvailable(username);
+      if (!isAvailable) {
+        this.cuentaForm.get('nombreUsuario')?.setErrors({ usernameTaken: true });
+      }
+    }
+  }
+
+  async checkPhoneAvailability(phone: string) {
+    if (phone) {
+      const isAvailable = await this.authService.isPhoneAvailable(phone);
+      if (!isAvailable) {
+        this.cuentaForm.get('telefono')?.setErrors({ phoneTaken: true });
+      }
     }
   }
 
@@ -140,6 +151,21 @@ export class RegistroPage implements OnInit {
 
   goToHome() {
     this.router.navigate(['/home']);
+  }
+
+
+  async checkEmailAvailability(email: string) {
+    if (email) {
+      try {
+        // Busca en Firestore si el correo ya está registrado
+        const users = await this.authService.isEmailAvailable(email);
+        if (!users) {
+          this.cuentaForm.get('correo')?.setErrors({ emailTaken: true });
+        }
+      } catch (error) {
+        console.error('Error al verificar el correo:', error);
+      }
+    }
   }
   
 }
